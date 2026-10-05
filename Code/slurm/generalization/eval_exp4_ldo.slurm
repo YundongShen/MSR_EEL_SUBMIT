@@ -25,6 +25,7 @@ python evaluate.py \
     --checkpoint   checkpoints/exp4_ldo/best.pt \
     --instances    data/processed/instances_django_only.jsonl \
     --tier3        data/cache/tier3_hunks.jsonl \
-    --all-instances
+    --all-instances \
+    --repo-pool
 
 echo "Done: $(date)"

@@ -28,6 +28,7 @@ python evaluate.py \
     --checkpoint checkpoints/m2/best.pt \
     --instances  data/processed/instances_full.jsonl \
     --llm-t12   data/cache/llm_t12_hunks_qwen.jsonl \
-    --tier3     data/cache/tier3_hunks_qwen.jsonl
+    --tier3     data/cache/tier3_hunks_qwen.jsonl \
+    --repo-pool
 
 echo "Done: $(date)"

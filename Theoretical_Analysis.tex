@@ -1,0 +1,213 @@
+\section{Theoretical Analysis}
+\label{app:theory}
+
+This appendix formalizes two claims that motivate the experimental design. Appendix~\ref{app:theory-thm1} analyzes \emph{how} the negative-sampling distribution determines whether contrastive training moves the encoder beyond pretrained semantic similarity; it makes a falsifiable prediction that \cref{sec:rq3-hard-negatives} tests. Appendix~\ref{app:theory-thm2} analyzes \emph{what} the leave-one-view-out ablations of \cref{sec:rq2-complementarity} identify, and shows that the ranking metrics reported in \cref{tab:signal_ablation} witness view contributions in only one direction.
+
+Both results are analytical statements about idealized quantities. Neither is required for the empirical claims of the paper; they are included to make the estimands precise and to state the conditions under which the reported gaps admit an information-theoretic reading.
+
+% ------------------------------------------------------------
+\subsection{Setup}
+\label{app:theory-setup}
+
+Let $\Xsp$ denote the instance space and $\Hsp$ the space of candidate hunks. An instance $x = (q, t, o) \in \Xsp$ consists of a requirement $q$, a test view $t$, and an original-source view $o$. \emph{Maintainer retention} is the binary relation $y^\ast : \Xsp \times \Hsp \to \{0,1\}$, where $y^\ast(x,h) = 1$ indicates that $h$ corresponds to the reference patch for instance $x$. As discussed in Section~1, this is an operational approximation: retained hunks form $T_1(x) \cup T_2(x)$ and non-retained hunks form $T_3(x)$.
+
+\paragraph{Encoder and scoring.}
+Let $\phi_\theta$ denote the shared encoder producing $\ell_2$-normalized projections, with pairwise score
+\begin{equation}
+  f_\theta(u, v) = \phi_\theta(u)^\top \phi_\theta(v) / \tau,
+  \qquad \tau > 0 .
+\end{equation}
+Write $\phi_0 := \phi_{\theta_0}$ for the task-untrained backbone (model M0) and define the \emph{semantic similarity} $\ssem(q, h) := \phi_0(q)^\top \phi_0(h)/\tau$, the score available without task-specific training.
+
+\paragraph{Contrastive objective.}
+For an anchor $x$, a positive $h^+ \in T_1(x) \cup T_2(x)$, and negatives $\{h_k^-\}_{k=1}^{K}$, the InfoNCE term in the REQ$\to$HUNK direction is
+\begin{equation}
+  \Loss(x;\theta) = -\log \frac{\exp\!\big(f_\theta(q, h^+)\big)}
+       {\exp\!\big(f_\theta(q, h^+)\big)
+        + \sum_{k=1}^{K} \exp\!\big(f_\theta(q, h_k^-)\big)} .
+  \label{eq:infonce}
+\end{equation}
+We contrast two negative-sampling distributions: \emph{cross-repository random negatives} $h_k^- \sim p_{\mathrm{marg}}(h)$, drawn independently of $x$ (model M1); and \emph{same-instance hard negatives} $h_k^- \sim p(h \mid x,\, y^\ast = 0)$, i.e.\ hunks from $T_3(x)$ (model M2).
+
+% ------------------------------------------------------------
+\subsection{Same-Instance Hard Negatives Remove the Semantic Shortcut}
+\label{app:theory-thm1}
+
+\begin{assumption}[Semantic near-invariance of $T_3$]
+\label{ass:semantic-invariance}
+There exists $\delta > 0$ such that for every instance $x$ with $T_3(x) \neq \emptyset$,
+\begin{equation}
+  \Big| \E_{h^+ \sim T_1 \cup T_2(x)}\big[\ssem(q, h^+)\big] - \E_{h^- \sim T_3(x)}\big[\ssem(q, h^-)\big] \Big| < \delta ,
+\end{equation}
+and $\delta$ is small relative to the cross-instance semantic gap
+\begin{equation}
+  \Delta_{\mathrm{sem}}^{\mathrm{marg}} := \Big| \E_{h^+ \sim T_1 \cup T_2(x)}\big[\ssem(q, h^+)\big] - \E_{h^- \sim p_{\mathrm{marg}}}\big[\ssem(q, h^-)\big] \Big| , \qquad \delta \ll \Delta_{\mathrm{sem}}^{\mathrm{marg}} .
+\end{equation}
+\end{assumption}
+
+\noindent
+\cref{ass:semantic-invariance} follows from how $T_3$ is constructed: non-retained hunks are produced by the same generator for the same requirement, and are therefore semantically close to retained hunks by design. \cref{app:mechanism-analysis} provides a direct measurement of this quantity: the mean M0 requirement similarity of $T_3$ hunks (Equation~20) has median $0.507$ across the evaluation issues.
+
+\begin{assumption}[Existence of a residual signal]
+\label{ass:residual-signal}
+There exists a feature map $\psi : \Xsp \times \Hsp \to \Rspace^{d}$ orthogonal to the pretrained representation, $\E\big[\psi\, \phi_0^{\top}\big] = 0$, such that retention is not determined by semantic similarity alone,
+\begin{equation}
+  \E\big[y^\ast(x,h) \,\big|\, \ssem(q,h) = s\big] \not\equiv \mathrm{const} ,
+\end{equation}
+and the residual dependence is carried by $\psi$: for each instance $x$,
+\begin{equation}
+  \gamma(x) := \E_{h^+ \sim T_1 \cup T_2(x)}\big[\psi(x, h^+)\big] - \E_{h^- \sim T_3(x)}\big[\psi(x, h^-)\big] \neq 0.
+\end{equation}
+\end{assumption}
+
+\noindent
+\cref{ass:residual-signal} is empirically supported in two ways. First, if retention were determined by $\ssem$, the task-untrained model M0 would already separate tiers, contradicting its Perfect Separation Rate of $0.281$ (\cref{tab:negative_sampling}). Second, the original-source alignment analysis (\cref{tab:orig-alignment-analysis}) identifies a concrete instantiation of $\psi$: under M2 the retained and $T_3$ groups separate in ORIG similarity with rank-biserial effect size $r = 0.971$, whereas under M1 the same measurement gives $r = 0.311$.
+
+\begin{theorem}[Gradient decomposition under negative sampling]
+\label{thm:hard-negatives}
+Consider the gradient of \eqref{eq:infonce} at the pretrained initialization $\theta_0$, decomposed as $\nabla_\theta \Loss = g_{\mathrm{sem}} + g_{\perp}$, where $g_{\mathrm{sem}}$ lies along the parameter direction that scales the pretrained similarity $\ssem$ and $g_\perp$ lies along the direction aligned with $\psi$. Under \cref{ass:semantic-invariance,ass:residual-signal}:
+\begin{enumerate}
+  \item[\textup{(a)}] \textup{(Random negatives.)} If $h_k^- \sim p_{\mathrm{marg}}$, then $\|g_{\mathrm{sem}}\| = \Theta\big(\Delta_{\mathrm{sem}}^{\mathrm{marg}}\big)$ while $\E[g_\perp] = 0$ with variance vanishing in $K$. The expected update direction lies in the span of the pretrained representation.
+
+  \item[\textup{(b)}] \textup{(Same-instance hard negatives.)} If $h_k^- \sim p(h \mid x, y^\ast = 0)$, then $\|g_{\mathrm{sem}}\| = O(\delta)$, while $\|g_\perp\| \geq c_0 \|\gamma(x)\|$ for a constant $c_0 > 0$ independent of $\delta$. The gradient is dominated by the direction orthogonal to the pretrained representation.
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+Differentiating \eqref{eq:infonce} and using that the softmax weights satisfy $w^+ + \sum_k w_k = 1$, the gradient takes the form
+\begin{equation}
+  \nabla_\theta \Loss = \sum_{k=1}^{K} w_k \Big[ \nabla_\theta f_\theta(q, h_k^-) - \nabla_\theta f_\theta(q, h^+) \Big], \qquad w_k = \frac{\exp\!\big(f_\theta(q, h_k^-)\big)} {\exp\!\big(f_\theta(q, h^+)\big) + \sum_j \exp\!\big(f_\theta(q, h_j^-)\big)} .
+  \label{eq:grad-star}
+\end{equation}
+At $\theta_0$, decompose the per-example score gradient into the two tangent directions,
+\begin{equation}
+  \nabla_\theta f_\theta(q,h)\big|_{\theta_0} = \alpha(q,h)\, v_{\mathrm{sem}} + \beta(q,h)\, v_\perp(q,h),
+  \label{eq:tangent-decomp}
+\end{equation}
+where $v_{\mathrm{sem}}$ increases the pretrained similarity and $v_\perp$ increases alignment with $\psi$. Substituting
+\eqref{eq:tangent-decomp} into \eqref{eq:grad-star} gives
+\begin{equation}
+  \nabla_\theta \Loss = \underbrace{\sum_k w_k \big(\alpha(q,h_k^-) - \alpha(q,h^+)\big)\, v_{\mathrm{sem}}}_{g_{\mathrm{sem}}} + \underbrace{\sum_k w_k \big(\beta(q,h_k^-)\, v_\perp(q,h_k^-) - \beta(q,h^+)\, v_\perp(q,h^+)\big)}_{g_\perp}.
+\end{equation}
+
+\emph{Case (a).} Since $h_k^-$ is drawn independently of $x$ from $p_{\mathrm{marg}}$, the semantic coefficient satisfies $\E[\alpha(q,h_k^-)] - \alpha(q,h^+) = -\Theta\big(\Delta_{\mathrm{sem}}^{\mathrm{marg}}\big)$ by \cref{ass:semantic-invariance}, so $\|g_{\mathrm{sem}}\| = \Theta\big(\Delta_{\mathrm{sem}}^{\mathrm{marg}}\big)\,\|v_{\mathrm{sem}}\|$. For the orthogonal component, independence of $h_k^-$ from $x$ implies that $\E_{h^-}\big[\beta(q,h^-)\, v_\perp(q,h^-)\big]$ is an $x$-independent baseline; its difference from the positive term has mean zero over the data distribution and is not systematically aligned with $\psi(x,\cdot)$, with variance decreasing in $K$ by averaging. Hence, the expected update lies along $v_{\mathrm{sem}}$.
+
+\emph{Case (b).} With $h_k^- \in T_3(x)$, \cref{ass:semantic-invariance} gives $|\alpha(q,h_k^-) - \alpha(q,h^+)| = O(\delta)$ and therefore $\|g_{\mathrm{sem}}\| = O(\delta)\,\|v_{\mathrm{sem}}\|$. For the orthogonal component, \cref{ass:residual-signal} gives a systematic within-instance separation in $\psi$, so
+\begin{equation}
+  g_\perp = -\,\bar{\beta}\,\gamma(x) + O(\delta), \qquad \bar{\beta} := \textstyle\sum_k w_k\, \beta_k > 0 ,
+\end{equation}
+which yields $\|g_\perp\| \geq c_0\, \|\gamma(x)\|$ for some $c_0 > 0$ independent of $\delta$. Since $\|g_{\mathrm{sem}}\| = O(\delta)$ while $\|g_\perp\| = \Omega(1)$, the gradient is dominated by the direction orthogonal to the pretrained representation.
+\end{proof}
+
+\begin{remark}[Falsifiable prediction]
+\label{rem:thm1-prediction}
+\cref{thm:hard-negatives}(b) bounds the semantic component by $O(\delta)$ and the orthogonal component below independently of $\delta$. The advantage of same-instance negatives should therefore \emph{increase} as $\delta$ decreases, that is, as $T_3$ hunks approach retained hunks in requirement similarity. This is the prediction tested by the stratified evaluation of Appendix~E.1: Table~15 splits the evaluation issues at the median M0 requirement similarity and finds that the M2 advantage over M1 grows from $+0.238$ to $+0.406$ nDCG@$k$ as $\delta$ decreases. An explanation based on improved requirement matching alone predicts the opposite ordering.
+\end{remark}
+
+\begin{remark}[Scope]
+\label{rem:thm1-scope}
+\cref{thm:hard-negatives} concerns the update direction at initialization. It does not guarantee convergence to an optimal representation, and it does not order intermediate regimes such as same-repository cross-issue negatives (M3), which satisfy \cref{ass:semantic-invariance} only partially and empirically fall between M1 and M2 (\cref{tab:negative_sampling}). The decomposition also treats the REQ$\to$HUNK direction in isolation; the full objective couples four pair types (Appendix~C.3), and same-instance negatives are added in both the REQ$\to$HUNK and ORIG$\to$HUNK directions.
+\end{remark}
+
+% ------------------------------------------------------------
+\subsection{View Contributions and What Leave-One-Out Ablations Identify}
+\label{app:theory-thm2}
+
+Let $(X, H, Y^\ast)$ be jointly distributed according to the data-generating process, with $X = (X_Q, X_T, X_O)$ decomposing into the requirement, test, and original-source views. For $i \in \{Q, T, O\}$ write $S_{-i} := \{Q, T, O\} \setminus \{i\}$, and let $X_S$ denote the components of $X$ indexed by $S$.
+
+For the logistic loss $\ell(f, y) = -y \log \sigma(f) - (1-y)\log(1 - \sigma(f))$ and a view set
+$S$, define the restricted Bayes risk
+\begin{equation}
+  \Risk^\ast(S) := \inf_{f \,\text{measurable}} \E\big[\ell\big(f(X_S, H),\, Y^\ast\big)\big] .
+\end{equation}
+
+\begin{definition}[Conditional view contribution]
+\label{def:contribution}
+The \emph{contribution} of view $i$ is the conditional mutual information
+\begin{equation}
+  \Delta_i := \MI{Y^\ast}{X_i}{X_{S_{-i}},\, H} .
+\end{equation}
+View $i$ is \emph{conditionally redundant} if $\Delta_i = 0$, and the view set is \emph{strictly complementary} if $\Delta_i > 0$ for every $i \in \{Q, T, O\}$.
+\end{definition}
+
+\noindent
+All information measures condition on the candidate hunk $H$. Without this conditioning a view could appear informative merely through correlation with properties of $H$ that are already available at scoring time; conditioning on $H$ isolates the \emph{contextual} contribution of each view.
+
+\begin{theorem}[Ablation identifiability]
+\label{thm:complementarity}
+Under the logistic loss, for each $i \in \{Q, T, O\}$,
+\begin{equation}
+  \Risk^\ast(S_{-i}) - \Risk^\ast(\{Q, T, O\}) = \Delta_i.
+  \label{eq:thm2-main}
+\end{equation}
+Consequently:
+\begin{enumerate}
+  \item[\textup{(a)}] The view set is strictly complementary if and only if every leave-one-view-out model is strictly suboptimal, $\Risk^\ast(S_{-i}) > \Risk^\ast(\{Q,T,O\})$ for all $i$.
+
+  \item[\textup{(b)}] \textup{(No single view suffices.)} Under strict complementarity, for every singleton $\{i\}$,
+  \begin{equation}
+    \Risk^\ast(\{i\}) - \Risk^\ast(\{Q,T,O\}) \geq \max_{j \neq i}\; \Delta_j > 0 .
+  \end{equation}
+
+  \item[\textup{(c)}] The empirical leave-one-view-out gap in validation cross-entropy estimates $\Delta_i$ up to the difference of the two models' excess risks.
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+\emph{Step 1.}
+For the logistic loss the Bayes-optimal scorer given inputs $Z$ is the log-odds $f^\ast(z) = \log\frac{\eta(z)}{1 - \eta(z)}$ with $\eta(z) = \Prob(Y^\ast = 1 \mid Z = z)$, and the minimal risk equals the conditional Shannon entropy in nats,
+\begin{equation}
+  \inf_f \E\big[\ell(f(Z), Y^\ast)\big] = \E\big[-Y^\ast \log \eta(Z) - (1 - Y^\ast)\log(1 - \eta(Z))\big] = \CondEnt{Y^\ast}{Z} .
+\end{equation}
+Applying this with $Z = (X_{S_{-i}}, H)$ and $Z = (X_Q, X_T, X_O, H)$ gives $\Risk^\ast(S_{-i}) = \CondEnt{Y^\ast}{X_{S_{-i}}, H}$ and $\Risk^\ast(\{Q,T,O\}) = \CondEnt{Y^\ast}{X_Q, X_T, X_O, H}$.
+
+\emph{Step 2.}
+By the chain rule for conditional mutual information,
+\begin{equation}
+  \Delta_i = \CondEnt{Y^\ast}{X_{S_{-i}}, H} - \CondEnt{Y^\ast}{X_i, X_{S_{-i}}, H} ,
+\end{equation}
+and since $\{X_i\} \cup X_{S_{-i}} = \{X_Q, X_T, X_O\}$, substituting the identities of Step~1 yields \eqref{eq:thm2-main}.
+
+\emph{(a)} is immediate, since the risk gap is positive if and only if the conditional mutual information is positive.
+
+\emph{(b)} Fix $i$ and any $j \neq i$. Since $\{i\} \subseteq S_{-j}$, conditioning on additional variables cannot increase entropy: $\Risk^\ast(\{i\}) = \CondEnt{Y^\ast}{X_i, H} \geq \CondEnt{Y^\ast}{X_{S_{-j}}, H} = \Risk^\ast(S_{-j})$. Subtracting $\Risk^\ast(\{Q,T,O\})$ from both sides and applying \eqref{eq:thm2-main} for index $j$ gives the bound; positivity follows from strict complementarity, and taking the maximum over $j \neq i$ sharpens it.
+
+\emph{(c)} follows from \eqref{eq:thm2-main}: replacing each Bayes risk by the empirical risk of a trained model introduces the corresponding excess risk, so the estimate carries a bias bounded by the difference of the two excess risks.
+\end{proof}
+
+\begin{corollary}[Non-negativity and the noise floor]
+\label{cor:nonneg}
+$\Delta_i \geq 0$ for every $i$, with equality if and only if $Y^\ast \ind X_i \mid (X_{S_{-i}}, H)$. Any negative empirical gap is therefore attributable entirely to estimation and optimization error, and the magnitude of negative gaps observed across seeds calibrates the resolution at which small positive gaps can be distinguished from zero.
+\end{corollary}
+
+\begin{proof}
+Non-negativity and the equality condition are standard properties of conditional mutual information; the second statement follows by combining them with \cref{thm:complementarity}(c).
+\end{proof}
+
+% ------------------------------------------------------------
+\subsubsection{Ranking Metrics Witness View Contributions in One Direction}
+\label{app:theory-metrics}
+
+The gaps reported in Table~2 are differences in nDCG@$k$, T2-Recall, and PSR rather than in cross-entropy, so they do not estimate $\Delta_i$ directly. The following proposition states exactly what they do and do not establish.
+
+\begin{proposition}[Metric gaps as one-sided witnesses]
+\label{prop:metric-witness}
+Let $M$ be any performance functional that depends on a scorer only through the ranking it induces within each instance, and let $M^\ast(S)$ denote its value at the Bayes-optimal scorer for view set $S$. Then:
+\begin{enumerate}
+  \item[\textup{(i)}] If $\Delta_i = 0$ then $M^\ast(S_{-i}) = M^\ast(\{Q,T,O\})$ for every such $M$. Equivalently, a nonzero gap in \emph{any} ranking metric witnesses $\Delta_i > 0$.
+  \item[\textup{(ii)}] The converse fails: $\Delta_i > 0$ is compatible with $M^\ast(S_{-i}) = M^\ast(\{Q,T,O\})$ for all such $M$ simultaneously.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+\emph{(i)} By Corollary~\ref{cor:nonneg}, $\Delta_i = 0$ is equivalent to $Y^\ast \ind X_i \mid (X_{S_{-i}}, H)$, hence $\eta(X_{S_{-i}}, H) = \eta(X_Q, X_T, X_O, H)$ almost surely. The two Bayes-optimal scorers are strictly increasing transforms of the same posterior and therefore induce identical within-instance rankings, so any ranking-determined $M$ takes the same value.
+
+\emph{(ii)} Suppose the posterior factorizes as $\eta(x, h) = \sigma\big(g(x_{S_{-i}}, h) + c(x_i)\big)$ with $c$ non-constant. Then $\Delta_i > 0$, since $X_i$ shifts the posterior. But $c(x_i)$ is constant across candidates $h$ within an instance, so the induced within-instance ranking is unchanged and every ranking-determined $M$ is unaffected. All metrics used in this paper are computed within-instance and macro-averaged, and are therefore of this form.
+\end{proof}
+
+\begin{remark}[Estimation protocol]
+\label{rem:protocol}
+Proposition~\ref{prop:metric-witness} implies that ranking gaps can only be used in one direction: a significant gap establishes that a view contributes, whereas a gap indistinguishable from zero does not establish redundancy. Reporting validation cross-entropy for each ablation, in addition to the ranking metrics, makes the estimand of \cref{thm:complementarity} directly observable. Because $\Delta_i$ is a difference of two trained models' risks, we recommend paired estimation: train the full and ablated models from the same seeds and report the paired difference with a bootstrap interval, which removes the seed-level variance common to both terms.
+% NOTE: add a validation cross-entropy column to Table 2 before citing
+% this remark from the main text.
+\end{remark}

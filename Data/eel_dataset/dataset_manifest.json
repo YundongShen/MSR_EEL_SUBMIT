@@ -1,0 +1,55 @@
+{
+  "generation_files": [
+    "haiku_generations.jsonl.gz"
+  ],
+  "n_generation_records": 2291,
+  "generation_protocol": {
+    "model": "claude-haiku-4-5-20251001",
+    "provider": "anthropic",
+    "temperature": 0.7,
+    "max_tokens": 4096,
+    "system_prompt_sha256": "8cc94b259b6301f2"
+  },
+  "match_tolerance_lines": 20,
+  "tier_rule": "retained = same file, start line within tolerance of a reference hunk; Tier 1 if the file is statically linked to a fail-to-pass test, else Tier 2; non-retained = Tier 3",
+  "generation_outcome": {
+    "instances": 2291,
+    "merged hunks": 10897
+  },
+  "diff_format_parity": {
+    "retained_function_header_rate": 0.0,
+    "tier3_function_header_rate": 0.0
+  },
+  "per_split": {
+    "train": {
+      "instances": 1833,
+      "with_retained": 1829,
+      "with_tier3": 728,
+      "eligible (retained and tier3)": 724,
+      "eligible with a Tier-2 hunk": 503,
+      "tier1_hunks": 2443,
+      "tier2_hunks": 4190,
+      "tier3_hunks": 1898
+    },
+    "val": {
+      "instances": 229,
+      "with_retained": 229,
+      "with_tier3": 93,
+      "eligible (retained and tier3)": 93,
+      "eligible with a Tier-2 hunk": 58,
+      "tier1_hunks": 262,
+      "tier2_hunks": 458,
+      "tier3_hunks": 199
+    },
+    "test": {
+      "instances": 229,
+      "with_retained": 229,
+      "with_tier3": 138,
+      "eligible (retained and tier3)": 138,
+      "eligible with a Tier-2 hunk": 84,
+      "tier1_hunks": 443,
+      "tier2_hunks": 523,
+      "tier3_hunks": 481
+    }
+  }
+}

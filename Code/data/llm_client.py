@@ -84,6 +84,7 @@ class LLMClient:
                     response = self._client.messages.create(  # type: ignore[union-attr]
                         model=self._model,
                         max_tokens=self._max_tokens,
+                        temperature=self._temperature,
                         system=system,
                         messages=[{"role": "user", "content": user}],
                     )

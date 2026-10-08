@@ -14,6 +14,7 @@ Every generated hunk goes to exactly one of the two files, so retained and non-r
 candidates share one generation process and one diff renderer.  Several generation files
 (independent samples of the same model) may be given; hunks are united per instance and
 de-duplicated on (file, start line, diff text).
+Compact merged_hunks records and gzip-compressed JSONL inputs are also supported.
 
 Usage:
     python data_pipeline/build_dataset.py
@@ -41,6 +42,7 @@ from data.hunk_matching import (
     parse_hunks,
     retained_tier,
 )
+from data_pipeline.merged_generations import candidate_hunks, hunk_identity, read_jsonl
 
 logging.basicConfig(
     level=logging.INFO,
@@ -80,10 +82,8 @@ def main() -> None:
 
     log.info("Loading fail-to-pass ids from %s", args.instances)
     f2p: dict[str, list[str]] = {}
-    with open(args.instances) as fh:
-        for line in fh:
-            rec = json.loads(line)
-            f2p[rec["instance_id"]] = rec.get("fail_to_pass_ids", [])
+    for rec in read_jsonl(args.instances):
+        f2p[rec["instance_id"]] = rec.get("fail_to_pass_ids", [])
 
     retained: dict[str, list[dict]] = defaultdict(list)
     tier3: dict[str, list[dict]] = defaultdict(list)
@@ -95,52 +95,50 @@ def main() -> None:
 
     for sample, path in enumerate(args.generations):
         log.info("Reading generations [%d] %s", sample, path)
-        with open(path) as fh:
-            for line in fh:
-                rec = json.loads(line)
-                iid = rec["instance_id"]
-                gen = rec.get("generation") or {}
-                n_generations += 1
-                if not protocol:
-                    protocol = {
-                        "model": gen.get("model"),
-                        "provider": gen.get("provider"),
-                        "temperature": gen.get("temperature"),
-                        "max_tokens": gen.get("max_tokens"),
-                        "system_prompt_sha256": hashlib.sha256(
-                            (gen.get("system_prompt") or "").encode()).hexdigest()[:16],
-                    }
-                order.setdefault(iid, None)
+        for rec in read_jsonl(path):
+            iid = rec["instance_id"]
+            gen = rec.get("generation") or {}
+            n_generations += 1
+            if not protocol:
+                protocol = {
+                    "model": gen.get("model"),
+                    "provider": gen.get("provider"),
+                    "temperature": gen.get("temperature"),
+                    "max_tokens": gen.get("max_tokens"),
+                    "system_prompt_sha256": hashlib.sha256(
+                        (gen.get("system_prompt") or "").encode()).hexdigest()[:16],
+                }
+            order.setdefault(iid, None)
 
-                reference_hunks = parse_hunks(rec["meta"]["gold_patch"] or "")
-                generated_hunks = parse_hunks(gen.get("extracted_diff") or "")
-                if not reference_hunks or not generated_hunks:
-                    outcome["no reference hunks or no generated hunks"] += 1
+            reference_hunks = parse_hunks(rec["meta"]["gold_patch"] or "")
+            generated_hunks = candidate_hunks(rec, default_sample=sample)
+            if not reference_hunks or not generated_hunks:
+                outcome["no reference hunks or no generated hunks"] += 1
+                continue
+            outcome["usable generation"] += 1
+
+            source_files = rec.get("source_files", {})
+            for h in generated_hunks:
+                diff = h["text"]
+                key = (iid, *hunk_identity(h))
+                if key in seen:
                     continue
-                outcome["usable generation"] += 1
-
-                source_files = rec.get("source_files", {})
-                for h in generated_hunks:
-                    diff = "".join(h["lines"])
-                    key = (iid, h["filepath"], h["old_start"], diff)
-                    if key in seen:
-                        continue
-                    seen.add(key)
-                    before, after = extract_context(source_files, h["filepath"], h["old_start"], h["lines"])
-                    out = {
-                        "filepath": h["filepath"],
-                        "old_start_line": h["old_start"],
-                        "hunk_diff": diff,
-                        "context_before": before,
-                        "context_after": after,
-                        "sample": sample,
-                    }
-                    if matches_reference(h["filepath"], h["old_start"], reference_hunks, args.tolerance):
-                        out["tier_label"] = retained_tier(h["filepath"], f2p.get(iid, []))
-                        retained[iid].append(out)
-                    else:
-                        out["tier_label"] = 3
-                        tier3[iid].append(out)
+                seen.add(key)
+                before, after = extract_context(source_files, h["file"], h["old_start"], diff.splitlines(keepends=True))
+                out = {
+                    "filepath": h["file"],
+                    "old_start_line": h["old_start"],
+                    "hunk_diff": diff,
+                    "context_before": before,
+                    "context_after": after,
+                    "sample": h["sample"],
+                }
+                if matches_reference(h["file"], h["old_start"], reference_hunks, args.tolerance):
+                    out["tier_label"] = retained_tier(h["file"], f2p.get(iid, []))
+                    retained[iid].append(out)
+                else:
+                    out["tier_label"] = 3
+                    tier3[iid].append(out)
 
     for path, name, table in ((args.retained_out, "llm_t12_hunks", retained),
                               (args.tier3_out, "tier3_hunks", tier3)):

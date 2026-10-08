@@ -17,7 +17,7 @@ package = types.ModuleType("data")
 package.__path__ = [str(ROOT / "data")]
 sys.modules["data"] = package
 
-from data_pipeline.merged_generations import candidate_hunks, diff_hunks, read_jsonl
+from data_pipeline.merged_generations import candidate_hunks, diff_hunks, gold_distance, read_jsonl
 from data_pipeline import sample_haiku_merge as sampler
 from data_pipeline import build_dataset
 from data.llm_client import LLMClient
@@ -47,6 +47,48 @@ def merge(record, data, generation, sample=0, run_id="round"):
 
 
 class SamplingChecks(unittest.TestCase):
+    def test_quota_keeps_closest_matches_and_unmatched_hunks(self):
+        record = {"meta": {"gold_patch": diff(10)}, "generation": {
+            "extracted_diff": diff(3) + diff(9) + diff(10) + diff(40)}}
+        hunks = candidate_hunks(record)
+        self.assertEqual([h["old_start"] for h in hunks], [10, 40])
+        record["merged_hunks"] = hunks
+        self.assertEqual([h["old_start"] for h in candidate_hunks(record)], [10, 40])
+
+    def test_sampling_continues_until_quota_at_batch_end(self):
+        with tempfile.TemporaryDirectory() as temp:
+            data = inst()
+            data["patch"] = diff(10)
+            input_path = Path(temp) / "input.jsonl"
+            output = Path(temp) / "generations.jsonl"
+            sampler.save_records(input_path, {data["instance_id"]: data})
+            responses = [
+                "<<<<<<< SEARCH\nFILE: a.py\nline39\n=======\nextra\n>>>>>>> REPLACE",
+                "<<<<<<< SEARCH\nFILE: a.py\nline39\n=======\nextra\n>>>>>>> REPLACE",
+                "<<<<<<< SEARCH\nFILE: a.py\nline9\n=======\nfixed\n>>>>>>> REPLACE",
+                "<<<<<<< SEARCH\nFILE: a.py\nline13\n=======\nnear\n>>>>>>> REPLACE",
+            ]
+            requests = []
+
+            def create(**kwargs):
+                requests.append(kwargs)
+                return types.SimpleNamespace(content=[types.SimpleNamespace(text=responses.pop(0))])
+
+            fake = types.SimpleNamespace(messages=types.SimpleNamespace(create=create))
+            args = ["sample_haiku_merge.py", "--input", str(input_path), "--generations", str(output),
+                    "--samples", "2", "--run-id", "quota", "--sleep", "0"]
+            with patch.object(LLMClient, "_ensure_client", lambda self: setattr(self, "_client", fake)), \
+                    patch.dict(sampler.os.environ, {"ANTHROPIC_API_KEY": "test"}), patch.object(sys, "argv", args):
+                sampler.main()
+                sampler.main()
+            self.assertEqual(len(requests), 4)
+            record = sampler.load_records(output)[data["instance_id"]]
+            hunks = candidate_hunks(record)
+            reference = diff_hunks(data["patch"])
+            self.assertEqual(sum(gold_distance(h, reference) < 20 for h in hunks), 1)
+            self.assertEqual(sum(gold_distance(h, reference) >= 20 for h in hunks), 1)
+            self.assertEqual(len(record["sampling"]["runs"]), 4)
+
     def test_dedup_preserves_first_response_and_sample_tags(self):
         data = inst()
         record, count = merge(None, data, result(diff()))

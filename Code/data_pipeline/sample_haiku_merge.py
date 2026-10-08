@@ -30,7 +30,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT))
 
-from data_pipeline.merged_generations import candidate_hunks, diff_hunks, hunk_identity, read_jsonl
+from data_pipeline.merged_generations import candidate_hunks, diff_hunks, gold_distance, hunk_identity, read_jsonl
 
 log = logging.getLogger(__name__)
 
@@ -118,6 +118,7 @@ def merge_sample(record: dict | None, inst: dict, result: dict, *, sample: int,
             merged.append(hunk)
             added += 1
     record["merged_hunks"] = merged
+    record["merged_hunks"] = candidate_hunks(record)
     summary = {
         "run_id": run_id, "sample": sample, "created_at": now(), "model": model,
         "temperature": temperature, "max_tokens": max_tokens,
@@ -136,7 +137,7 @@ def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     parser.add_argument("--input", type=Path, default=ROOT.parent / "Data/swebench/swebench_full_instances.jsonl.gz")
     parser.add_argument("--generations", type=Path, default=ROOT.parent / "Data/eel_dataset/haiku_generations.jsonl.gz")
-    parser.add_argument("--samples", type=int, default=1, help="Additional API samples per selected issue")
+    parser.add_argument("--samples", type=int, default=1, help="Samples per batch")
     parser.add_argument("--run-id", help="Reuse this name to resume a sampling round")
     parser.add_argument("--model", default="claude-haiku-4-5-20251001")
     parser.add_argument("--temperature", type=float, default=0.7)
@@ -199,9 +200,7 @@ def run(args, records: dict[str, dict], run_id: str, split_ids, selected_ids) ->
             continue
         old = records.get(iid)
         completed = sum(r.get("run_id") == run_id for r in (old or {}).get("sampling", {}).get("runs", []))
-        pending = max(0, args.samples - completed)
-        if not pending:
-            continue
+        pending = args.samples - completed % args.samples
         if args.max_instances is not None and processed >= args.max_instances:
             break
         if not inst.get("source_files") or not inst.get("patch"):
@@ -212,26 +211,36 @@ def run(args, records: dict[str, dict], run_id: str, split_ids, selected_ids) ->
                 raise ValueError(f"{iid}: base_commit differs from the existing record")
             if meta.get("gold_patch") is not None and meta["gold_patch"] != inst["patch"]:
                 raise ValueError(f"{iid}: reference patch differs from the existing record")
+        reference = diff_hunks(inst["patch"])
+
+        def enough():
+            return sum(gold_distance(hunk, reference) < 20
+                       for hunk in candidate_hunks(records.get(iid) or {})) >= len(reference)
+
+        if enough():
+            continue
         processed += 1
         if args.dry_run:
             log.info("%s: %d pending sample(s), next sample=%d", iid, pending, next_sample(old))
             calls += pending
             continue
         user_prompt = _build_user_prompt(inst, code_budget=args.code_budget)
-        for _ in range(pending):
-            sample = next_sample(records.get(iid))
-            result = generate(inst, llm, code_budget=args.code_budget)
-            calls += 1
-            if result is None:
-                raise RuntimeError(f"{iid}: generation failed; rerun with --run-id {run_id} to resume")
-            record, added = merge_sample(records.get(iid), inst, result, sample=sample,
-                run_id=run_id, model=args.model, temperature=args.temperature,
-                max_tokens=args.max_tokens, system_prompt=_UNCONSTRAINED_SYSTEM, user_prompt=user_prompt)
-            records[iid] = record
-            save_records(args.generations, records)
-            log.info("%s sample=%d: added=%d merged=%d", iid, sample, added, len(record["merged_hunks"]))
-            if args.sleep:
-                time.sleep(args.sleep)
+        while not enough():
+            for _ in range(pending):
+                sample = next_sample(records.get(iid))
+                result = generate(inst, llm, code_budget=args.code_budget)
+                calls += 1
+                if result is None:
+                    raise RuntimeError(f"{iid}: generation failed; rerun with --run-id {run_id} to resume")
+                record, added = merge_sample(records.get(iid), inst, result, sample=sample,
+                    run_id=run_id, model=args.model, temperature=args.temperature,
+                    max_tokens=args.max_tokens, system_prompt=_UNCONSTRAINED_SYSTEM, user_prompt=user_prompt)
+                records[iid] = record
+                save_records(args.generations, records)
+                log.info("%s sample=%d: added=%d merged=%d", iid, sample, added, len(record["merged_hunks"]))
+                if args.sleep:
+                    time.sleep(args.sleep)
+            pending = args.samples
     log.info("%s: issues=%d calls=%d run-id=%s", "Dry run" if args.dry_run else "Done", processed, calls, run_id)
 
 

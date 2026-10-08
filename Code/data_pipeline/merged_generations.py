@@ -95,6 +95,11 @@ def hunk_identity(hunk: dict) -> tuple:
     return hunk["file"], hunk["old_start"], tuple(hunk["text"].splitlines()[1:])
 
 
+def gold_distance(hunk: dict, reference: list[dict]) -> int:
+    return min((abs(hunk["old_start"] - gold["old_start"])
+                for gold in reference if hunk["file"] == gold["file"]), default=20)
+
+
 def candidate_hunks(record: dict, default_sample: int = 0) -> list[dict]:
     """Union the first raw generation and later merged hunks, preserving sample tags."""
     raw = (record.get("generation") or {}).get("extracted_diff") or ""
@@ -112,4 +117,11 @@ def candidate_hunks(record: dict, default_sample: int = 0) -> list[dict]:
         if identity not in seen:
             seen.add(identity)
             out.append(hunk)
+    patch = (record.get("meta") or {}).get("gold_patch")
+    if patch:
+        reference = diff_hunks(patch)
+        distances = [gold_distance(hunk, reference) for hunk in out]
+        matched = sorted((distance, i) for i, distance in enumerate(distances) if distance < 20)
+        keep = {i for _, i in matched[:len(reference)]}
+        out = [hunk for i, hunk in enumerate(out) if i in keep or distances[i] >= 20]
     return out

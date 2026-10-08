@@ -1,6 +1,6 @@
 {
-  "protocol": "T1/T2 = LLM-generated hunks that replace the gold (reference-patch) hunks one-to-one (same file, start line within 20 lines of the gold hunk; when no generated hunk matches, the gold hunk is kept with the function name after @@ removed), T1 if the file is statically linked to a fail-to-pass test, else T2; T3 = Haiku-generated hunks starting >= 20 lines from every gold hunk in the same file (or in another file)",
-  "generator": "claude-haiku-4-5-20251001, temperature 0.7, max_tokens 4096, 1 sample per issue",
+  "protocol": "T1/T2 = LLM-generated hunks that replace the gold (reference-patch) hunks one-to-one (same file, start line within 20 lines of the gold hunk), T1 if the file is statically linked to a fail-to-pass test, else T2; T3 = Haiku-generated hunks starting >= 20 lines from every gold hunk in the same file (or in another file)",
+  "generator": "claude-haiku-4-5-20251001, temperature 0.7, max_tokens 4096",
   "total": {
     "instances": 2291,
     "train": 1833,

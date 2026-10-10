@@ -1,0 +1,7 @@
+{
+  "model": "cross-encoder/ms-marco-MiniLM-L-6-v2",
+  "n_instances": 82,
+  "ndcg_kgold": 0.6039794677919641,
+  "t2_recall": 0.6761229314420805,
+  "perfect_sep": 0.21951219512195122
+}

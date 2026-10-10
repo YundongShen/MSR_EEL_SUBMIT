@@ -1,0 +1,7 @@
+{
+  "model": "microsoft/graphcodebert-base",
+  "n_instances": 82,
+  "ndcg_kgold": 0.6482439881554003,
+  "t2_recall": 0.7041937662733819,
+  "perfect_sep": 0.3048780487804878
+}

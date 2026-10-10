@@ -1,0 +1,30 @@
+08:04:15 [INFO] Device: cuda
+08:04:15 [INFO] use_projection: True
+08:04:15 [INFO] HTTP Request: HEAD https://huggingface.co/microsoft/unixcoder-base/resolve/main/config.json "HTTP/1.1 307 Temporary Redirect"
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+08:04:15 [WARNING] Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+08:04:15 [INFO] HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/microsoft/unixcoder-base/5604afdc964f6c53782a6813140ade5216b99006/config.json "HTTP/1.1 200 OK"
+08:04:15 [INFO] HTTP Request: HEAD https://huggingface.co/microsoft/unixcoder-base/resolve/main/tokenizer_config.json "HTTP/1.1 307 Temporary Redirect"
+08:04:15 [INFO] HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/microsoft/unixcoder-base/5604afdc964f6c53782a6813140ade5216b99006/tokenizer_config.json "HTTP/1.1 200 OK"
+08:04:15 [INFO] HTTP Request: GET https://huggingface.co/api/models/microsoft/unixcoder-base/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
+08:04:15 [INFO] HTTP Request: GET https://huggingface.co/api/models/microsoft/unixcoder-base/tree/main?recursive=true&expand=false "HTTP/1.1 200 OK"
+08:04:15 [INFO] HTTP Request: HEAD https://huggingface.co/microsoft/unixcoder-base/resolve/main/config.json "HTTP/1.1 307 Temporary Redirect"
+08:04:15 [INFO] HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/microsoft/unixcoder-base/5604afdc964f6c53782a6813140ade5216b99006/config.json "HTTP/1.1 200 OK"
+08:04:19 [INFO] HTTP Request: HEAD https://huggingface.co/microsoft/unixcoder-base/resolve/main/model.safetensors "HTTP/1.1 404 Not Found"
+08:04:19 [INFO] HTTP Request: GET https://huggingface.co/api/models/microsoft/unixcoder-base "HTTP/1.1 200 OK"
+08:04:19 [INFO] HTTP Request: GET https://huggingface.co/api/models/microsoft/unixcoder-base/commits/main "HTTP/1.1 200 OK"
+08:04:19 [INFO] HTTP Request: GET https://huggingface.co/api/models/microsoft/unixcoder-base/discussions?p=0 "HTTP/1.1 200 OK"
+Loading weights:   0%|          | 0/199 [00:00<?, ?it/s]Loading weights: 100%|██████████| 199/199 [00:00<00:00, 26774.44it/s]
+08:04:19 [INFO] HTTP Request: GET https://huggingface.co/api/models/microsoft/unixcoder-base/commits/refs%2Fpr%2F8 "HTTP/1.1 200 OK"
+08:04:20 [INFO] HTTP Request: HEAD https://huggingface.co/microsoft/unixcoder-base/resolve/refs%2Fpr%2F8/model.safetensors.index.json "HTTP/1.1 404 Not Found"
+[transformers] The new embeddings will be initialized from a multivariate normal distribution that has old embeddings' mean and covariance. As described in this article: https://nlp.stanford.edu/~johnhew/vocab-expansion.html. To disable this, use `mean_resizing=False`
+08:04:20 [INFO] HTTP Request: HEAD https://huggingface.co/microsoft/unixcoder-base/resolve/refs%2Fpr%2F8/model.safetensors "HTTP/1.1 302 Found"
+08:04:23 [INFO] Loaded encoder from checkpoints/m2/best.pt
+08:04:23 [INFO] === Experiment 2: Retrieval ===
+08:04:23 [INFO] Test instances: 299
+08:04:23 [INFO] Tier-3 lookup: 109 instances with scope-creep hunks
+08:04:23 [INFO] Building repo-level distractor pool (test split only) …
+08:04:23 [INFO] Repo pool: 39 repos, 1279 total hunks
+08:06:39 [INFO] nDCG@k_gold  mean=0.6647  std=0.3943  n=109  (k = |T1∪T2| per instance)
+08:06:39 [INFO] T2-Recall(K=gold)  mean=0.6602  std=0.3836  n=105  (top-K = |T1∪T2|)
+08:06:39 [INFO] Perfect-Sep  mean=0.8073  n=109  (all T3 ranked after all gold)

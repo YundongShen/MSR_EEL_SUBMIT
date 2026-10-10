@@ -1,0 +1,156 @@
+{
+  "result_type": "historical_reported_results",
+  "metrics_recomputed": false,
+  "results": [
+    {
+      "experiment": "eel",
+      "description": "Original result",
+      "n_instances": 82,
+      "ndcg": {
+        "k": "number_of_retained_hunks",
+        "value": 0.8248
+      },
+      "psr": 0.9024,
+      "table_values": {
+        "ndcg": "0.825",
+        "psr": "0.902"
+      },
+      "source": {
+        "file": "logs/eval_m2_6661589.err",
+        "ndcg_line": 34,
+        "psr_line": 36
+      }
+    },
+    {
+      "experiment": "django_omitted",
+      "description": "Django omitted from training",
+      "n_instances": 204,
+      "ndcg": {
+        "k": "number_of_retained_hunks",
+        "value": 0.8785
+      },
+      "psr": 0.9706,
+      "table_values": {
+        "ndcg": "0.879",
+        "psr": "0.971"
+      },
+      "source": {
+        "file": "logs/eval_exp4_ldo_pool_6928354.err",
+        "ndcg_line": 28,
+        "psr_line": 30
+      }
+    },
+    {
+      "experiment": "github_pr_python",
+      "description": "GitHub PRs (Python)",
+      "n_instances": 9,
+      "ndcg": {
+        "k": 5,
+        "value": 0.8342
+      },
+      "psr": null,
+      "table_values": {
+        "ndcg": "0.834",
+        "psr": null
+      },
+      "source": {
+        "file": "results/exp5_eval_llm_merged_m2.json",
+        "json_path": "by_language.python.aggregate"
+      }
+    },
+    {
+      "experiment": "github_pr_non_python",
+      "description": "GitHub PRs (Non-Python)",
+      "n_instances": 8,
+      "ndcg": {
+        "k": 5,
+        "value": 0.7252
+      },
+      "psr": null,
+      "table_values": {
+        "ndcg": "0.725",
+        "psr": null
+      },
+      "source": {
+        "file": "results/exp5_eval_llm_merged_m2.json",
+        "json_path": "by_language.non-python.aggregate"
+      }
+    },
+    {
+      "experiment": "gemini",
+      "description": "Gemini-2.5-Flash-Lite",
+      "n_instances": 41,
+      "ndcg": {
+        "k": "number_of_retained_hunks",
+        "value": 0.82
+      },
+      "psr": 0.878,
+      "table_values": {
+        "ndcg": "0.820",
+        "psr": "0.878"
+      },
+      "source": {
+        "file": "logs/eval_exp4_crossllm_6923906.err",
+        "ndcg_line": 28,
+        "psr_line": 30
+      }
+    },
+    {
+      "experiment": "qwen",
+      "description": "Qwen2.5-Coder-7B",
+      "n_instances": 43,
+      "ndcg": {
+        "k": "number_of_retained_hunks",
+        "value": 0.8555
+      },
+      "psr": 0.9302,
+      "table_values": {
+        "ndcg": "0.856",
+        "psr": "0.930"
+      },
+      "source": {
+        "file": "logs/tier3_qwen_v2_6928410.err",
+        "ndcg_line": 739,
+        "psr_line": 741
+      }
+    },
+    {
+      "experiment": "deepseek",
+      "description": "DeepSeek-Coder-7B",
+      "n_instances": 21,
+      "ndcg": {
+        "k": "number_of_retained_hunks",
+        "value": 0.8587
+      },
+      "psr": 0.9524,
+      "table_values": {
+        "ndcg": "0.859",
+        "psr": "0.952"
+      },
+      "source": {
+        "file": "logs/tier3_deepseek_v2_6928411.err",
+        "ndcg_line": 779,
+        "psr_line": 781
+      }
+    },
+    {
+      "experiment": "multilingual",
+      "description": "SWE-bench Multilingual",
+      "n_instances": 109,
+      "ndcg": {
+        "k": "number_of_retained_hunks",
+        "value": 0.6647
+      },
+      "psr": 0.8073,
+      "table_values": {
+        "ndcg": "0.665",
+        "psr": "0.807"
+      },
+      "source": {
+        "file": "logs/eval_multilingual_m2_pool_6928353.err",
+        "ndcg_line": 28,
+        "psr_line": 30
+      }
+    }
+  ]
+}

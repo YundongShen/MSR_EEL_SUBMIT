@@ -1,0 +1,180 @@
+{
+  "scope": "RQ4 historical result evidence and available input artifacts",
+  "complete_reproduction_data": false,
+  "sources": {
+    "available_data": {
+      "repository": "https://github.com/YundongShen/MSR_EEL_Data",
+      "commit": "2e5e4c29e8af95408d25ec0de9edda5324eb2f4c",
+      "directory": "generalization"
+    },
+    "historical_outputs": "Original evaluation logs and result JSON from the recovered experiment archive",
+    "result_summary": "Extracted from the included historical outputs; no new generation or model evaluation"
+  },
+  "coverage": {
+    "tier3_hunks_gemini.jsonl": {
+      "issues": 41,
+      "tier3_hunks": 72,
+      "generated_retained_hunks_included": false,
+      "sample_indices_included": false,
+      "compatible_with_current_loader": false
+    },
+    "multilingual_instances.csv": {
+      "instances": 299,
+      "eligible_instances": 109,
+      "content": "Counts only; full instances and candidate hunks are not included"
+    },
+    "real_pr_list.csv": {
+      "pull_requests": 17,
+      "python": 9,
+      "non_python": 8,
+      "content": "PR URLs, repositories and language labels"
+    },
+    "results/exp5_eval_llm_merged_m2.json": {
+      "pull_requests": 17,
+      "generated_t2_hunks_reported": 27,
+      "generated_t3_hunks_reported": 48,
+      "per_pr_results_included": true,
+      "full_generated_candidate_hunks_included": false
+    }
+  },
+  "missing_artifacts": [
+    {
+      "experiment": "gemini",
+      "artifact": "Generated retained T1/T2 hunks"
+    },
+    {
+      "experiment": "qwen",
+      "artifact": "Complete historical generated candidate hunks for the 43-issue evaluation"
+    },
+    {
+      "experiment": "deepseek",
+      "artifact": "Complete historical generated candidate hunks for the 21-issue evaluation"
+    },
+    {
+      "experiment": "multilingual",
+      "artifact": "Full input instances, generated retained hunks and T3 hunks"
+    },
+    {
+      "experiment": "github_pr",
+      "artifact": "Complete historical inputs for all 17 PRs, generated candidate hunks and per-hunk scores"
+    },
+    {
+      "experiment": "rq4",
+      "artifact": "Complete per-hunk scores"
+    }
+  ],
+  "excluded_older_artifacts": [
+    {
+      "file": "tier3_hunks_qwen.jsonl",
+      "available_issues": 33,
+      "historical_evaluation_issues": 43
+    },
+    {
+      "file": "tier3_hunks_deepseek.jsonl",
+      "available_issues": 6,
+      "historical_evaluation_issues": 21
+    },
+    {
+      "file": "real_pr_data.jsonl.gz",
+      "available_prs": 11,
+      "historical_evaluation_prs": 17
+    }
+  ],
+  "limitations": [
+    "Included numeric results match the reported RQ4 table after rounding, but missing candidate artifacts prevent complete independent recomputation.",
+    "The Gemini candidate file is preserved unchanged in its historical schema and is not a complete input to the current evaluator.",
+    "Agreement between historical candidate construction and the paper methodology has not been established by the result logs alone.",
+    "Four PRs in the reported evaluation are closed without merging, which conflicts with the paper description of merged reference patches; their recorded historical results are preserved."
+  ],
+  "unmerged_prs": [
+    {
+      "pr_url": "https://github.com/ChicagoHAI/NeuriCo/pull/127",
+      "state": "closed",
+      "merged": false,
+      "closed_at": "2026-06-26T19:26:24Z",
+      "source": "https://api.github.com/repos/ChicagoHAI/NeuriCo/pulls/127",
+      "checked_on": "2026-10-10"
+    },
+    {
+      "pr_url": "https://github.com/OpenHands/OpenHands/pull/14897",
+      "state": "closed",
+      "merged": false,
+      "closed_at": "2026-06-18T22:19:46Z",
+      "source": "https://api.github.com/repos/OpenHands/OpenHands/pulls/14897",
+      "checked_on": "2026-10-10"
+    },
+    {
+      "pr_url": "https://github.com/OpenHands/software-agent-sdk/pull/3786",
+      "state": "closed",
+      "merged": false,
+      "closed_at": "2026-06-29T12:37:30Z",
+      "source": "https://api.github.com/repos/OpenHands/software-agent-sdk/pulls/3786",
+      "checked_on": "2026-10-10"
+    },
+    {
+      "pr_url": "https://github.com/SWE-agent/SWE-agent/pull/739",
+      "state": "closed",
+      "merged": false,
+      "closed_at": "2024-10-09T22:22:56Z",
+      "source": "https://api.github.com/repos/SWE-agent/SWE-agent/pulls/739",
+      "checked_on": "2026-10-10"
+    }
+  ],
+  "files": [
+    {
+      "path": "logs/eval_exp4_crossllm_6923906.err",
+      "bytes": 3621,
+      "sha256": "c966beff788f1a149c67427000b3e0e465e06deb6dfe9e3433672ccaa50193a4"
+    },
+    {
+      "path": "logs/eval_exp4_ldo_pool_6928354.err",
+      "bytes": 3631,
+      "sha256": "24427caa9bb7b21e0e2b7b6e297704b4837d73e0f99feef1089b524cec2296da"
+    },
+    {
+      "path": "logs/eval_m2_6661589.err",
+      "bytes": 3557,
+      "sha256": "404b5e53c170dbb332036f4e2bbffaa119c7c0a82a72b10772809015ce6d101d"
+    },
+    {
+      "path": "logs/eval_multilingual_m2_pool_6928353.err",
+      "bytes": 3626,
+      "sha256": "b41294c93ea3a3a8b1b85fdaeb7a75484d1d8f956aba50e033b814613895b641"
+    },
+    {
+      "path": "logs/tier3_deepseek_v2_6928411.err",
+      "bytes": 63852,
+      "sha256": "09e9f2c0d34f00310ae4d7ba542f02c2cfafe7cbd957b5ce03c578d633197b18"
+    },
+    {
+      "path": "logs/tier3_qwen_v2_6928410.err",
+      "bytes": 54755,
+      "sha256": "5ed0b88942f4613f8c10b1706d2dc272b42368c05271c34148824623e0f30ca6"
+    },
+    {
+      "path": "multilingual_instances.csv",
+      "bytes": 9987,
+      "sha256": "e1c4690f0b5d51b959bbbb1d2c0798b5f1d4f27e910d864cb1ec4b948e2f1135"
+    },
+    {
+      "path": "real_pr_list.csv",
+      "bytes": 1362,
+      "sha256": "1ec6f397c12c980d9e9de2ef72ba5345e7c60150826dcb5c9e031392c57c1276"
+    },
+    {
+      "path": "results/exp5_eval_llm_merged_m2.json",
+      "bytes": 10826,
+      "sha256": "908e7c0ce43d095eecaf11e403211fd85c3cd2f959f6924e943babf753d220c7"
+    },
+    {
+      "path": "results/rq4_results.json",
+      "bytes": 3554,
+      "sha256": "2ee4ad9c8ee481a58f1a0a6b745a4d8cba4ac91fb9679ee30d6bd11ffb5caf09"
+    },
+    {
+      "path": "tier3_hunks_gemini.jsonl",
+      "bytes": 83358,
+      "sha256": "0bb4cdad5973ab459af826c714e9c35cde3a0eb9e659b37c43f73f309a11026f"
+    }
+  ]
+}

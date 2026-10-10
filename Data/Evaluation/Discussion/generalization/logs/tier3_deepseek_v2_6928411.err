@@ -1,0 +1,781 @@
+(APIServer pid=7268) Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+(EngineCore pid=7370) Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+(EngineCore pid=7370) Loading safetensors checkpoint shards:   0% Completed | 0/3 [00:00<?, ?it/s]
+(EngineCore pid=7370) Loading safetensors checkpoint shards:  33% Completed | 1/3 [00:11<00:22, 11.23s/it]
+(EngineCore pid=7370) Loading safetensors checkpoint shards:  67% Completed | 2/3 [00:12<00:05,  5.13s/it]
+(EngineCore pid=7370) Loading safetensors checkpoint shards: 100% Completed | 3/3 [00:12<00:00,  3.12s/it]
+(EngineCore pid=7370) Loading safetensors checkpoint shards: 100% Completed | 3/3 [00:12<00:00,  4.27s/it]
+(EngineCore pid=7370) 
+(EngineCore pid=7370) Capturing CUDA graphs (PIECEWISE):   0%|          | 0/51 [00:00<?, ?it/s]Capturing CUDA graphs (PIECEWISE):   4%|▍         | 2/51 [00:00<00:04, 10.89it/s]Capturing CUDA graphs (PIECEWISE):   8%|▊         | 4/51 [00:00<00:04, 11.59it/s]Capturing CUDA graphs (PIECEWISE):  12%|█▏        | 6/51 [00:00<00:03, 12.09it/s]Capturing CUDA graphs (PIECEWISE):  16%|█▌        | 8/51 [00:00<00:03, 12.43it/s]Capturing CUDA graphs (PIECEWISE):  20%|█▉        | 10/51 [00:00<00:03, 12.74it/s]Capturing CUDA graphs (PIECEWISE):  24%|██▎       | 12/51 [00:00<00:02, 13.27it/s]Capturing CUDA graphs (PIECEWISE):  27%|██▋       | 14/51 [00:01<00:02, 13.39it/s]Capturing CUDA graphs (PIECEWISE):  31%|███▏      | 16/51 [00:01<00:02, 13.56it/s]Capturing CUDA graphs (PIECEWISE):  35%|███▌      | 18/51 [00:01<00:02, 14.30it/s]Capturing CUDA graphs (PIECEWISE):  39%|███▉      | 20/51 [00:01<00:02, 14.99it/s]Capturing CUDA graphs (PIECEWISE):  43%|████▎     | 22/51 [00:01<00:01, 15.54it/s]Capturing CUDA graphs (PIECEWISE):  47%|████▋     | 24/51 [00:01<00:01, 15.80it/s]Capturing CUDA graphs (PIECEWISE):  51%|█████     | 26/51 [00:01<00:01, 16.55it/s]Capturing CUDA graphs (PIECEWISE):  55%|█████▍    | 28/51 [00:01<00:01, 17.41it/s]Capturing CUDA graphs (PIECEWISE):  59%|█████▉    | 30/51 [00:02<00:01, 18.06it/s]Capturing CUDA graphs (PIECEWISE):  63%|██████▎   | 32/51 [00:02<00:01, 18.47it/s]Capturing CUDA graphs (PIECEWISE):  67%|██████▋   | 34/51 [00:02<00:00, 18.90it/s]Capturing CUDA graphs (PIECEWISE):  73%|███████▎  | 37/51 [00:02<00:00, 19.65it/s]Capturing CUDA graphs (PIECEWISE):  76%|███████▋  | 39/51 [00:02<00:00, 19.13it/s]Capturing CUDA graphs (PIECEWISE):  82%|████████▏ | 42/51 [00:02<00:00, 19.91it/s]Capturing CUDA graphs (PIECEWISE):  88%|████████▊ | 45/51 [00:02<00:00, 20.63it/s]Capturing CUDA graphs (PIECEWISE):  94%|█████████▍| 48/51 [00:02<00:00, 21.05it/s]Capturing CUDA graphs (PIECEWISE): 100%|██████████| 51/51 [00:03<00:00, 21.86it/s]Capturing CUDA graphs (PIECEWISE): 100%|██████████| 51/51 [00:03<00:00, 16.85it/s]
+(EngineCore pid=7370) Capturing CUDA graphs (FULL):   0%|          | 0/35 [00:00<?, ?it/s]Capturing CUDA graphs (FULL):   3%|▎         | 1/35 [00:00<00:04,  8.26it/s]Capturing CUDA graphs (FULL):   9%|▊         | 3/35 [00:00<00:02, 12.18it/s]Capturing CUDA graphs (FULL):  14%|█▍        | 5/35 [00:00<00:02, 13.47it/s]Capturing CUDA graphs (FULL):  20%|██        | 7/35 [00:00<00:01, 14.19it/s]Capturing CUDA graphs (FULL):  26%|██▌       | 9/35 [00:00<00:01, 14.92it/s]Capturing CUDA graphs (FULL):  31%|███▏      | 11/35 [00:00<00:01, 16.02it/s]Capturing CUDA graphs (FULL):  37%|███▋      | 13/35 [00:00<00:01, 16.60it/s]Capturing CUDA graphs (FULL):  43%|████▎     | 15/35 [00:00<00:01, 17.42it/s]Capturing CUDA graphs (FULL):  49%|████▊     | 17/35 [00:01<00:00, 18.04it/s]Capturing CUDA graphs (FULL):  57%|█████▋    | 20/35 [00:01<00:00, 19.32it/s]Capturing CUDA graphs (FULL):  66%|██████▌   | 23/35 [00:01<00:00, 20.11it/s]Capturing CUDA graphs (FULL):  74%|███████▍  | 26/35 [00:01<00:00, 20.99it/s]Capturing CUDA graphs (FULL):  83%|████████▎ | 29/35 [00:01<00:00, 22.17it/s]Capturing CUDA graphs (FULL):  91%|█████████▏| 32/35 [00:01<00:00, 23.82it/s]Capturing CUDA graphs (FULL): 100%|██████████| 35/35 [00:01<00:00, 25.45it/s]Capturing CUDA graphs (FULL): 100%|██████████| 35/35 [00:01<00:00, 19.40it/s]
+(APIServer pid=7268) INFO:     Started server process [7268]
+(APIServer pid=7268) INFO:     Waiting for application startup.
+(APIServer pid=7268) INFO:     Application startup complete.
+10:07:22 [INFO] Split filter: test → 229 instances
+10:07:22 [INFO] Code budget: 3000 chars
+10:07:22 [INFO] [1] astropy__astropy-13032
+10:07:32 [INFO] HTTP Request: POST http://localhost:8101/v1/chat/completions "HTTP/1.1 200 OK"
+10:07:32 [INFO]   → no Tier-3 hunks  (SR: 0/0 applied)
+10:07:32 [INFO] [2] astropy__astropy-13234
+10:07:50 [INFO] HTTP Request: POST http://localhost:8101/v1/chat/completions "HTTP/1.1 200 OK"
+10:07:50 [INFO]   → no Tier-3 hunks  (SR: 0/0 applied)
+10:07:50 [INFO] [3] astropy__astropy-13398
+10:08:07 [INFO] HTTP Request: POST http://localhost:8101/v1/chat/completions "HTTP/1.1 200 OK"
+10:08:07 [INFO]   → no Tier-3 hunks  (SR: 0/0 applied)
+10:08:07 [INFO] [4] astropy__astropy-13417
+10:08:07 [INFO] HTTP Request: POST http://localhost:8101/v1/chat/completions "HTTP/1.1 400 Bad Request"
+10:08:07 [WARNING] LLM call failed (attempt 1/2): Error code: 400 - {'error': {'message': "This model's maximum context length is 4096 tokens. However, you requested 640 output tokens and your prompt contains at least 3457 input tokens, for a total of at least 4097 tokens. Please reduce the length of the input prompt or the number of requested output tokens. (parameter=input_tokens, value=3457)", 'type': 'BadRequestError', 'param': 'input_tokens', 'code': 400}}
+10:08:12 [INFO] HTTP Request: POST http://localhost:8101/v1/chat/completions "HTTP/1.1 400 Bad Request"
+10:08:12 [WARNING] LLM call failed (attempt 2/2): Error code: 400 - {'error': {'message': "This model's maximum context length is 4096 tokens. However, you requested 640 output tokens and your prompt contains at least 3457 input tokens, for a total of at least 4097 tokens. Please reduce the length of the input prompt or the number of requested output tokens. (parameter=input_tokens, value=3457)", 'type': 'BadRequestError', 'param': 'input_tokens', 'code': 400}}
+10:08:12 [WARNING] astropy__astropy-13417: LLM returned None
+10:08:12 [INFO]   → skipped (no gold hunks or LLM failure)
+10:08:12 [INFO] [5] astropy__astropy-13462
+10:08:19 [INFO] HTTP Request: POST http://localhost:8101/v1/chat/completions "HTTP/1.1 200 OK"
+10:08:19 [INFO]   → no Tier-3 hunks  (SR: 0/0 applied)
+10:08:19 [INFO] [6] astropy__astropy-13579
+10:08:29 [INFO] HTTP Request: POST http://localhost:8101/v1/chat/completions "HTTP/1.1 200 OK"
+10:08:29 [INFO]   → no Tier-3 hunks  (SR: 0/0 applied)
+10:08:29 [INFO] [7] astropy__astropy-13668
+10:08:46 [INFO] HTTP Request: POST http://localhost:8101/v1/chat/completions "HTTP/1.1 200 OK"
+10:08:46 [INFO]   → no Tier-3 hunks  (SR: 0/0 applied)
+10:08:47 [INFO] [8] astropy__astropy-7008
+10:09:03 [INFO] HTTP Request: POST http://localhost:8101/v1/chat/completions "HTTP/1.1 200 OK"
+10:09:03 [INFO]   → no Tier-3 hunks  (SR: 0/0 applied)
+10:09:03 [INFO] [9] astropy__astropy-7218
+10:09:20 [INFO] HTTP Request: POST http://localhost:8101/v1/chat/completions "HTTP/1.1 200 OK"
+10:09:20 [INFO]   → no Tier-3 hunks  (SR: 0/0 applied)
+10:09:20 [INFO] [10] django__django-10531
+10:09:36 [INFO] HTTP Request: POST http://localhost:8101/v1/chat/completions "HTTP/1.1 200 OK"
+10:09:36 [INFO]   → no Tier-3 hunks  (SR: 0/0 applied)
+10:09:36 [INFO] [11] django__django-10997
+10:09:50 [INFO] HTTP Request: POST http://localhost:8101/v1/chat/completions "HTTP/1.1 200 OK"
+10:09:50 [INFO]   → no Tier-3 hunks  (SR: 0/0 applied)
+10:09:50 [INFO] [12] django__django-10999
+10:09:59 [INFO] HTTP Request: POST http://localhost:8101/v1/chat/completions "HTTP/1.1 200 OK"
+10:09:59 [INFO]   → no Tier-3 hunks  (SR: 0/0 applied)
+10:09:59 [INFO] [13] django__django-11141
+10:10:05 [INFO] HTTP Request: POST http://localhost:8101/v1/chat/completions "HTTP/1.1 200 OK"
+10:10:05 [INFO]   → no Tier-3 hunks  (SR: 0/0 applied)
+10:10:05 [INFO] [14] django__django-11216
+10:10:08 [INFO] HTTP Request: POST http://localhost:8101/v1/chat/completions "HTTP/1.1 200 OK"
+10:10:08 [INFO]   → no Tier-3 hunks  (SR: 0/0 applied)
+10:10:08 [INFO] [15] django__django-11270
+10:10:16 [INFO] HTTP Request: POST http://localhost:8101/v1/chat/completions "HTTP/1.1 200 OK"
+10:10:16 [INFO]   → no Tier-3 hunks  (SR: 0/0 applied)
+10:10:16 [INFO] [16] django__django-11354
+10:10:33 [INFO] HTTP Request: POST http://localhost:8101/v1/chat/completions "HTTP/1.1 200 OK"
+10:10:33 [INFO]   → no Tier-3 hunks  (SR: 0/0 applied)
+10:10:33 [INFO] [17] django__django-11669
+10:10:49 [INFO] HTTP Request: POST http://localhost:8101/v1/chat/completions "HTTP/1.1 200 OK"
+10:10:49 [INFO]   → no Tier-3 hunks  (SR: 0/1 applied)
+10:10:50 [INFO] [18] django__django-11815
+10:10:58 [INFO] HTTP Request: POST http://localhost:8101/v1/chat/completions "HTTP/1.1 200 OK"
+10:10:58 [INFO]   → no Tier-3 hunks  (SR: 0/0 applied)
+10:10:58 [INFO] [19] django__django-11820
+10:11:15 [INFO] HTTP Request: POST http://localhost:8101/v1/chat/completions "HTTP/1.1 200 OK"
+10:11:15 [INFO]   → no Tier-3 hunks  (SR: 0/0 applied)
+10:11:15 [INFO] [20] django__django-11910
+10:11:31 [INFO] HTTP Request: POST http://localhost:8101/v1/chat/completions "HTTP/1.1 200 OK"
+10:11:31 [INFO]   → no Tier-3 hunks  (SR: 0/0 applied)
+10:11:31 [INFO] [21] django__django-11999
+10:11:37 [INFO] HTTP Request: POST http://localhost:8101/v1/chat/completions "HTTP/1.1 200 OK"
+10:11:37 [INFO]   → no Tier-3 hunks  (SR: 0/0 applied)
+10:11:37 [INFO] [22] django__django-12039
+10:11:45 [INFO] HTTP Request: POST http://localhost:8101/v1/chat/completions "HTTP/1.1 200 OK"
+10:11:45 [INFO]   → no Tier-3 hunks  (SR: 0/0 applied)
+10:11:45 [INFO] [23] django__django-12225
+10:11:51 [INFO] HTTP Request: POST http://localhost:8101/v1/chat/completions "HTTP/1.1 200 OK"
+10:11:51 [INFO]   → no Tier-3 hunks  (SR: 0/0 applied)
+10:11:51 [INFO] [24] django__django-12284
+10:12:08 [INFO] HTTP Request: POST http://localhost:8101/v1/chat/completions "HTTP/1.1 200 OK"
+10:12:08 [INFO]   → no Tier-3 hunks  (SR: 0/0 applied)
+10:12:08 [INFO] [25] django__django-12469
+10:12:24 [INFO] HTTP Request: POST http://localhost:8101/v1/chat/completions "HTTP/1.1 200 OK"
+10:12:24 [INFO]   → no Tier-3 hunks  (SR: 0/0 applied)
+10:12:24 [INFO] [26] django__django-12630
+10:12:30 [INFO] HTTP Request: POST http://localhost:8101/v1/chat/completions "HTTP/1.1 200 OK"
+10:12:30 [INFO]   → no Tier-3 hunks  (SR: 1/1 applied)
+10:12:30 [INFO] [27] django__django-12669
+10:12:34 [INFO] HTTP Request: POST http://localhost:8101/v1/chat/completions "HTTP/1.1 200 OK"
+10:12:34 [INFO]   → no Tier-3 hunks  (SR: 0/0 applied)
+10:12:34 [INFO] [28] django__django-12754
+10:12:42 [INFO] HTTP Request: POST http://localhost:8101/v1/chat/completions "HTTP/1.1 200 OK"
+10:12:42 [INFO]   → no Tier-3 hunks  (SR: 0/0 applied)
+10:12:42 [INFO] [29] django__django-12821
+10:12:47 [INFO] HTTP Request: POST http://localhost:8101/v1/chat/completions "HTTP/1.1 200 OK"
+10:12:47 [INFO]   → no Tier-3 hunks  (SR: 0/0 applied)
+10:12:47 [INFO] [30] django__django-11389
+10:12:57 [INFO] HTTP Request: POST http://localhost:8101/v1/chat/completions "HTTP/1.1 200 OK"
+10:12:57 [INFO]   → no Tier-3 hunks  (SR: 0/0 applied)
+10:12:57 [INFO] [31] django__django-11423
+10:13:07 [INFO] HTTP Request: POST http://localhost:8101/v1/chat/completions "HTTP/1.1 200 OK"
+10:13:07 [INFO]   → no Tier-3 hunks  (SR: 0/0 applied)
+10:13:07 [INFO] [32] django__django-11433
+10:13:13 [INFO] HTTP Request: POST http://localhost:8101/v1/chat/completions "HTTP/1.1 200 OK"
+10:13:13 [INFO]   → no Tier-3 hunks  (SR: 0/0 applied)
+10:13:13 [INFO] [33] django__django-11451
+10:13:20 [INFO] HTTP Request: POST http://localhost:8101/v1/chat/completions "HTTP/1.1 200 OK"
+10:13:20 [INFO]   → no Tier-3 hunks  (SR: 1/1 applied)
+10:13:20 [INFO] [34] django__django-11555
+10:13:36 [INFO] HTTP Request: POST http://localhost:8101/v1/chat/completions "HTTP/1.1 200 OK"
+10:13:36 [INFO]   → no Tier-3 hunks  (SR: 0/0 applied)
+10:13:36 [INFO] [35] django__django-11612
+10:13:42 [INFO] HTTP Request: POST http://localhost:8101/v1/chat/completions "HTTP/1.1 200 OK"
+10:13:42 [INFO]   → no Tier-3 hunks  (SR: 0/0 applied)
+10:13:42 [INFO] [36] django__django-11618
+10:13:49 [INFO] HTTP Request: POST http://localhost:8101/v1/chat/completions "HTTP/1.1 200 OK"
+10:13:49 [INFO]   → no Tier-3 hunks  (SR: 0/0 applied)
+10:13:49 [INFO] [37] django__django-11630
+10:13:57 [INFO] HTTP Request: POST http://localhost:8101/v1/chat/completions "HTTP/1.1 200 OK"
+10:13:57 [INFO]   → 1 Tier-3 hunk(s) saved  (SR: 1/1 applied)
+10:13:57 [INFO] [38] django__django-11772
+10:14:06 [INFO] HTTP Request: POST http://localhost:8101/v1/chat/completions "HTTP/1.1 200 OK"
+10:14:06 [INFO]   → no Tier-3 hunks  (SR: 1/1 applied)
+10:14:06 [INFO] [39] django__django-11883
+10:14:22 [INFO] HTTP Request: POST http://localhost:8101/v1/chat/completions "HTTP/1.1 200 OK"
+10:14:22 [INFO]   → no Tier-3 hunks  (SR: 0/0 applied)
+10:14:22 [INFO] [40] django__django-12464
+10:14:39 [INFO] HTTP Request: POST http://localhost:8101/v1/chat/completions "HTTP/1.1 200 OK"
+10:14:39 [INFO]   → no Tier-3 hunks  (SR: 0/0 applied)
+10:14:39 [INFO] [41] django__django-12965
+10:14:45 [INFO] HTTP Request: POST http://localhost:8101/v1/chat/completions "HTTP/1.1 200 OK"
+10:14:45 [INFO]   → no Tier-3 hunks  (SR: 0/0 applied)
+10:14:45 [INFO] [42] django__django-13077
+10:15:02 [INFO] HTTP Request: POST http://localhost:8101/v1/chat/completions "HTTP/1.1 200 OK"
+10:15:02 [INFO]   → no Tier-3 hunks  (SR: 0/0 applied)
+10:15:02 [INFO] [43] django__django-13085
+10:15:19 [INFO] HTTP Request: POST http://localhost:8101/v1/chat/completions "HTTP/1.1 200 OK"
+10:15:19 [INFO]   → no Tier-3 hunks  (SR: 0/0 applied)
+10:15:19 [INFO] [44] django__django-13097
+10:15:35 [INFO] HTTP Request: POST http://localhost:8101/v1/chat/completions "HTTP/1.1 200 OK"
+10:15:35 [INFO]   → no Tier-3 hunks  (SR: 0/0 applied)
+10:15:35 [INFO] [45] django__django-13220
+10:15:52 [INFO] HTTP Request: POST http://localhost:8101/v1/chat/completions "HTTP/1.1 200 OK"
+10:15:52 [INFO]   → no Tier-3 hunks  (SR: 0/0 applied)
+10:15:52 [INFO] [46] django__django-13230
+10:16:08 [INFO] HTTP Request: POST http://localhost:8101/v1/chat/completions "HTTP/1.1 200 OK"
+10:16:08 [INFO]   → 1 Tier-3 hunk(s) saved  (SR: 1/1 applied)
+10:16:08 [INFO] [47] django__django-13454
+10:16:25 [INFO] HTTP Request: POST http://localhost:8101/v1/chat/completions "HTTP/1.1 200 OK"
+10:16:25 [INFO]   → no Tier-3 hunks  (SR: 0/0 applied)
+10:16:25 [INFO] [48] django__django-13553
+10:16:32 [INFO] HTTP Request: POST http://localhost:8101/v1/chat/completions "HTTP/1.1 200 OK"
+10:16:32 [INFO]   → no Tier-3 hunks  (SR: 0/0 applied)
+10:16:32 [INFO] [49] django__django-13667
+10:16:38 [INFO] HTTP Request: POST http://localhost:8101/v1/chat/completions "HTTP/1.1 200 OK"
+10:16:38 [INFO]   → no Tier-3 hunks  (SR: 0/0 applied)
+10:16:38 [INFO] [50] django__django-13822
+10:16:46 [INFO] HTTP Request: POST http://localhost:8101/v1/chat/completions "HTTP/1.1 200 OK"
+10:16:46 [INFO]   → no Tier-3 hunks  (SR: 0/0 applied)
+10:16:47 [INFO] [51] django__django-13824
+10:17:03 [INFO] HTTP Request: POST http://localhost:8101/v1/chat/completions "HTTP/1.1 200 OK"
+10:17:03 [INFO]   → no Tier-3 hunks  (SR: 0/0 applied)
+10:17:03 [INFO] [52] django__django-13884
+10:17:06 [INFO] HTTP Request: POST http://localhost:8101/v1/chat/completions "HTTP/1.1 200 OK"
+10:17:06 [INFO]   → no Tier-3 hunks  (SR: 0/0 applied)
+10:17:06 [INFO] [53] django__django-13952
+10:17:23 [INFO] HTTP Request: POST http://localhost:8101/v1/chat/completions "HTTP/1.1 200 OK"
+10:17:23 [INFO]   → 1 Tier-3 hunk(s) saved  (SR: 1/1 applied)
+10:17:23 [INFO] [54] django__django-14282
+10:17:31 [INFO] HTTP Request: POST http://localhost:8101/v1/chat/completions "HTTP/1.1 200 OK"
+10:17:31 [INFO]   → no Tier-3 hunks  (SR: 0/0 applied)
+10:17:31 [INFO] [55] django__django-14385
+10:17:48 [INFO] HTTP Request: POST http://localhost:8101/v1/chat/completions "HTTP/1.1 200 OK"
+10:17:48 [INFO]   → no Tier-3 hunks  (SR: 0/0 applied)
+10:17:48 [INFO] [56] django__django-14453
+10:17:50 [INFO] HTTP Request: POST http://localhost:8101/v1/chat/completions "HTTP/1.1 200 OK"
+10:17:50 [INFO]   → no Tier-3 hunks  (SR: 0/0 applied)
+10:17:50 [INFO] [57] django__django-14805
+10:17:58 [INFO] HTTP Request: POST http://localhost:8101/v1/chat/completions "HTTP/1.1 200 OK"
+10:17:58 [INFO]   → 1 Tier-3 hunk(s) saved  (SR: 1/1 applied)
+10:17:58 [INFO] [58] django__django-14861
+10:18:14 [INFO] HTTP Request: POST http://localhost:8101/v1/chat/completions "HTTP/1.1 200 OK"
+10:18:14 [INFO]   → no Tier-3 hunks  (SR: 0/0 applied)
+10:18:14 [INFO] [59] django__django-14960
+10:18:31 [INFO] HTTP Request: POST http://localhost:8101/v1/chat/completions "HTTP/1.1 200 OK"
+10:18:31 [INFO]   → no Tier-3 hunks  (SR: 0/0 applied)
+10:18:31 [INFO] [60] django__django-14997
+10:18:39 [INFO] HTTP Request: POST http://localhost:8101/v1/chat/completions "HTTP/1.1 200 OK"
+10:18:39 [INFO]   → no Tier-3 hunks  (SR: 0/0 applied)
+10:18:39 [INFO] [61] django__django-15103
+10:18:49 [INFO] HTTP Request: POST http://localhost:8101/v1/chat/completions "HTTP/1.1 200 OK"
+10:18:49 [INFO]   → no Tier-3 hunks  (SR: 0/0 applied)
+10:18:49 [INFO] [62] django__django-15127
+10:18:58 [INFO] HTTP Request: POST http://localhost:8101/v1/chat/completions "HTTP/1.1 200 OK"
+10:18:58 [INFO]   → no Tier-3 hunks  (SR: 0/0 applied)
+10:18:58 [INFO] [63] django__django-15161
+10:19:14 [INFO] HTTP Request: POST http://localhost:8101/v1/chat/completions "HTTP/1.1 200 OK"
+10:19:14 [INFO]   → no Tier-3 hunks  (SR: 0/0 applied)
+10:19:14 [INFO] [64] django__django-15280
+10:19:31 [INFO] HTTP Request: POST http://localhost:8101/v1/chat/completions "HTTP/1.1 200 OK"
+10:19:31 [INFO]   → no Tier-3 hunks  (SR: 0/0 applied)
+10:19:31 [INFO] [65] django__django-15382
+10:19:35 [INFO] HTTP Request: POST http://localhost:8101/v1/chat/completions "HTTP/1.1 200 OK"
+10:19:35 [INFO]   → no Tier-3 hunks  (SR: 0/0 applied)
+10:19:36 [INFO] [66] django__django-15400
+10:19:52 [INFO] HTTP Request: POST http://localhost:8101/v1/chat/completions "HTTP/1.1 200 OK"
+10:19:52 [INFO]   → 1 Tier-3 hunk(s) saved  (SR: 1/1 applied)
+10:19:52 [INFO] [67] django__django-15467
+10:20:02 [INFO] HTTP Request: POST http://localhost:8101/v1/chat/completions "HTTP/1.1 200 OK"
+10:20:02 [INFO]   → 1 Tier-3 hunk(s) saved  (SR: 1/1 applied)
+10:20:02 [INFO] [68] django__django-15474
+10:20:15 [INFO] HTTP Request: POST http://localhost:8101/v1/chat/completions "HTTP/1.1 200 OK"
+10:20:15 [INFO]   → no Tier-3 hunks  (SR: 1/1 applied)
+10:20:15 [INFO] [69] django__django-15498
+10:20:26 [INFO] HTTP Request: POST http://localhost:8101/v1/chat/completions "HTTP/1.1 200 OK"
+10:20:26 [INFO]   → 1 Tier-3 hunk(s) saved  (SR: 1/1 applied)
+10:20:26 [INFO] [70] django__django-15569
+10:20:29 [INFO] HTTP Request: POST http://localhost:8101/v1/chat/completions "HTTP/1.1 200 OK"
+10:20:29 [INFO]   → no Tier-3 hunks  (SR: 0/0 applied)
+10:20:29 [INFO] [71] django__django-15572
+10:20:31 [INFO] HTTP Request: POST http://localhost:8101/v1/chat/completions "HTTP/1.1 200 OK"
+10:20:31 [INFO]   → 1 Tier-3 hunk(s) saved  (SR: 1/1 applied)
+10:20:31 [INFO] [72] django__django-15607
+10:20:37 [INFO] HTTP Request: POST http://localhost:8101/v1/chat/completions "HTTP/1.1 200 OK"
+10:20:37 [INFO]   → 1 Tier-3 hunk(s) saved  (SR: 1/1 applied)
+10:20:37 [INFO] [73] django__django-15630
+10:20:54 [INFO] HTTP Request: POST http://localhost:8101/v1/chat/completions "HTTP/1.1 200 OK"
+10:20:54 [INFO]   → no Tier-3 hunks  (SR: 0/1 applied)
+10:20:54 [INFO] [74] django__django-15682
+10:21:02 [INFO] HTTP Request: POST http://localhost:8101/v1/chat/completions "HTTP/1.1 200 OK"
+10:21:02 [INFO]   → no Tier-3 hunks  (SR: 0/0 applied)
+10:21:02 [INFO] [75] django__django-15703
+10:21:18 [INFO] HTTP Request: POST http://localhost:8101/v1/chat/completions "HTTP/1.1 200 OK"
+10:21:18 [INFO]   → no Tier-3 hunks  (SR: 0/0 applied)
+10:21:18 [INFO] [76] django__django-15814
+10:21:23 [INFO] HTTP Request: POST http://localhost:8101/v1/chat/completions "HTTP/1.1 200 OK"
+10:21:23 [INFO]   → no Tier-3 hunks  (SR: 0/0 applied)
+10:21:23 [INFO] [77] django__django-15969
+10:21:34 [INFO] HTTP Request: POST http://localhost:8101/v1/chat/completions "HTTP/1.1 200 OK"
+10:21:34 [INFO]   → no Tier-3 hunks  (SR: 0/0 applied)
+10:21:34 [INFO] [78] django__django-16046
+10:21:40 [INFO] HTTP Request: POST http://localhost:8101/v1/chat/completions "HTTP/1.1 200 OK"
+10:21:40 [INFO]   → 1 Tier-3 hunk(s) saved  (SR: 1/1 applied)
+10:21:40 [INFO] [79] django__django-16067
+10:21:51 [INFO] HTTP Request: POST http://localhost:8101/v1/chat/completions "HTTP/1.1 200 OK"
+10:21:51 [INFO]   → no Tier-3 hunks  (SR: 0/0 applied)
+10:21:52 [INFO] [80] django__django-16072
+10:22:08 [INFO] HTTP Request: POST http://localhost:8101/v1/chat/completions "HTTP/1.1 200 OK"
+10:22:08 [INFO]   → no Tier-3 hunks  (SR: 0/0 applied)
+10:22:08 [INFO] [81] django__django-16208
+10:22:24 [INFO] HTTP Request: POST http://localhost:8101/v1/chat/completions "HTTP/1.1 200 OK"
+10:22:24 [INFO]   → no Tier-3 hunks  (SR: 0/0 applied)
+10:22:25 [INFO] [82] django__django-16366
+10:22:36 [INFO] HTTP Request: POST http://localhost:8101/v1/chat/completions "HTTP/1.1 200 OK"
+10:22:36 [INFO]   → no Tier-3 hunks  (SR: 0/0 applied)
+10:22:36 [INFO] [83] django__django-16379
+10:22:47 [INFO] HTTP Request: POST http://localhost:8101/v1/chat/completions "HTTP/1.1 200 OK"
+10:22:47 [INFO]   → no Tier-3 hunks  (SR: 0/0 applied)
+10:22:47 [INFO] [84] django__django-16501
+10:22:50 [INFO] HTTP Request: POST http://localhost:8101/v1/chat/completions "HTTP/1.1 200 OK"
+10:22:50 [INFO]   → no Tier-3 hunks  (SR: 0/0 applied)
+10:22:50 [INFO] [85] django__django-16569
+10:22:54 [INFO] HTTP Request: POST http://localhost:8101/v1/chat/completions "HTTP/1.1 200 OK"
+10:22:54 [INFO]   → no Tier-3 hunks  (SR: 0/0 applied)
+10:22:54 [INFO] [86] django__django-16888
+10:23:08 [INFO] HTTP Request: POST http://localhost:8101/v1/chat/completions "HTTP/1.1 200 OK"
+10:23:08 [INFO]   → no Tier-3 hunks  (SR: 0/0 applied)
+10:23:08 [INFO] [87] django__django-16910
+10:23:16 [INFO] HTTP Request: POST http://localhost:8101/v1/chat/completions "HTTP/1.1 200 OK"
+10:23:16 [INFO]   → no Tier-3 hunks  (SR: 0/0 applied)
+10:23:16 [INFO] [88] django__django-16920
+10:23:33 [INFO] HTTP Request: POST http://localhost:8101/v1/chat/completions "HTTP/1.1 200 OK"
+10:23:33 [INFO]   → no Tier-3 hunks  (SR: 0/0 applied)
+10:23:33 [INFO] [89] django__django-16950
+10:23:42 [INFO] HTTP Request: POST http://localhost:8101/v1/chat/completions "HTTP/1.1 200 OK"
+10:23:42 [INFO]   → no Tier-3 hunks  (SR: 0/0 applied)
+10:23:42 [INFO] [90] django__django-9871
+10:23:58 [INFO] HTTP Request: POST http://localhost:8101/v1/chat/completions "HTTP/1.1 200 OK"
+10:23:58 [INFO]   → no Tier-3 hunks  (SR: 0/0 applied)
+10:23:58 [INFO] [91] matplotlib__matplotlib-13984
+10:24:05 [INFO] HTTP Request: POST http://localhost:8101/v1/chat/completions "HTTP/1.1 200 OK"
+10:24:05 [INFO]   → no Tier-3 hunks  (SR: 0/0 applied)
+10:24:05 [INFO] [92] matplotlib__matplotlib-19743
+10:24:19 [INFO] HTTP Request: POST http://localhost:8101/v1/chat/completions "HTTP/1.1 200 OK"
+10:24:19 [INFO]   → no Tier-3 hunks  (SR: 0/0 applied)
+10:24:19 [INFO] [93] matplotlib__matplotlib-20805
+10:24:31 [INFO] HTTP Request: POST http://localhost:8101/v1/chat/completions "HTTP/1.1 200 OK"
+10:24:31 [INFO]   → no Tier-3 hunks  (SR: 0/0 applied)
+10:24:31 [INFO] [94] matplotlib__matplotlib-21490
+10:24:48 [INFO] HTTP Request: POST http://localhost:8101/v1/chat/completions "HTTP/1.1 200 OK"
+10:24:48 [INFO]   → no Tier-3 hunks  (SR: 0/0 applied)
+10:24:48 [WARNING] Skipping malformed line 981: Expecting value: line 1 column 1 (char 0)
+10:24:48 [INFO] [95] matplotlib__matplotlib-22734
+10:24:52 [INFO] HTTP Request: POST http://localhost:8101/v1/chat/completions "HTTP/1.1 200 OK"
+10:24:52 [INFO]   → no Tier-3 hunks  (SR: 0/0 applied)
+10:24:52 [INFO] [96] matplotlib__matplotlib-23049
+10:25:09 [INFO] HTTP Request: POST http://localhost:8101/v1/chat/completions "HTTP/1.1 200 OK"
+10:25:09 [INFO]   → no Tier-3 hunks  (SR: 0/0 applied)
+10:25:09 [INFO] [97] matplotlib__matplotlib-23111
+10:25:13 [INFO] HTTP Request: POST http://localhost:8101/v1/chat/completions "HTTP/1.1 200 OK"
+10:25:13 [INFO]   → no Tier-3 hunks  (SR: 0/0 applied)
+10:25:13 [INFO] [98] matplotlib__matplotlib-23174
+10:25:30 [INFO] HTTP Request: POST http://localhost:8101/v1/chat/completions "HTTP/1.1 200 OK"
+10:25:30 [INFO]   → no Tier-3 hunks  (SR: 0/0 applied)
+10:25:30 [INFO] [99] matplotlib__matplotlib-23573
+10:25:40 [INFO] HTTP Request: POST http://localhost:8101/v1/chat/completions "HTTP/1.1 200 OK"
+10:25:40 [INFO]   → no Tier-3 hunks  (SR: 0/0 applied)
+10:25:40 [INFO] [100] matplotlib__matplotlib-24088
+10:25:44 [INFO] HTTP Request: POST http://localhost:8101/v1/chat/completions "HTTP/1.1 200 OK"
+10:25:44 [INFO]   → no Tier-3 hunks  (SR: 0/0 applied)
+10:25:44 [INFO] [101] matplotlib__matplotlib-24749
+10:25:47 [INFO] HTTP Request: POST http://localhost:8101/v1/chat/completions "HTTP/1.1 200 OK"
+10:25:47 [INFO]   → no Tier-3 hunks  (SR: 0/0 applied)
+10:25:48 [INFO] [102] matplotlib__matplotlib-24970
+10:25:54 [INFO] HTTP Request: POST http://localhost:8101/v1/chat/completions "HTTP/1.1 200 OK"
+10:25:54 [INFO]   → 1 Tier-3 hunk(s) saved  (SR: 1/1 applied)
+10:25:54 [INFO] [103] matplotlib__matplotlib-25281
+10:25:54 [INFO] HTTP Request: POST http://localhost:8101/v1/chat/completions "HTTP/1.1 400 Bad Request"
+10:25:54 [WARNING] LLM call failed (attempt 1/2): Error code: 400 - {'error': {'message': "This model's maximum context length is 4096 tokens. However, you requested 640 output tokens and your prompt contains at least 3457 input tokens, for a total of at least 4097 tokens. Please reduce the length of the input prompt or the number of requested output tokens. (parameter=input_tokens, value=3457)", 'type': 'BadRequestError', 'param': 'input_tokens', 'code': 400}}
+10:25:59 [INFO] HTTP Request: POST http://localhost:8101/v1/chat/completions "HTTP/1.1 400 Bad Request"
+10:25:59 [WARNING] LLM call failed (attempt 2/2): Error code: 400 - {'error': {'message': "This model's maximum context length is 4096 tokens. However, you requested 640 output tokens and your prompt contains at least 3457 input tokens, for a total of at least 4097 tokens. Please reduce the length of the input prompt or the number of requested output tokens. (parameter=input_tokens, value=3457)", 'type': 'BadRequestError', 'param': 'input_tokens', 'code': 400}}
+10:25:59 [WARNING] matplotlib__matplotlib-25281: LLM returned None
+10:25:59 [INFO]   → skipped (no gold hunks or LLM failure)
+10:26:00 [INFO] [104] matplotlib__matplotlib-25779
+10:26:06 [INFO] HTTP Request: POST http://localhost:8101/v1/chat/completions "HTTP/1.1 200 OK"
+10:26:06 [INFO]   → no Tier-3 hunks  (SR: 0/0 applied)
+10:26:06 [INFO] [105] matplotlib__matplotlib-26278
+10:26:11 [INFO] HTTP Request: POST http://localhost:8101/v1/chat/completions "HTTP/1.1 200 OK"
+10:26:11 [INFO]   → no Tier-3 hunks  (SR: 0/0 applied)
+10:26:11 [INFO] [106] matplotlib__matplotlib-26341
+10:26:28 [INFO] HTTP Request: POST http://localhost:8101/v1/chat/completions "HTTP/1.1 200 OK"
+10:26:28 [INFO]   → no Tier-3 hunks  (SR: 0/0 applied)
+10:26:28 [INFO] [107] matplotlib__matplotlib-26479
+10:26:36 [INFO] HTTP Request: POST http://localhost:8101/v1/chat/completions "HTTP/1.1 200 OK"
+10:26:36 [INFO]   → no Tier-3 hunks  (SR: 0/0 applied)
+10:26:36 [INFO] [108] pallets__flask-4160
+10:26:42 [INFO] HTTP Request: POST http://localhost:8101/v1/chat/completions "HTTP/1.1 200 OK"
+10:26:42 [INFO]   → no Tier-3 hunks  (SR: 0/0 applied)
+10:26:42 [INFO] [109] psf__requests-1376
+10:26:58 [INFO] HTTP Request: POST http://localhost:8101/v1/chat/completions "HTTP/1.1 200 OK"
+10:26:58 [INFO]   → no Tier-3 hunks  (SR: 0/0 applied)
+10:26:58 [INFO] [110] psf__requests-1733
+10:27:16 [INFO] HTTP Request: POST http://localhost:8101/v1/chat/completions "HTTP/1.1 200 OK"
+10:27:16 [INFO]   → no Tier-3 hunks  (SR: 0/0 applied)
+10:27:16 [INFO] [111] psf__requests-1944
+10:27:33 [INFO] HTTP Request: POST http://localhost:8101/v1/chat/completions "HTTP/1.1 200 OK"
+10:27:33 [INFO]   → no Tier-3 hunks  (SR: 0/1 applied)
+10:27:33 [INFO] [112] psf__requests-1962
+10:27:38 [INFO] HTTP Request: POST http://localhost:8101/v1/chat/completions "HTTP/1.1 200 OK"
+10:27:38 [INFO]   → 1 Tier-3 hunk(s) saved  (SR: 1/1 applied)
+10:27:38 [INFO] [113] psf__requests-863
+10:27:54 [INFO] HTTP Request: POST http://localhost:8101/v1/chat/completions "HTTP/1.1 200 OK"
+10:27:54 [INFO]   → no Tier-3 hunks  (SR: 0/0 applied)
+10:27:54 [INFO] [114] pydata__xarray-2905
+10:28:11 [INFO] HTTP Request: POST http://localhost:8101/v1/chat/completions "HTTP/1.1 200 OK"
+10:28:11 [INFO]   → no Tier-3 hunks  (SR: 0/0 applied)
+10:28:11 [INFO] [115] pydata__xarray-3338
+10:28:29 [INFO] HTTP Request: POST http://localhost:8101/v1/chat/completions "HTTP/1.1 200 OK"
+10:28:29 [INFO]   → no Tier-3 hunks  (SR: 0/0 applied)
+10:28:29 [INFO] [116] pydata__xarray-3677
+10:28:37 [INFO] HTTP Request: POST http://localhost:8101/v1/chat/completions "HTTP/1.1 200 OK"
+10:28:37 [INFO]   → no Tier-3 hunks  (SR: 0/0 applied)
+10:28:37 [INFO] [117] pydata__xarray-3976
+10:28:54 [INFO] HTTP Request: POST http://localhost:8101/v1/chat/completions "HTTP/1.1 200 OK"
+10:28:54 [INFO]   → no Tier-3 hunks  (SR: 0/0 applied)
+10:28:54 [INFO] [118] pydata__xarray-4182
+10:29:11 [INFO] HTTP Request: POST http://localhost:8101/v1/chat/completions "HTTP/1.1 200 OK"
+10:29:11 [INFO]   → no Tier-3 hunks  (SR: 0/0 applied)
+10:29:11 [INFO] [119] pydata__xarray-4423
+10:29:24 [INFO] HTTP Request: POST http://localhost:8101/v1/chat/completions "HTTP/1.1 200 OK"
+10:29:24 [INFO]   → no Tier-3 hunks  (SR: 0/0 applied)
+10:29:24 [INFO] [120] pydata__xarray-4687
+10:29:31 [INFO] HTTP Request: POST http://localhost:8101/v1/chat/completions "HTTP/1.1 200 OK"
+10:29:31 [INFO]   → no Tier-3 hunks  (SR: 0/0 applied)
+10:29:32 [INFO] [121] pydata__xarray-4879
+10:29:48 [INFO] HTTP Request: POST http://localhost:8101/v1/chat/completions "HTTP/1.1 200 OK"
+10:29:48 [INFO]   → no Tier-3 hunks  (SR: 0/0 applied)
+10:29:48 [INFO] [122] pydata__xarray-6804
+10:30:05 [INFO] HTTP Request: POST http://localhost:8101/v1/chat/completions "HTTP/1.1 200 OK"
+10:30:05 [INFO]   → no Tier-3 hunks  (SR: 0/0 applied)
+10:30:05 [INFO] [123] pylint-dev__pylint-4175
+10:30:22 [INFO] HTTP Request: POST http://localhost:8101/v1/chat/completions "HTTP/1.1 200 OK"
+10:30:22 [INFO]   → no Tier-3 hunks  (SR: 0/0 applied)
+10:30:22 [INFO] [124] pylint-dev__pylint-4398
+10:30:39 [INFO] HTTP Request: POST http://localhost:8101/v1/chat/completions "HTTP/1.1 200 OK"
+10:30:39 [INFO]   → no Tier-3 hunks  (SR: 0/0 applied)
+10:30:39 [INFO] [125] pylint-dev__pylint-4492
+10:30:55 [INFO] HTTP Request: POST http://localhost:8101/v1/chat/completions "HTTP/1.1 200 OK"
+10:30:55 [INFO]   → no Tier-3 hunks  (SR: 0/0 applied)
+10:30:55 [INFO] [126] pylint-dev__pylint-4703
+10:31:12 [INFO] HTTP Request: POST http://localhost:8101/v1/chat/completions "HTTP/1.1 200 OK"
+10:31:12 [INFO]   → no Tier-3 hunks  (SR: 0/0 applied)
+10:31:12 [INFO] [127] pylint-dev__pylint-5613
+10:31:16 [INFO] HTTP Request: POST http://localhost:8101/v1/chat/completions "HTTP/1.1 200 OK"
+10:31:16 [INFO]   → no Tier-3 hunks  (SR: 0/0 applied)
+10:31:16 [INFO] [128] pylint-dev__pylint-5730
+10:31:27 [INFO] HTTP Request: POST http://localhost:8101/v1/chat/completions "HTTP/1.1 200 OK"
+10:31:27 [INFO]   → no Tier-3 hunks  (SR: 0/0 applied)
+10:31:27 [INFO] [129] pylint-dev__pylint-7080
+10:31:27 [INFO] HTTP Request: POST http://localhost:8101/v1/chat/completions "HTTP/1.1 400 Bad Request"
+10:31:27 [WARNING] LLM call failed (attempt 1/2): Error code: 400 - {'error': {'message': "This model's maximum context length is 4096 tokens. However, you requested 640 output tokens and your prompt contains at least 3457 input tokens, for a total of at least 4097 tokens. Please reduce the length of the input prompt or the number of requested output tokens. (parameter=input_tokens, value=3457)", 'type': 'BadRequestError', 'param': 'input_tokens', 'code': 400}}
+10:31:32 [INFO] HTTP Request: POST http://localhost:8101/v1/chat/completions "HTTP/1.1 400 Bad Request"
+10:31:32 [WARNING] LLM call failed (attempt 2/2): Error code: 400 - {'error': {'message': "This model's maximum context length is 4096 tokens. However, you requested 640 output tokens and your prompt contains at least 3457 input tokens, for a total of at least 4097 tokens. Please reduce the length of the input prompt or the number of requested output tokens. (parameter=input_tokens, value=3457)", 'type': 'BadRequestError', 'param': 'input_tokens', 'code': 400}}
+10:31:32 [WARNING] pylint-dev__pylint-7080: LLM returned None
+10:31:32 [INFO]   → skipped (no gold hunks or LLM failure)
+10:31:32 [INFO] [130] pytest-dev__pytest-11217
+10:31:38 [INFO] HTTP Request: POST http://localhost:8101/v1/chat/completions "HTTP/1.1 200 OK"
+10:31:38 [INFO]   → no Tier-3 hunks  (SR: 0/0 applied)
+10:31:39 [INFO] [131] pytest-dev__pytest-5254
+10:31:44 [INFO] HTTP Request: POST http://localhost:8101/v1/chat/completions "HTTP/1.1 200 OK"
+10:31:44 [INFO]   → no Tier-3 hunks  (SR: 0/0 applied)
+10:31:44 [INFO] [132] pytest-dev__pytest-5495
+10:32:01 [INFO] HTTP Request: POST http://localhost:8101/v1/chat/completions "HTTP/1.1 200 OK"
+10:32:01 [INFO]   → no Tier-3 hunks  (SR: 0/0 applied)
+10:32:01 [INFO] [133] pytest-dev__pytest-6283
+10:32:06 [INFO] HTTP Request: POST http://localhost:8101/v1/chat/completions "HTTP/1.1 200 OK"
+10:32:06 [INFO]   → no Tier-3 hunks  (SR: 0/0 applied)
+10:32:06 [INFO] [134] pytest-dev__pytest-7352
+10:32:24 [INFO] HTTP Request: POST http://localhost:8101/v1/chat/completions "HTTP/1.1 200 OK"
+10:32:24 [INFO]   → no Tier-3 hunks  (SR: 0/0 applied)
+10:32:24 [INFO] [135] pytest-dev__pytest-7468
+10:32:40 [INFO] HTTP Request: POST http://localhost:8101/v1/chat/completions "HTTP/1.1 200 OK"
+10:32:40 [INFO]   → 2 Tier-3 hunk(s) saved  (SR: 2/2 applied)
+10:32:40 [INFO] [136] pytest-dev__pytest-7571
+10:32:48 [INFO] HTTP Request: POST http://localhost:8101/v1/chat/completions "HTTP/1.1 200 OK"
+10:32:48 [INFO]   → no Tier-3 hunks  (SR: 0/0 applied)
+10:32:48 [INFO] [137] pytest-dev__pytest-8365
+10:32:53 [INFO] HTTP Request: POST http://localhost:8101/v1/chat/completions "HTTP/1.1 200 OK"
+10:32:53 [INFO]   → no Tier-3 hunks  (SR: 0/0 applied)
+10:32:53 [INFO] [138] pytest-dev__pytest-8428
+10:33:09 [INFO] HTTP Request: POST http://localhost:8101/v1/chat/completions "HTTP/1.1 200 OK"
+10:33:09 [INFO]   → no Tier-3 hunks  (SR: 0/0 applied)
+10:33:09 [INFO] [139] pytest-dev__pytest-9911
+10:33:25 [INFO] HTTP Request: POST http://localhost:8101/v1/chat/completions "HTTP/1.1 200 OK"
+10:33:25 [INFO]   → no Tier-3 hunks  (SR: 0/0 applied)
+10:33:25 [INFO] [140] pytest-dev__pytest-9956
+10:33:29 [INFO] HTTP Request: POST http://localhost:8101/v1/chat/completions "HTTP/1.1 200 OK"
+10:33:29 [INFO]   → no Tier-3 hunks  (SR: 0/0 applied)
+10:33:29 [INFO] [141] scikit-learn__scikit-learn-10427
+10:33:43 [INFO] HTTP Request: POST http://localhost:8101/v1/chat/completions "HTTP/1.1 200 OK"
+10:33:43 [INFO]   → no Tier-3 hunks  (SR: 0/0 applied)
+10:33:44 [INFO] [142] scikit-learn__scikit-learn-10777
+10:33:52 [INFO] HTTP Request: POST http://localhost:8101/v1/chat/completions "HTTP/1.1 200 OK"
+10:33:52 [INFO]   → no Tier-3 hunks  (SR: 0/0 applied)
+10:33:52 [INFO] [143] scikit-learn__scikit-learn-10844
+10:33:57 [INFO] HTTP Request: POST http://localhost:8101/v1/chat/completions "HTTP/1.1 200 OK"
+10:33:57 [INFO]   → no Tier-3 hunks  (SR: 0/0 applied)
+10:33:57 [INFO] [144] scikit-learn__scikit-learn-11151
+10:34:11 [INFO] HTTP Request: POST http://localhost:8101/v1/chat/completions "HTTP/1.1 200 OK"
+10:34:11 [INFO]   → no Tier-3 hunks  (SR: 0/0 applied)
+10:34:11 [INFO] [145] scikit-learn__scikit-learn-11235
+10:34:28 [INFO] HTTP Request: POST http://localhost:8101/v1/chat/completions "HTTP/1.1 200 OK"
+10:34:28 [INFO]   → no Tier-3 hunks  (SR: 0/0 applied)
+10:34:28 [INFO] [146] scikit-learn__scikit-learn-11391
+10:34:45 [INFO] HTTP Request: POST http://localhost:8101/v1/chat/completions "HTTP/1.1 200 OK"
+10:34:45 [INFO]   → no Tier-3 hunks  (SR: 0/0 applied)
+10:34:45 [INFO] [147] scikit-learn__scikit-learn-12758
+10:35:02 [INFO] HTTP Request: POST http://localhost:8101/v1/chat/completions "HTTP/1.1 200 OK"
+10:35:02 [INFO]   → no Tier-3 hunks  (SR: 0/0 applied)
+10:35:02 [INFO] [148] scikit-learn__scikit-learn-12908
+10:35:19 [INFO] HTTP Request: POST http://localhost:8101/v1/chat/completions "HTTP/1.1 200 OK"
+10:35:19 [INFO]   → no Tier-3 hunks  (SR: 0/0 applied)
+10:35:19 [INFO] [149] scikit-learn__scikit-learn-13313
+10:35:27 [INFO] HTTP Request: POST http://localhost:8101/v1/chat/completions "HTTP/1.1 200 OK"
+10:35:27 [INFO]   → no Tier-3 hunks  (SR: 0/0 applied)
+10:35:27 [INFO] [150] scikit-learn__scikit-learn-13333
+10:35:44 [INFO] HTTP Request: POST http://localhost:8101/v1/chat/completions "HTTP/1.1 200 OK"
+10:35:44 [INFO]   → no Tier-3 hunks  (SR: 0/0 applied)
+10:35:44 [INFO] [151] scikit-learn__scikit-learn-13536
+10:36:01 [INFO] HTTP Request: POST http://localhost:8101/v1/chat/completions "HTTP/1.1 200 OK"
+10:36:01 [INFO]   → no Tier-3 hunks  (SR: 0/0 applied)
+10:36:01 [INFO] [152] scikit-learn__scikit-learn-13618
+10:36:01 [INFO] HTTP Request: POST http://localhost:8101/v1/chat/completions "HTTP/1.1 400 Bad Request"
+10:36:01 [WARNING] LLM call failed (attempt 1/2): Error code: 400 - {'error': {'message': "This model's maximum context length is 4096 tokens. However, you requested 640 output tokens and your prompt contains at least 3457 input tokens, for a total of at least 4097 tokens. Please reduce the length of the input prompt or the number of requested output tokens. (parameter=input_tokens, value=3457)", 'type': 'BadRequestError', 'param': 'input_tokens', 'code': 400}}
+10:36:06 [INFO] HTTP Request: POST http://localhost:8101/v1/chat/completions "HTTP/1.1 400 Bad Request"
+10:36:06 [WARNING] LLM call failed (attempt 2/2): Error code: 400 - {'error': {'message': "This model's maximum context length is 4096 tokens. However, you requested 640 output tokens and your prompt contains at least 3457 input tokens, for a total of at least 4097 tokens. Please reduce the length of the input prompt or the number of requested output tokens. (parameter=input_tokens, value=3457)", 'type': 'BadRequestError', 'param': 'input_tokens', 'code': 400}}
+10:36:06 [WARNING] scikit-learn__scikit-learn-13618: LLM returned None
+10:36:06 [INFO]   → skipped (no gold hunks or LLM failure)
+10:36:06 [INFO] [153] scikit-learn__scikit-learn-13910
+10:36:11 [INFO] HTTP Request: POST http://localhost:8101/v1/chat/completions "HTTP/1.1 200 OK"
+10:36:11 [INFO]   → no Tier-3 hunks  (SR: 0/0 applied)
+10:36:11 [INFO] [154] scikit-learn__scikit-learn-14125
+10:36:15 [INFO] HTTP Request: POST http://localhost:8101/v1/chat/completions "HTTP/1.1 200 OK"
+10:36:15 [INFO]   → no Tier-3 hunks  (SR: 0/0 applied)
+10:36:15 [INFO] [155] scikit-learn__scikit-learn-14496
+10:36:25 [INFO] HTTP Request: POST http://localhost:8101/v1/chat/completions "HTTP/1.1 200 OK"
+10:36:25 [INFO]   → no Tier-3 hunks  (SR: 2/2 applied)
+10:36:25 [INFO] [156] scikit-learn__scikit-learn-14890
+10:36:39 [INFO] HTTP Request: POST http://localhost:8101/v1/chat/completions "HTTP/1.1 200 OK"
+10:36:39 [INFO]   → no Tier-3 hunks  (SR: 0/0 applied)
+10:36:39 [INFO] [157] scikit-learn__scikit-learn-15028
+10:36:54 [INFO] HTTP Request: POST http://localhost:8101/v1/chat/completions "HTTP/1.1 200 OK"
+10:36:54 [INFO]   → no Tier-3 hunks  (SR: 0/0 applied)
+10:36:54 [INFO] [158] scikit-learn__scikit-learn-15094
+10:36:59 [INFO] HTTP Request: POST http://localhost:8101/v1/chat/completions "HTTP/1.1 200 OK"
+10:36:59 [INFO]   → no Tier-3 hunks  (SR: 0/0 applied)
+10:36:59 [INFO] [159] scikit-learn__scikit-learn-15096
+10:37:15 [INFO] HTTP Request: POST http://localhost:8101/v1/chat/completions "HTTP/1.1 200 OK"
+10:37:15 [INFO]   → no Tier-3 hunks  (SR: 0/0 applied)
+10:37:15 [INFO] [160] scikit-learn__scikit-learn-25747
+10:37:19 [INFO] HTTP Request: POST http://localhost:8101/v1/chat/completions "HTTP/1.1 200 OK"
+10:37:19 [INFO]   → no Tier-3 hunks  (SR: 0/0 applied)
+10:37:19 [INFO] [161] scikit-learn__scikit-learn-25805
+10:37:35 [INFO] HTTP Request: POST http://localhost:8101/v1/chat/completions "HTTP/1.1 200 OK"
+10:37:35 [INFO]   → no Tier-3 hunks  (SR: 0/0 applied)
+10:37:35 [INFO] [162] scikit-learn__scikit-learn-7760
+10:37:44 [INFO] HTTP Request: POST http://localhost:8101/v1/chat/completions "HTTP/1.1 200 OK"
+10:37:44 [INFO]   → no Tier-3 hunks  (SR: 0/0 applied)
+10:37:44 [INFO] [163] scikit-learn__scikit-learn-9274
+10:37:52 [INFO] HTTP Request: POST http://localhost:8101/v1/chat/completions "HTTP/1.1 200 OK"
+10:37:52 [INFO]   → no Tier-3 hunks  (SR: 0/0 applied)
+10:37:52 [INFO] [164] scikit-learn__scikit-learn-9304
+10:37:55 [INFO] HTTP Request: POST http://localhost:8101/v1/chat/completions "HTTP/1.1 200 OK"
+10:37:55 [INFO]   → no Tier-3 hunks  (SR: 0/0 applied)
+10:37:56 [INFO] [165] scikit-learn__scikit-learn-9775
+10:38:11 [INFO] HTTP Request: POST http://localhost:8101/v1/chat/completions "HTTP/1.1 200 OK"
+10:38:11 [INFO]   → no Tier-3 hunks  (SR: 0/0 applied)
+10:38:11 [INFO] [166] sphinx-doc__sphinx-10191
+10:38:27 [INFO] HTTP Request: POST http://localhost:8101/v1/chat/completions "HTTP/1.1 200 OK"
+10:38:27 [INFO]   → no Tier-3 hunks  (SR: 0/0 applied)
+10:38:27 [INFO] [167] sphinx-doc__sphinx-10481
+10:38:41 [INFO] HTTP Request: POST http://localhost:8101/v1/chat/completions "HTTP/1.1 200 OK"
+10:38:41 [INFO]   → no Tier-3 hunks  (SR: 0/0 applied)
+10:38:41 [INFO] [168] sphinx-doc__sphinx-7462
+10:38:58 [INFO] HTTP Request: POST http://localhost:8101/v1/chat/completions "HTTP/1.1 200 OK"
+10:38:58 [INFO]   → 1 Tier-3 hunk(s) saved  (SR: 1/1 applied)
+10:38:58 [INFO] [169] sphinx-doc__sphinx-7501
+10:39:01 [INFO] HTTP Request: POST http://localhost:8101/v1/chat/completions "HTTP/1.1 200 OK"
+10:39:01 [INFO]   → no Tier-3 hunks  (SR: 0/0 applied)
+10:39:01 [INFO] [170] sphinx-doc__sphinx-7593
+10:39:17 [INFO] HTTP Request: POST http://localhost:8101/v1/chat/completions "HTTP/1.1 200 OK"
+10:39:17 [INFO]   → no Tier-3 hunks  (SR: 0/0 applied)
+10:39:18 [INFO] [171] sphinx-doc__sphinx-7748
+10:39:21 [INFO] HTTP Request: POST http://localhost:8101/v1/chat/completions "HTTP/1.1 200 OK"
+10:39:21 [INFO]   → 1 Tier-3 hunk(s) saved  (SR: 1/1 applied)
+10:39:21 [INFO] [172] sphinx-doc__sphinx-7910
+10:39:24 [INFO] HTTP Request: POST http://localhost:8101/v1/chat/completions "HTTP/1.1 200 OK"
+10:39:24 [INFO]   → no Tier-3 hunks  (SR: 1/1 applied)
+10:39:24 [INFO] [173] sphinx-doc__sphinx-7961
+10:39:39 [INFO] HTTP Request: POST http://localhost:8101/v1/chat/completions "HTTP/1.1 200 OK"
+10:39:39 [INFO]   → 2 Tier-3 hunk(s) saved  (SR: 2/2 applied)
+10:39:39 [INFO] [174] sphinx-doc__sphinx-8020
+10:39:44 [INFO] HTTP Request: POST http://localhost:8101/v1/chat/completions "HTTP/1.1 200 OK"
+10:39:44 [INFO]   → no Tier-3 hunks  (SR: 0/0 applied)
+10:39:44 [INFO] [175] sphinx-doc__sphinx-8264
+10:39:44 [INFO] HTTP Request: POST http://localhost:8101/v1/chat/completions "HTTP/1.1 400 Bad Request"
+10:39:44 [WARNING] LLM call failed (attempt 1/2): Error code: 400 - {'error': {'message': "This model's maximum context length is 4096 tokens. However, you requested 640 output tokens and your prompt contains at least 3457 input tokens, for a total of at least 4097 tokens. Please reduce the length of the input prompt or the number of requested output tokens. (parameter=input_tokens, value=3457)", 'type': 'BadRequestError', 'param': 'input_tokens', 'code': 400}}
+10:39:49 [INFO] HTTP Request: POST http://localhost:8101/v1/chat/completions "HTTP/1.1 400 Bad Request"
+10:39:49 [WARNING] LLM call failed (attempt 2/2): Error code: 400 - {'error': {'message': "This model's maximum context length is 4096 tokens. However, you requested 640 output tokens and your prompt contains at least 3457 input tokens, for a total of at least 4097 tokens. Please reduce the length of the input prompt or the number of requested output tokens. (parameter=input_tokens, value=3457)", 'type': 'BadRequestError', 'param': 'input_tokens', 'code': 400}}
+10:39:49 [WARNING] sphinx-doc__sphinx-8264: LLM returned None
+10:39:49 [INFO]   → skipped (no gold hunks or LLM failure)
+10:39:49 [INFO] [176] sphinx-doc__sphinx-8435
+10:40:05 [INFO] HTTP Request: POST http://localhost:8101/v1/chat/completions "HTTP/1.1 200 OK"
+10:40:05 [INFO]   → no Tier-3 hunks  (SR: 1/1 applied)
+10:40:06 [INFO] [177] sphinx-doc__sphinx-8674
+10:40:22 [INFO] HTTP Request: POST http://localhost:8101/v1/chat/completions "HTTP/1.1 200 OK"
+10:40:22 [INFO]   → no Tier-3 hunks  (SR: 0/0 applied)
+10:40:22 [INFO] [178] sphinx-doc__sphinx-8679
+10:40:28 [INFO] HTTP Request: POST http://localhost:8101/v1/chat/completions "HTTP/1.1 200 OK"
+10:40:28 [INFO]   → no Tier-3 hunks  (SR: 0/0 applied)
+10:40:29 [INFO] [179] sphinx-doc__sphinx-8863
+10:40:45 [INFO] HTTP Request: POST http://localhost:8101/v1/chat/completions "HTTP/1.1 200 OK"
+10:40:45 [INFO]   → no Tier-3 hunks  (SR: 0/0 applied)
+10:40:45 [INFO] [180] sphinx-doc__sphinx-9234
+10:40:59 [INFO] HTTP Request: POST http://localhost:8101/v1/chat/completions "HTTP/1.1 200 OK"
+10:40:59 [INFO]   → no Tier-3 hunks  (SR: 0/0 applied)
+10:40:59 [INFO] [181] sphinx-doc__sphinx-9467
+10:41:15 [INFO] HTTP Request: POST http://localhost:8101/v1/chat/completions "HTTP/1.1 200 OK"
+10:41:15 [INFO]   → no Tier-3 hunks  (SR: 0/0 applied)
+10:41:15 [INFO] [182] sphinx-doc__sphinx-9828
+10:41:32 [INFO] HTTP Request: POST http://localhost:8101/v1/chat/completions "HTTP/1.1 200 OK"
+10:41:32 [INFO]   → 2 Tier-3 hunk(s) saved  (SR: 2/2 applied)
+10:41:32 [INFO] [183] sympy__sympy-11870
+10:41:49 [INFO] HTTP Request: POST http://localhost:8101/v1/chat/completions "HTTP/1.1 200 OK"
+10:41:49 [INFO]   → no Tier-3 hunks  (SR: 0/0 applied)
+10:41:49 [INFO] [184] sympy__sympy-12108
+10:42:05 [INFO] HTTP Request: POST http://localhost:8101/v1/chat/completions "HTTP/1.1 200 OK"
+10:42:05 [INFO]   → no Tier-3 hunks  (SR: 0/0 applied)
+10:42:06 [INFO] [185] sympy__sympy-12144
+10:42:22 [INFO] HTTP Request: POST http://localhost:8101/v1/chat/completions "HTTP/1.1 200 OK"
+10:42:22 [INFO]   → no Tier-3 hunks  (SR: 0/0 applied)
+10:42:22 [INFO] [186] sympy__sympy-12171
+10:42:28 [INFO] HTTP Request: POST http://localhost:8101/v1/chat/completions "HTTP/1.1 200 OK"
+10:42:28 [INFO]   → no Tier-3 hunks  (SR: 0/0 applied)
+10:42:28 [INFO] [187] sympy__sympy-12428
+10:42:38 [INFO] HTTP Request: POST http://localhost:8101/v1/chat/completions "HTTP/1.1 200 OK"
+10:42:38 [INFO]   → no Tier-3 hunks  (SR: 0/0 applied)
+10:42:39 [INFO] [188] sympy__sympy-12529
+10:42:48 [INFO] HTTP Request: POST http://localhost:8101/v1/chat/completions "HTTP/1.1 200 OK"
+10:42:48 [INFO]   → no Tier-3 hunks  (SR: 0/0 applied)
+10:42:48 [INFO] [189] sympy__sympy-12798
+10:43:04 [INFO] HTTP Request: POST http://localhost:8101/v1/chat/completions "HTTP/1.1 200 OK"
+10:43:04 [INFO]   → 1 Tier-3 hunk(s) saved  (SR: 1/1 applied)
+10:43:04 [INFO] [190] sympy__sympy-13018
+10:43:21 [INFO] HTTP Request: POST http://localhost:8101/v1/chat/completions "HTTP/1.1 200 OK"
+10:43:21 [INFO]   → no Tier-3 hunks  (SR: 0/0 applied)
+10:43:21 [INFO] [191] sympy__sympy-13043
+10:43:29 [INFO] HTTP Request: POST http://localhost:8101/v1/chat/completions "HTTP/1.1 200 OK"
+10:43:29 [INFO]   → no Tier-3 hunks  (SR: 0/0 applied)
+10:43:29 [INFO] [192] sympy__sympy-13173
+10:43:34 [INFO] HTTP Request: POST http://localhost:8101/v1/chat/completions "HTTP/1.1 200 OK"
+10:43:34 [INFO]   → no Tier-3 hunks  (SR: 0/0 applied)
+10:43:34 [INFO] [193] sympy__sympy-13236
+10:43:51 [INFO] HTTP Request: POST http://localhost:8101/v1/chat/completions "HTTP/1.1 200 OK"
+10:43:51 [INFO]   → no Tier-3 hunks  (SR: 0/0 applied)
+10:43:51 [INFO] [194] sympy__sympy-13346
+10:44:08 [INFO] HTTP Request: POST http://localhost:8101/v1/chat/completions "HTTP/1.1 200 OK"
+10:44:08 [INFO]   → no Tier-3 hunks  (SR: 0/0 applied)
+10:44:09 [INFO] [195] sympy__sympy-13429
+10:44:25 [INFO] HTTP Request: POST http://localhost:8101/v1/chat/completions "HTTP/1.1 200 OK"
+10:44:25 [INFO]   → no Tier-3 hunks  (SR: 0/0 applied)
+10:44:25 [INFO] [196] sympy__sympy-13808
+10:44:42 [INFO] HTTP Request: POST http://localhost:8101/v1/chat/completions "HTTP/1.1 200 OK"
+10:44:42 [INFO]   → no Tier-3 hunks  (SR: 0/0 applied)
+10:44:42 [INFO] [197] sympy__sympy-13852
+10:44:51 [INFO] HTTP Request: POST http://localhost:8101/v1/chat/completions "HTTP/1.1 200 OK"
+10:44:51 [INFO]   → no Tier-3 hunks  (SR: 0/0 applied)
+10:44:51 [INFO] [198] sympy__sympy-13877
+10:45:08 [INFO] HTTP Request: POST http://localhost:8101/v1/chat/completions "HTTP/1.1 200 OK"
+10:45:08 [INFO]   → no Tier-3 hunks  (SR: 0/0 applied)
+10:45:08 [INFO] [199] sympy__sympy-13971
+10:45:11 [INFO] HTTP Request: POST http://localhost:8101/v1/chat/completions "HTTP/1.1 200 OK"
+10:45:11 [INFO]   → no Tier-3 hunks  (SR: 0/0 applied)
+10:45:12 [INFO] [200] sympy__sympy-15011
+10:45:16 [INFO] HTTP Request: POST http://localhost:8101/v1/chat/completions "HTTP/1.1 200 OK"
+10:45:16 [INFO]   → no Tier-3 hunks  (SR: 0/0 applied)
+10:45:16 [INFO] [201] sympy__sympy-15151
+10:45:20 [INFO] HTTP Request: POST http://localhost:8101/v1/chat/completions "HTTP/1.1 200 OK"
+10:45:20 [INFO]   → 1 Tier-3 hunk(s) saved  (SR: 1/1 applied)
+10:45:20 [INFO] [202] sympy__sympy-15222
+10:45:29 [INFO] HTTP Request: POST http://localhost:8101/v1/chat/completions "HTTP/1.1 200 OK"
+10:45:29 [INFO]   → no Tier-3 hunks  (SR: 0/0 applied)
+10:45:29 [INFO] [203] sympy__sympy-15678
+10:45:46 [INFO] HTTP Request: POST http://localhost:8101/v1/chat/completions "HTTP/1.1 200 OK"
+10:45:46 [INFO]   → no Tier-3 hunks  (SR: 0/0 applied)
+10:45:46 [INFO] [204] sympy__sympy-15809
+10:45:55 [INFO] HTTP Request: POST http://localhost:8101/v1/chat/completions "HTTP/1.1 200 OK"
+10:45:55 [INFO]   → no Tier-3 hunks  (SR: 0/0 applied)
+10:45:55 [INFO] [205] sympy__sympy-16052
+10:46:02 [INFO] HTTP Request: POST http://localhost:8101/v1/chat/completions "HTTP/1.1 200 OK"
+10:46:02 [INFO]   → no Tier-3 hunks  (SR: 0/0 applied)
+10:46:02 [INFO] [206] sympy__sympy-16766
+10:46:07 [INFO] HTTP Request: POST http://localhost:8101/v1/chat/completions "HTTP/1.1 200 OK"
+10:46:07 [INFO]   → no Tier-3 hunks  (SR: 0/0 applied)
+10:46:07 [INFO] [207] sympy__sympy-17696
+10:46:13 [INFO] HTTP Request: POST http://localhost:8101/v1/chat/completions "HTTP/1.1 200 OK"
+10:46:13 [INFO]   → 1 Tier-3 hunk(s) saved  (SR: 1/1 applied)
+10:46:13 [INFO] [208] sympy__sympy-17770
+10:46:29 [INFO] HTTP Request: POST http://localhost:8101/v1/chat/completions "HTTP/1.1 200 OK"
+10:46:29 [INFO]   → no Tier-3 hunks  (SR: 0/0 applied)
+10:46:29 [INFO] [209] sympy__sympy-17809
+10:46:41 [INFO] HTTP Request: POST http://localhost:8101/v1/chat/completions "HTTP/1.1 200 OK"
+10:46:41 [INFO]   → no Tier-3 hunks  (SR: 0/0 applied)
+10:46:41 [INFO] [210] sympy__sympy-18033
+10:46:58 [INFO] HTTP Request: POST http://localhost:8101/v1/chat/completions "HTTP/1.1 200 OK"
+10:46:58 [INFO]   → no Tier-3 hunks  (SR: 0/0 applied)
+10:46:58 [INFO] [211] sympy__sympy-18200
+10:47:15 [INFO] HTTP Request: POST http://localhost:8101/v1/chat/completions "HTTP/1.1 200 OK"
+10:47:15 [INFO]   → no Tier-3 hunks  (SR: 0/0 applied)
+10:47:15 [INFO] [212] sympy__sympy-18621
+10:47:29 [INFO] HTTP Request: POST http://localhost:8101/v1/chat/completions "HTTP/1.1 200 OK"
+10:47:29 [INFO]   → no Tier-3 hunks  (SR: 0/0 applied)
+10:47:29 [INFO] [213] sympy__sympy-18633
+10:47:46 [INFO] HTTP Request: POST http://localhost:8101/v1/chat/completions "HTTP/1.1 200 OK"
+10:47:46 [INFO]   → no Tier-3 hunks  (SR: 1/1 applied)
+10:47:46 [INFO] [214] sympy__sympy-18698
+10:47:55 [INFO] HTTP Request: POST http://localhost:8101/v1/chat/completions "HTTP/1.1 200 OK"
+10:47:55 [INFO]   → no Tier-3 hunks  (SR: 0/0 applied)
+10:47:55 [INFO] [215] sympy__sympy-18763
+10:48:06 [INFO] HTTP Request: POST http://localhost:8101/v1/chat/completions "HTTP/1.1 200 OK"
+10:48:06 [INFO]   → no Tier-3 hunks  (SR: 0/0 applied)
+10:48:06 [INFO] [216] sympy__sympy-18835
+10:48:16 [INFO] HTTP Request: POST http://localhost:8101/v1/chat/completions "HTTP/1.1 200 OK"
+10:48:16 [INFO]   → no Tier-3 hunks  (SR: 0/0 applied)
+10:48:16 [INFO] [217] sympy__sympy-18922
+10:48:23 [INFO] HTTP Request: POST http://localhost:8101/v1/chat/completions "HTTP/1.1 200 OK"
+10:48:23 [INFO]   → no Tier-3 hunks  (SR: 1/1 applied)
+10:48:23 [INFO] [218] sympy__sympy-19040
+10:48:40 [INFO] HTTP Request: POST http://localhost:8101/v1/chat/completions "HTTP/1.1 200 OK"
+10:48:40 [INFO]   → no Tier-3 hunks  (SR: 0/0 applied)
+10:48:40 [INFO] [219] sympy__sympy-20134
+10:48:56 [INFO] HTTP Request: POST http://localhost:8101/v1/chat/completions "HTTP/1.1 200 OK"
+10:48:56 [INFO]   → no Tier-3 hunks  (SR: 0/0 applied)
+10:48:57 [INFO] [220] sympy__sympy-20442
+10:49:01 [INFO] HTTP Request: POST http://localhost:8101/v1/chat/completions "HTTP/1.1 200 OK"
+10:49:01 [INFO]   → no Tier-3 hunks  (SR: 1/1 applied)
+10:49:01 [INFO] [221] sympy__sympy-20476
+10:49:13 [INFO] HTTP Request: POST http://localhost:8101/v1/chat/completions "HTTP/1.1 200 OK"
+10:49:13 [INFO]   → no Tier-3 hunks  (SR: 0/0 applied)
+10:49:13 [INFO] [222] sympy__sympy-21370
+10:49:13 [INFO] HTTP Request: POST http://localhost:8101/v1/chat/completions "HTTP/1.1 400 Bad Request"
+10:49:13 [WARNING] LLM call failed (attempt 1/2): Error code: 400 - {'error': {'message': "This model's maximum context length is 4096 tokens. However, you requested 640 output tokens and your prompt contains at least 3457 input tokens, for a total of at least 4097 tokens. Please reduce the length of the input prompt or the number of requested output tokens. (parameter=input_tokens, value=3457)", 'type': 'BadRequestError', 'param': 'input_tokens', 'code': 400}}
+10:49:18 [INFO] HTTP Request: POST http://localhost:8101/v1/chat/completions "HTTP/1.1 400 Bad Request"
+10:49:18 [WARNING] LLM call failed (attempt 2/2): Error code: 400 - {'error': {'message': "This model's maximum context length is 4096 tokens. However, you requested 640 output tokens and your prompt contains at least 3457 input tokens, for a total of at least 4097 tokens. Please reduce the length of the input prompt or the number of requested output tokens. (parameter=input_tokens, value=3457)", 'type': 'BadRequestError', 'param': 'input_tokens', 'code': 400}}
+10:49:18 [WARNING] sympy__sympy-21370: LLM returned None
+10:49:18 [INFO]   → skipped (no gold hunks or LLM failure)
+10:49:18 [INFO] [223] sympy__sympy-21614
+10:49:35 [INFO] HTTP Request: POST http://localhost:8101/v1/chat/completions "HTTP/1.1 200 OK"
+10:49:35 [INFO]   → no Tier-3 hunks  (SR: 0/0 applied)
+10:49:35 [INFO] [224] sympy__sympy-21627
+10:49:40 [INFO] HTTP Request: POST http://localhost:8101/v1/chat/completions "HTTP/1.1 200 OK"
+10:49:40 [INFO]   → 1 Tier-3 hunk(s) saved  (SR: 1/1 applied)
+10:49:40 [INFO] [225] sympy__sympy-21864
+10:49:47 [INFO] HTTP Request: POST http://localhost:8101/v1/chat/completions "HTTP/1.1 200 OK"
+10:49:47 [INFO]   → no Tier-3 hunks  (SR: 0/0 applied)
+10:49:47 [INFO] [226] sympy__sympy-22914
+10:50:04 [INFO] HTTP Request: POST http://localhost:8101/v1/chat/completions "HTTP/1.1 200 OK"
+10:50:04 [INFO]   → no Tier-3 hunks  (SR: 0/0 applied)
+10:50:04 [INFO] [227] sympy__sympy-22934
+10:50:08 [INFO] HTTP Request: POST http://localhost:8101/v1/chat/completions "HTTP/1.1 200 OK"
+10:50:08 [INFO]   → no Tier-3 hunks  (SR: 0/0 applied)
+10:50:09 [INFO] [228] sympy__sympy-23141
+10:50:14 [INFO] HTTP Request: POST http://localhost:8101/v1/chat/completions "HTTP/1.1 200 OK"
+10:50:14 [INFO]   → no Tier-3 hunks  (SR: 0/0 applied)
+10:50:14 [INFO] [229] sympy__sympy-24102
+10:50:31 [INFO] HTTP Request: POST http://localhost:8101/v1/chat/completions "HTTP/1.1 200 OK"
+10:50:31 [INFO]   → no Tier-3 hunks  (SR: 0/0 applied)
+10:50:31 [INFO] Done. processed=229  yielded=21  skipped(resume)=0  yield_rate=9.2%
+10:50:31 [INFO] Cache: data/cache/tier3_hunks_deepseek_v2.cache.jsonl
+(APIServer pid=7268) INFO:     Shutting down
+(APIServer pid=7268) INFO:     Waiting for application shutdown.
+(APIServer pid=7268) INFO:     Application shutdown complete.
+/apps/Arch/software/Python/3.11.3-GCCcore-12.3.0/lib/python3.11/multiprocessing/resource_tracker.py:224: UserWarning: resource_tracker: There appear to be 1 leaked semaphore objects to clean up at shutdown
+  warnings.warn('resource_tracker: There appear to be %d '
+10:50:48 [INFO] Device: cuda
+10:50:48 [INFO] use_projection: True
+10:50:48 [INFO] HTTP Request: HEAD https://huggingface.co/microsoft/unixcoder-base/resolve/main/config.json "HTTP/1.1 307 Temporary Redirect"
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+10:50:48 [WARNING] Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+10:50:48 [INFO] HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/microsoft/unixcoder-base/5604afdc964f6c53782a6813140ade5216b99006/config.json "HTTP/1.1 200 OK"
+10:50:48 [INFO] HTTP Request: GET https://huggingface.co/api/resolve-cache/models/microsoft/unixcoder-base/5604afdc964f6c53782a6813140ade5216b99006/config.json "HTTP/1.1 200 OK"
+10:50:48 [INFO] HTTP Request: HEAD https://huggingface.co/microsoft/unixcoder-base/resolve/main/tokenizer_config.json "HTTP/1.1 307 Temporary Redirect"
+10:50:48 [INFO] HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/microsoft/unixcoder-base/5604afdc964f6c53782a6813140ade5216b99006/tokenizer_config.json "HTTP/1.1 200 OK"
+10:50:48 [INFO] HTTP Request: GET https://huggingface.co/api/resolve-cache/models/microsoft/unixcoder-base/5604afdc964f6c53782a6813140ade5216b99006/tokenizer_config.json "HTTP/1.1 200 OK"
+10:50:48 [INFO] HTTP Request: GET https://huggingface.co/api/models/microsoft/unixcoder-base/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
+10:50:48 [INFO] HTTP Request: GET https://huggingface.co/api/models/microsoft/unixcoder-base/tree/main?recursive=true&expand=false "HTTP/1.1 200 OK"
+10:50:48 [INFO] HTTP Request: HEAD https://huggingface.co/microsoft/unixcoder-base/resolve/main/vocab.json "HTTP/1.1 307 Temporary Redirect"
+10:50:48 [INFO] HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/microsoft/unixcoder-base/5604afdc964f6c53782a6813140ade5216b99006/vocab.json "HTTP/1.1 200 OK"
+10:50:49 [INFO] HTTP Request: GET https://huggingface.co/api/resolve-cache/models/microsoft/unixcoder-base/5604afdc964f6c53782a6813140ade5216b99006/vocab.json "HTTP/1.1 200 OK"
+10:50:49 [INFO] HTTP Request: HEAD https://huggingface.co/microsoft/unixcoder-base/resolve/main/merges.txt "HTTP/1.1 307 Temporary Redirect"
+10:50:49 [INFO] HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/microsoft/unixcoder-base/5604afdc964f6c53782a6813140ade5216b99006/merges.txt "HTTP/1.1 200 OK"
+10:50:49 [INFO] HTTP Request: GET https://huggingface.co/api/resolve-cache/models/microsoft/unixcoder-base/5604afdc964f6c53782a6813140ade5216b99006/merges.txt "HTTP/1.1 200 OK"
+10:50:49 [INFO] HTTP Request: HEAD https://huggingface.co/microsoft/unixcoder-base/resolve/main/tokenizer.json "HTTP/1.1 404 Not Found"
+10:50:49 [INFO] HTTP Request: HEAD https://huggingface.co/microsoft/unixcoder-base/resolve/main/added_tokens.json "HTTP/1.1 404 Not Found"
+10:50:49 [INFO] HTTP Request: HEAD https://huggingface.co/microsoft/unixcoder-base/resolve/main/special_tokens_map.json "HTTP/1.1 307 Temporary Redirect"
+10:50:49 [INFO] HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/microsoft/unixcoder-base/5604afdc964f6c53782a6813140ade5216b99006/special_tokens_map.json "HTTP/1.1 200 OK"
+10:50:49 [INFO] HTTP Request: GET https://huggingface.co/api/resolve-cache/models/microsoft/unixcoder-base/5604afdc964f6c53782a6813140ade5216b99006/special_tokens_map.json "HTTP/1.1 200 OK"
+10:50:49 [INFO] HTTP Request: HEAD https://huggingface.co/microsoft/unixcoder-base/resolve/main/chat_template.jinja "HTTP/1.1 404 Not Found"
+10:50:50 [INFO] HTTP Request: HEAD https://huggingface.co/microsoft/unixcoder-base/resolve/main/config.json "HTTP/1.1 307 Temporary Redirect"
+10:50:50 [INFO] HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/microsoft/unixcoder-base/5604afdc964f6c53782a6813140ade5216b99006/config.json "HTTP/1.1 200 OK"
+10:50:51 [INFO] HTTP Request: HEAD https://huggingface.co/microsoft/unixcoder-base/resolve/main/model.safetensors "HTTP/1.1 404 Not Found"
+10:50:51 [INFO] HTTP Request: HEAD https://huggingface.co/microsoft/unixcoder-base/resolve/main/model.safetensors.index.json "HTTP/1.1 404 Not Found"
+10:50:52 [INFO] HTTP Request: HEAD https://huggingface.co/microsoft/unixcoder-base/resolve/main/pytorch_model.bin "HTTP/1.1 302 Found"
+10:50:58 [INFO] HTTP Request: HEAD https://huggingface.co/microsoft/unixcoder-base/resolve/main/model.safetensors "HTTP/1.1 404 Not Found"
+10:50:58 [INFO] HTTP Request: GET https://huggingface.co/api/models/microsoft/unixcoder-base "HTTP/1.1 200 OK"
+10:50:58 [INFO] HTTP Request: GET https://huggingface.co/api/models/microsoft/unixcoder-base/commits/main "HTTP/1.1 200 OK"
+10:50:59 [INFO] HTTP Request: GET https://huggingface.co/api/models/microsoft/unixcoder-base/discussions?p=0 "HTTP/1.1 200 OK"
+Loading weights:   0%|          | 0/199 [00:00<?, ?it/s]Loading weights: 100%|██████████| 199/199 [00:00<00:00, 29930.31it/s]
+10:50:59 [INFO] HTTP Request: GET https://huggingface.co/api/models/microsoft/unixcoder-base/commits/refs%2Fpr%2F8 "HTTP/1.1 200 OK"
+[transformers] The new embeddings will be initialized from a multivariate normal distribution that has old embeddings' mean and covariance. As described in this article: https://nlp.stanford.edu/~johnhew/vocab-expansion.html. To disable this, use `mean_resizing=False`
+10:50:59 [INFO] HTTP Request: HEAD https://huggingface.co/microsoft/unixcoder-base/resolve/refs%2Fpr%2F8/model.safetensors.index.json "HTTP/1.1 404 Not Found"
+10:50:59 [INFO] HTTP Request: HEAD https://huggingface.co/microsoft/unixcoder-base/resolve/refs%2Fpr%2F8/model.safetensors "HTTP/1.1 302 Found"
+10:51:03 [INFO] Loaded encoder from checkpoints/m2/best.pt
+10:51:03 [INFO] === Experiment 2: Retrieval ===
+10:51:05 [INFO] Test instances: 229
+10:51:05 [INFO] Tier-3 lookup: 21 instances with scope-creep hunks
+10:51:05 [INFO] Building repo-level distractor pool (test split only) …
+10:51:05 [INFO] Repo pool: 11 repos, 862 total hunks
+10:54:56 [INFO] nDCG@k_gold  mean=0.8587  std=0.3098  n=21  (k = |T1∪T2| per instance)
+10:54:56 [INFO] T2-Recall(K=gold)  mean=0.8265  std=0.3290  n=17  (top-K = |T1∪T2|)
+10:54:56 [INFO] Perfect-Sep  mean=0.9524  n=21  (all T3 ranked after all gold)

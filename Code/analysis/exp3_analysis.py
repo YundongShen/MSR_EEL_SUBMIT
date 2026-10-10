@@ -379,7 +379,7 @@ def analysis_b_orig_alignment(
         t3_s   = orig_sims[model_name]["t3"]
 
         log.info(
-            "%s ORIG-sim: retained n=%d mean=%.4f std=%.4f | t3 n=%d mean=%.4f std=%.4f",
+            "%s ORIG-sim: Retained-H n=%d mean=%.4f std=%.4f | t3 n=%d mean=%.4f std=%.4f",
             model_name,
             len(retained_s), np.mean(retained_s) if retained_s else 0.0, np.std(retained_s) if retained_s else 0.0,
             len(t3_s),   np.mean(t3_s)   if t3_s   else 0.0, np.std(t3_s)   if t3_s   else 0.0,
@@ -390,7 +390,7 @@ def analysis_b_orig_alignment(
             r         = _rank_biserial(u_stat, len(retained_s), len(t3_s))
             sig       = "***" if p < 0.001 else "**" if p < 0.01 else "*" if p < 0.05 else "n.s."
             log.info(
-                "%s Mann-Whitney U [retained>t3]: U=%.0f  p=%.4e  r=%.4f  %s",
+                "%s Mann-Whitney U [Retained-H>t3]: U=%.0f  p=%.4e  r=%.4f  %s",
                 model_name, u_stat, p, r, sig,
             )
             results[model_name] = {

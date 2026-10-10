@@ -28,7 +28,7 @@
 10:08:12 [INFO] HTTP Request: POST http://localhost:8101/v1/chat/completions "HTTP/1.1 400 Bad Request"
 10:08:12 [WARNING] LLM call failed (attempt 2/2): Error code: 400 - {'error': {'message': "This model's maximum context length is 4096 tokens. However, you requested 640 output tokens and your prompt contains at least 3457 input tokens, for a total of at least 4097 tokens. Please reduce the length of the input prompt or the number of requested output tokens. (parameter=input_tokens, value=3457)", 'type': 'BadRequestError', 'param': 'input_tokens', 'code': 400}}
 10:08:12 [WARNING] astropy__astropy-13417: LLM returned None
-10:08:12 [INFO]   → skipped (no gold hunks or LLM failure)
+10:08:12 [INFO]   → skipped (no reference hunks or LLM failure)
 10:08:12 [INFO] [5] astropy__astropy-13462
 10:08:19 [INFO] HTTP Request: POST http://localhost:8101/v1/chat/completions "HTTP/1.1 200 OK"
 10:08:19 [INFO]   → no Tier-3 hunks  (SR: 0/0 applied)
@@ -330,7 +330,7 @@
 10:25:59 [INFO] HTTP Request: POST http://localhost:8101/v1/chat/completions "HTTP/1.1 400 Bad Request"
 10:25:59 [WARNING] LLM call failed (attempt 2/2): Error code: 400 - {'error': {'message': "This model's maximum context length is 4096 tokens. However, you requested 640 output tokens and your prompt contains at least 3457 input tokens, for a total of at least 4097 tokens. Please reduce the length of the input prompt or the number of requested output tokens. (parameter=input_tokens, value=3457)", 'type': 'BadRequestError', 'param': 'input_tokens', 'code': 400}}
 10:25:59 [WARNING] matplotlib__matplotlib-25281: LLM returned None
-10:25:59 [INFO]   → skipped (no gold hunks or LLM failure)
+10:25:59 [INFO]   → skipped (no reference hunks or LLM failure)
 10:26:00 [INFO] [104] matplotlib__matplotlib-25779
 10:26:06 [INFO] HTTP Request: POST http://localhost:8101/v1/chat/completions "HTTP/1.1 200 OK"
 10:26:06 [INFO]   → no Tier-3 hunks  (SR: 0/0 applied)
@@ -412,7 +412,7 @@
 10:31:32 [INFO] HTTP Request: POST http://localhost:8101/v1/chat/completions "HTTP/1.1 400 Bad Request"
 10:31:32 [WARNING] LLM call failed (attempt 2/2): Error code: 400 - {'error': {'message': "This model's maximum context length is 4096 tokens. However, you requested 640 output tokens and your prompt contains at least 3457 input tokens, for a total of at least 4097 tokens. Please reduce the length of the input prompt or the number of requested output tokens. (parameter=input_tokens, value=3457)", 'type': 'BadRequestError', 'param': 'input_tokens', 'code': 400}}
 10:31:32 [WARNING] pylint-dev__pylint-7080: LLM returned None
-10:31:32 [INFO]   → skipped (no gold hunks or LLM failure)
+10:31:32 [INFO]   → skipped (no reference hunks or LLM failure)
 10:31:32 [INFO] [130] pytest-dev__pytest-11217
 10:31:38 [INFO] HTTP Request: POST http://localhost:8101/v1/chat/completions "HTTP/1.1 200 OK"
 10:31:38 [INFO]   → no Tier-3 hunks  (SR: 0/0 applied)
@@ -485,7 +485,7 @@
 10:36:06 [INFO] HTTP Request: POST http://localhost:8101/v1/chat/completions "HTTP/1.1 400 Bad Request"
 10:36:06 [WARNING] LLM call failed (attempt 2/2): Error code: 400 - {'error': {'message': "This model's maximum context length is 4096 tokens. However, you requested 640 output tokens and your prompt contains at least 3457 input tokens, for a total of at least 4097 tokens. Please reduce the length of the input prompt or the number of requested output tokens. (parameter=input_tokens, value=3457)", 'type': 'BadRequestError', 'param': 'input_tokens', 'code': 400}}
 10:36:06 [WARNING] scikit-learn__scikit-learn-13618: LLM returned None
-10:36:06 [INFO]   → skipped (no gold hunks or LLM failure)
+10:36:06 [INFO]   → skipped (no reference hunks or LLM failure)
 10:36:06 [INFO] [153] scikit-learn__scikit-learn-13910
 10:36:11 [INFO] HTTP Request: POST http://localhost:8101/v1/chat/completions "HTTP/1.1 200 OK"
 10:36:11 [INFO]   → no Tier-3 hunks  (SR: 0/0 applied)
@@ -558,7 +558,7 @@
 10:39:49 [INFO] HTTP Request: POST http://localhost:8101/v1/chat/completions "HTTP/1.1 400 Bad Request"
 10:39:49 [WARNING] LLM call failed (attempt 2/2): Error code: 400 - {'error': {'message': "This model's maximum context length is 4096 tokens. However, you requested 640 output tokens and your prompt contains at least 3457 input tokens, for a total of at least 4097 tokens. Please reduce the length of the input prompt or the number of requested output tokens. (parameter=input_tokens, value=3457)", 'type': 'BadRequestError', 'param': 'input_tokens', 'code': 400}}
 10:39:49 [WARNING] sphinx-doc__sphinx-8264: LLM returned None
-10:39:49 [INFO]   → skipped (no gold hunks or LLM failure)
+10:39:49 [INFO]   → skipped (no reference hunks or LLM failure)
 10:39:49 [INFO] [176] sphinx-doc__sphinx-8435
 10:40:05 [INFO] HTTP Request: POST http://localhost:8101/v1/chat/completions "HTTP/1.1 200 OK"
 10:40:05 [INFO]   → no Tier-3 hunks  (SR: 1/1 applied)
@@ -703,7 +703,7 @@
 10:49:18 [INFO] HTTP Request: POST http://localhost:8101/v1/chat/completions "HTTP/1.1 400 Bad Request"
 10:49:18 [WARNING] LLM call failed (attempt 2/2): Error code: 400 - {'error': {'message': "This model's maximum context length is 4096 tokens. However, you requested 640 output tokens and your prompt contains at least 3457 input tokens, for a total of at least 4097 tokens. Please reduce the length of the input prompt or the number of requested output tokens. (parameter=input_tokens, value=3457)", 'type': 'BadRequestError', 'param': 'input_tokens', 'code': 400}}
 10:49:18 [WARNING] sympy__sympy-21370: LLM returned None
-10:49:18 [INFO]   → skipped (no gold hunks or LLM failure)
+10:49:18 [INFO]   → skipped (no reference hunks or LLM failure)
 10:49:18 [INFO] [223] sympy__sympy-21614
 10:49:35 [INFO] HTTP Request: POST http://localhost:8101/v1/chat/completions "HTTP/1.1 200 OK"
 10:49:35 [INFO]   → no Tier-3 hunks  (SR: 0/0 applied)
@@ -776,6 +776,6 @@ Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF
 10:51:05 [INFO] Tier-3 lookup: 21 instances with scope-creep hunks
 10:51:05 [INFO] Building repo-level distractor pool (test split only) …
 10:51:05 [INFO] Repo pool: 11 repos, 862 total hunks
-10:54:56 [INFO] nDCG@k_gold  mean=0.8587  std=0.3098  n=21  (k = |T1∪T2| per instance)
-10:54:56 [INFO] T2-Recall(K=gold)  mean=0.8265  std=0.3290  n=17  (top-K = |T1∪T2|)
-10:54:56 [INFO] Perfect-Sep  mean=0.9524  n=21  (all T3 ranked after all gold)
+10:54:56 [INFO] nDCG@k_retained  mean=0.8587  std=0.3098  n=21  (k = |T1∪T2| per instance)
+10:54:56 [INFO] T2-Recall(K=Retained-H)  mean=0.8265  std=0.3290  n=17  (top-K = |T1∪T2|)
+10:54:56 [INFO] Perfect-Sep  mean=0.9524  n=21  (all T3 ranked after all Retained-H)

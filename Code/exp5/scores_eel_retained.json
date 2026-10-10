@@ -1,6 +1,6 @@
 {
  "meta": {
-  "name": "EEL (gold matched)",
+  "name": "EEL (Retained-H matched)",
   "score": "eel_score from eel_gold_scores.csv"
  },
  "scores": {

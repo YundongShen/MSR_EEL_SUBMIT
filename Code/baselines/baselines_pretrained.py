@@ -142,7 +142,7 @@ if __name__ == "__main__":
     add_retained_args(parser)
     args = parser.parse_args()
     apply_retained_args(default_config, args)
-    log.info("Retained hunks: %s", default_config.data.llm_t12_path)
+    log.info("Retained-H: %s", default_config.data.llm_t12_path)
 
     results = run_pretrained_baseline(
         model_name=args.model,

@@ -37,7 +37,7 @@ T_COLOR = {
     "3": "#D55E00",   # Wong vermilion — scope creep (colorblind-safe vs blue)
 }
 T_LABEL = {
-    "retained":  "Retained edit",
+    "retained":  "Retained-H",
     "creep": "Unaccepted hunk",
 }
 

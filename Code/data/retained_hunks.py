@@ -1,6 +1,6 @@
 """Candidate hunks of an instance: retained (Tier 1/2) and non-retained (Tier 3).
 
-Retained hunks are the LLM-generated hunks that match the reference patch, read from
+Retained-H are the LLM-generated hunks that match the reference patch, read from
 ``cfg.data.llm_t12_path`` (built by data_pipeline/build_dataset.py); Tier-3 hunks come from the
 companion ``tier3_hunks.jsonl``.  An instance without a retained hunk has none.  Retained,
 Tier-3 and distractor candidates all come from the same generation process and the same diff
@@ -63,7 +63,7 @@ def retained_hunks(inst: dict, cfg) -> list[dict]:
 
 def add_retained_args(parser) -> None:
     parser.add_argument("--llm-t12", default=None, dest="llm_t12",
-                        help="Path to llm_t12_hunks.jsonl (retained hunks; default: config)")
+                        help="Path to llm_t12_hunks.jsonl (Retained-H, T1/T2; default: config)")
 
 
 def apply_retained_args(cfg, args) -> None:

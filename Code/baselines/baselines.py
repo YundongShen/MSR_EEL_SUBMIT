@@ -248,7 +248,7 @@ if __name__ == "__main__":
 
     cfg = default_config
     apply_retained_args(cfg, args)
-    log.info("Retained hunks: %s", cfg.data.llm_t12_path)
+    log.info("Retained-H: %s", cfg.data.llm_t12_path)
     if args.instances:
         cfg.data.instances_path = args.instances
 

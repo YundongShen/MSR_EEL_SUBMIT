@@ -7,7 +7,7 @@
       "commit": "2e5e4c29e8af95408d25ec0de9edda5324eb2f4c",
       "directory": "generalization"
     },
-    "historical_outputs": "Original evaluation logs and result JSON from the recovered experiment archive",
+    "historical_outputs": "Recovered evaluation logs and result JSON with Retained-H terminology; numeric records unchanged",
     "result_summary": "Extracted from the included historical outputs; no new generation or model evaluation"
   },
   "coverage": {
@@ -123,33 +123,33 @@
   "files": [
     {
       "path": "logs/eval_exp4_crossllm_6923906.err",
-      "bytes": 3621,
-      "sha256": "c966beff788f1a149c67427000b3e0e465e06deb6dfe9e3433672ccaa50193a4"
+      "bytes": 3637,
+      "sha256": "39fb4cf211ddba74d15a13452a0f527bacbe40344649b27affbfebc38cd585d6"
     },
     {
       "path": "logs/eval_exp4_ldo_pool_6928354.err",
-      "bytes": 3631,
-      "sha256": "24427caa9bb7b21e0e2b7b6e297704b4837d73e0f99feef1089b524cec2296da"
+      "bytes": 3647,
+      "sha256": "debf8904a1cafafb52b8c42bddc317a3438b0a03b31827af676ba66eb6be27cd"
     },
     {
       "path": "logs/eval_m2_6661589.err",
-      "bytes": 3557,
-      "sha256": "404b5e53c170dbb332036f4e2bbffaa119c7c0a82a72b10772809015ce6d101d"
+      "bytes": 3573,
+      "sha256": "82101938af4e8edae2143b8c25e6c7467f7a3f21d71e7784af8760d0d35053e4"
     },
     {
       "path": "logs/eval_multilingual_m2_pool_6928353.err",
-      "bytes": 3626,
-      "sha256": "b41294c93ea3a3a8b1b85fdaeb7a75484d1d8f956aba50e033b814613895b641"
+      "bytes": 3642,
+      "sha256": "624096f76844802426470aaef849ae65792d04d3c98b15ed41fc3c8c68a0c18e"
     },
     {
       "path": "logs/tier3_deepseek_v2_6928411.err",
-      "bytes": 63852,
-      "sha256": "09e9f2c0d34f00310ae4d7ba542f02c2cfafe7cbd957b5ce03c578d633197b18"
+      "bytes": 63898,
+      "sha256": "a363a8a93df37614cc9bbf6adfdc20f89eea870d254a457f9ca17d75429cfb91"
     },
     {
       "path": "logs/tier3_qwen_v2_6928410.err",
-      "bytes": 54755,
-      "sha256": "5ed0b88942f4613f8c10b1706d2dc272b42368c05271c34148824623e0f30ca6"
+      "bytes": 54771,
+      "sha256": "dc1e5490210cbd669b22b2ed19dc6ccaf73ee0dea39703ac7885618602cd8c37"
     },
     {
       "path": "multilingual_instances.csv",

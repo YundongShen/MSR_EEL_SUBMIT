@@ -736,6 +736,6 @@ Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF
 11:02:24 [INFO] Tier-3 lookup: 43 instances with scope-creep hunks
 11:02:24 [INFO] Building repo-level distractor pool (test split only) …
 11:02:24 [INFO] Repo pool: 11 repos, 862 total hunks
-11:06:20 [INFO] nDCG@k_gold  mean=0.8555  std=0.2623  n=43  (k = |T1∪T2| per instance)
-11:06:20 [INFO] T2-Recall(K=gold)  mean=0.8391  std=0.2627  n=29  (top-K = |T1∪T2|)
-11:06:20 [INFO] Perfect-Sep  mean=0.9302  n=43  (all T3 ranked after all gold)
+11:06:20 [INFO] nDCG@k_retained  mean=0.8555  std=0.2623  n=43  (k = |T1∪T2| per instance)
+11:06:20 [INFO] T2-Recall(K=Retained-H)  mean=0.8391  std=0.2627  n=29  (top-K = |T1∪T2|)
+11:06:20 [INFO] Perfect-Sep  mean=0.9302  n=43  (all T3 ranked after all Retained-H)

@@ -807,13 +807,13 @@ def run_retrieval(
     if len(weights) == 1:
         a = acc[0]
         if a["ndcg_k"]:
-            log.info("nDCG@k  mean=%.4f  std=%.4f  n=%d  (k = |T1∪T2| per instance)",
+            log.info("nDCG@k_retained  mean=%.4f  std=%.4f  n=%d  (k = |T1∪T2| per instance)",
                      np.mean(a["ndcg_k"]), np.std(a["ndcg_k"]), len(a["ndcg_k"]))
         if a["t2_recall"]:
-            log.info("T2-Recall(K=retained)  mean=%.4f  std=%.4f  n=%d  (top-K = |T1∪T2|)",
+            log.info("T2-Recall(K=Retained-H)  mean=%.4f  std=%.4f  n=%d  (top-K = |T1∪T2|)",
                      np.mean(a["t2_recall"]), np.std(a["t2_recall"]), len(a["t2_recall"]))
         if a["psr"]:
-            log.info("Perfect-Sep  mean=%.4f  n=%d  (all T3 ranked after all retained)",
+            log.info("Perfect-Sep  mean=%.4f  n=%d  (all T3 ranked after all Retained-H)",
                      np.mean(a["psr"]), len(a["psr"]))
     return results
 

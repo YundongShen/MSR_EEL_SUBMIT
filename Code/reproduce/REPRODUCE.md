@@ -29,7 +29,7 @@ submission's `Data` directory. The setup checks:
 | Item | Count |
 |---|---:|
 | Issues; train / validation / test | 2291; 1833 / 229 / 229 |
-| Generated retained hunks; T1 / T2 | 9223; 3354 / 5869 |
+| Generated Retained-H; T1 / T2 | 9223; 3354 / 5869 |
 | Generated T3 hunks / issues | 1257 / 743 |
 | Core evaluation issues / T2-Recall issues | 82 / 47 |
 | Django issues / eligible Django issues | 849 / 204 |
@@ -39,6 +39,11 @@ splits and generated candidates, and creates Django and non-Django instance
 files. It does not regenerate labels or modify the published files. The instance
 loader excludes reference-patch hunks; model candidates are read from
 `llm_t12_hunks.jsonl` and `tier3_hunks.jsonl`.
+
+`Retained-H` denotes LLM-generated hunks matched to the reference patch
+(T1/T2); `Gold-H` denotes the reference patch's own hunks. Code and JSON use
+`retained` in identifiers, including `n_retained`, `mean_retained` and
+`std_retained`. The metric field `ndcg_k` uses the Retained-H count for k.
 
 For Slurm, prefix a command with `sbatch reproduce/job.sbatch`. Supply the
 account, partition, GPU type and time limit required by your cluster as `sbatch`

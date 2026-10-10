@@ -1,7 +1,7 @@
 {
   "model": "microsoft/codebert-base",
   "n_instances": 82,
-  "ndcg_kgold": 0.620854842742107,
+  "ndcg_k": 0.620854842742107,
   "t2_recall": 0.6862039851401555,
   "perfect_sep": 0.2804878048780488
 }

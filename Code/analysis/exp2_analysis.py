@@ -134,7 +134,7 @@ def main() -> None:
             entry["rel_req"] = entry["rel_test"] = entry["rel_orig"] = 1/3
         joined.append(entry)
 
-    log.info("Joined retained hunks with labels: %d", len(joined))
+    log.info("Joined Retained-H with labels: %d", len(joined))
     results: dict = {"n_joined": len(joined)}
 
     # -----------------------------------------------------------------------

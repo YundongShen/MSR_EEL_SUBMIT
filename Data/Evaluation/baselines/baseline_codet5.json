@@ -1,7 +1,7 @@
 {
   "model": "Salesforce/codet5p-110m-embedding",
   "n_instances": 82,
-  "ndcg_kgold": 0.6000683919012304,
+  "ndcg_k": 0.6000683919012304,
   "t2_recall": 0.6223970759660533,
   "perfect_sep": 0.23170731707317074
 }

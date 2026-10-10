@@ -1,0 +1,34 @@
+08:29:51 [INFO] Device: cuda
+08:29:51 [INFO] Loading 0 test instances...
+08:29:54 [INFO] Test instances: 229
+08:29:54 [INFO] Tier3 lookup: 743 instances with scope-creep hunks
+08:29:54 [INFO] Loading M1 encoder...
+The new embeddings will be initialized from a multivariate normal distribution that has old embeddings' mean and covariance. As described in this article: https://nlp.stanford.edu/~johnhew/vocab-expansion.html. To disable this, use `mean_resizing=False`
+/mimer/NOBACKUP/groups/llm-readability/EditBoundaryDetection/exp3_analysis.py:74: FutureWarning: You are using `torch.load` with `weights_only=False` (the current default value), which uses the default pickle module implicitly. It is possible to construct malicious pickle data which will execute arbitrary code during unpickling (See https://github.com/pytorch/pytorch/blob/main/SECURITY.md#untrusted-models for more details). In a future release, the default value for `weights_only` will be flipped to `True`. This limits the functions that could be executed during unpickling. Arbitrary objects will no longer be allowed to be loaded via this mode unless they are explicitly allowlisted by the user via `torch.serialization.add_safe_globals`. We recommend you start setting `weights_only=True` for any use case where you don't have full control of the loaded file. Please open an issue on GitHub for any issues related to this experimental feature.
+  ckpt = torch.load(p, map_location=device)
+08:29:59 [INFO] Loaded checkpoint: checkpoints/m1/best.pt
+08:29:59 [INFO] Loading M2 encoder...
+08:30:03 [INFO] Loaded checkpoint: checkpoints/m2/best.pt
+08:30:03 [INFO] Loading M0 (untrained) encoder for stratification...
+08:30:04 [INFO] No checkpoint path — M0 (untrained backbone, no projection)
+08:30:04 [INFO] === Analysis A: Stratified Evaluation ===
+08:30:06 [INFO] T3-REQ sim (M0): median=0.5074  min=0.2524  max=0.7613  n=82
+08:30:06 [INFO] Hard group (T3≥median): 41  |  Easy group (T3<median): 41
+08:30:06 [INFO] Evaluating m1 / hard (41 instances)...
+08:30:12 [INFO]   hard/m1: nDCG=0.5622  T2-Recall=0.6901  PSR=0.1707  n=41
+08:30:12 [INFO] Evaluating m2 / hard (41 instances)...
+08:30:18 [INFO]   hard/m2: nDCG=0.9678  T2-Recall=0.9905  PSR=0.9512  n=41
+08:30:18 [INFO] Evaluating m1 / easy (41 instances)...
+08:30:32 [INFO]   easy/m1: nDCG=0.7160  T2-Recall=0.7707  PSR=0.3171  n=41
+08:30:32 [INFO] Evaluating m2 / easy (41 instances)...
+08:30:45 [INFO]   easy/m2: nDCG=0.9542  T2-Recall=0.9455  PSR=0.8537  n=41
+08:30:45 [INFO]   Δ(M2-M1) hard: nDCG=0.4056  T2-Recall=0.3004  PSR=0.7805
+08:30:45 [INFO]   Δ(M2-M1) easy: nDCG=0.2382  T2-Recall=0.1749  PSR=0.5366
+08:30:45 [INFO] KEY: Hard Δ=0.3004  Easy Δ=0.1749  (expected Hard >> Easy)
+08:30:45 [INFO] === Analysis B: ORIG Signal Alignment ===
+08:31:36 [INFO] m1 ORIG-sim: gold n=714 mean=0.8872 std=0.0997 | t3 n=134 mean=0.8435 std=0.1016
+08:31:36 [INFO] m1 Mann-Whitney U [gold>t3]: U=62712  p=5.4293e-09  r=0.3109  ***
+08:31:36 [INFO] m2 ORIG-sim: gold n=714 mean=0.8829 std=0.0972 | t3 n=134 mean=0.0745 std=0.2429
+08:31:36 [INFO] m2 Mann-Whitney U [gold>t3]: U=94274  p=1.5025e-71  r=0.9707  ***
+08:31:36 [INFO] KEY: M2 has stronger ORIG alignment than M1  Δr=0.6598  Δmean_gap=0.7647
+08:31:36 [INFO] Results saved → logs/exp3_analysis.json

@@ -1,7 +1,7 @@
 11:07:39 [INFO] Device: cuda
 11:07:39 [INFO] Loading dataset from data/processed/instances_full.jsonl
-11:07:41 [INFO] Dataset stats: {'total_pairs': 16753, 'by_pair_type': {'req_hunk': 9223, 'req_test': 7530}, 'by_tier': {1: 3354, 2: 5869}, 'unique_instances': 2291}
-11:07:41 [INFO] Splits — train: 14429  val: 1200
+11:07:41 [INFO] Dataset stats: {'total_pairs': 20421, 'by_pair_type': {'req_hunk': 9223, 'req_test': 11198}, 'by_tier': {1: 3354, 2: 5869}, 'unique_instances': 2291}
+11:07:41 [INFO] Splits — train: 17727  val: 1394
 The new embeddings will be initialized from a multivariate normal distribution that has old embeddings' mean and covariance. As described in this article: https://nlp.stanford.edu/~johnhew/vocab-expansion.html. To disable this, use `mean_resizing=False`
 11:07:44 [INFO] Encoder parameters: 126,720,768
 11:07:44 [INFO] Loaded Tier-3 hard negatives: 743 instances (applied to req_hunk + orig_hunk)

@@ -7,20 +7,20 @@ The new embeddings will be initialized from a multivariate normal distribution t
 20:03:29 [INFO] === Experiment 1: Geometric Structure Validation ===
 20:03:31 [INFO] Test instances: 229
 20:03:31 [INFO] Tier-3 lookup loaded: 743 instances with scope-creep hunks
-20:04:46 [INFO] 1  n=417  mean=1.2743  std=0.2863  median=1.2763
-20:04:46 [INFO] 2a  n=381  mean=1.2580  std=0.2414  median=1.2369
-20:04:46 [INFO] 2b  n=64  mean=0.7432  std=0.2281  median=0.7154
-20:04:46 [INFO] 3  n=142  mean=0.1630  std=0.3955  median=0.0121
+20:04:46 [INFO] 1  n=415  mean=1.2743  std=0.2863  median=1.2763
+20:04:46 [INFO] 2a  n=348  mean=1.2580  std=0.2414  median=1.2369
+20:04:46 [INFO] 2b  n=99  mean=0.7432  std=0.2281  median=0.7154
+20:04:46 [INFO] 3  n=143  mean=0.1630  std=0.3955  median=0.0121
 20:04:46 [INFO] Mann-Whitney U [score]  1 > 2a:  U=76213  p=9.3424e-02  n.s.
 20:04:46 [INFO] Mann-Whitney U [score]  1 > 2b:  U=37638  p=3.1514e-38  ***
 20:04:46 [INFO] Mann-Whitney U [score]  2a > 2b:  U=32162  p=6.5868e-40  ***
 20:04:46 [INFO] Mann-Whitney U [score]  2a > 3:  U=48009  p=2.9423e-59  ***
 20:04:46 [INFO] Mann-Whitney U [score]  2b > 3:  U=12428  p=8.4115e-24  ***
 20:04:46 [INFO] Mann-Whitney U [score]  1 > 3:  U=57249  p=4.4493e-62  ***
-20:04:46 [INFO] Mann-Whitney U [ORIG-sim]  2a > 2b:  U=34452  p=5.9009e-53  ***  (n_2a=381 mean=0.8671 | n_2b=64 mean=0.0000)
+20:04:46 [INFO] Mann-Whitney U [ORIG-sim]  2a > 2b:  U=34452  p=5.9009e-53  ***  (n_2a=348 mean=0.8671 | n_2b=99 mean=0.0000)
 20:04:47 [INFO] Histogram saved → logs/geometry_hist.png
 20:04:54 [INFO] Silhouette score (256D cosine, hunk tiers): 0.1184
-20:04:54 [INFO] Running 3D UMAP on 1690 points (1004 hunks + 686 entity anchors)...
+20:04:54 [INFO] Running 3D UMAP on 1560 points (1005 hunks + 555 entity anchors)...
 /mimer/NOBACKUP/groups/llm-readability/EditBoundaryDetection/gpu_env/lib/python3.11/site-packages/umap/umap_.py:1952: UserWarning: n_jobs value 1 overridden to 1 by setting random_state. Use no seed for parallelism.
   warn(
 20:05:07 [INFO] UMAP embeddings saved → logs/umap_embs_m3.npz

@@ -7,17 +7,17 @@ The new embeddings will be initialized from a multivariate normal distribution t
 21:55:12 [INFO] === Experiment 1: Geometric Structure Validation ===
 21:55:13 [INFO] Test instances: 229
 21:55:13 [INFO] Tier-3 lookup loaded: 743 instances with scope-creep hunks
-21:56:10 [INFO] 1  n=417  mean=0.3753  std=0.1461  median=0.4325
-21:56:10 [INFO] 2a  n=381  mean=0.4356  std=0.0567  median=0.4526
-21:56:10 [INFO] 2b  n=64  mean=0.0000  std=0.0000  median=0.0000
-21:56:10 [INFO] 3  n=142  mean=0.0014  std=0.0538  median=-0.0077
+21:56:10 [INFO] 1  n=415  mean=0.3753  std=0.1461  median=0.4325
+21:56:10 [INFO] 2a  n=348  mean=0.4356  std=0.0567  median=0.4526
+21:56:10 [INFO] 2b  n=99  mean=0.0000  std=0.0000  median=0.0000
+21:56:10 [INFO] 3  n=143  mean=0.0014  std=0.0538  median=-0.0077
 21:56:10 [INFO] Mann-Whitney U [score]  1 > 2a:  U=52820  p=1.0000e+00  n.s.
 21:56:10 [INFO] Mann-Whitney U [score]  1 > 2b:  U=38660  p=1.1227e-43  ***
 21:56:10 [INFO] Mann-Whitney U [score]  2a > 2b:  U=34452  p=5.9009e-53  ***
 21:56:10 [INFO] Mann-Whitney U [score]  2a > 3:  U=49719  p=5.1128e-68  ***
 21:56:10 [INFO] Mann-Whitney U [score]  2b > 3:  U=8464  p=3.3546e-03  **
 21:56:10 [INFO] Mann-Whitney U [score]  1 > 3:  U=56472  p=8.1939e-59  ***
-21:56:10 [INFO] Mann-Whitney U [ORIG-sim]  2a > 2b:  U=34452  p=5.9009e-53  ***  (n_2a=381 mean=0.8712 | n_2b=64 mean=0.0000)
+21:56:10 [INFO] Mann-Whitney U [ORIG-sim]  2a > 2b:  U=34452  p=5.9009e-53  ***  (n_2a=348 mean=0.8712 | n_2b=99 mean=0.0000)
 21:56:11 [INFO] Histogram saved → logs/geometry_hist.png
 21:56:11 [INFO] === Experiment 2: Retrieval ===
 21:56:12 [INFO] Test instances: 229

@@ -8,7 +8,7 @@ Run from the project root (CPU only, no model download):
   2. train._train_step builds the mask so that anchor i is masked to the Tier-3 hunks of ITS instance
      (and the same-repo hunks sampled for it), and nothing leaks between anchors / instances
   3. train.validate uses the variant's hard negatives (validation loss measures what the variant learns)
-  4. the M-variant recipes are what Table IV says: M3 = M2 + same-repo negatives, M4 = M2 + tier weighting
+  4. the M-variant recipes are what Table IV says: M3 = M2 + same-repo negatives, M4 = M3 + tier weighting
 """
 
 from __future__ import annotations
@@ -168,7 +168,7 @@ def check_recipes() -> None:
     assert "--tier3" in flags("m2.slurm") and "--same-repo" not in flags("m2.slurm")
     assert {"--tier3", "--same-repo"} <= flags("m3.slurm"), "M3 must be M2 + same-repo negatives"
     f4 = flags("m4.slurm")
-    assert {"--tier3", "--tier-aware-loss"} <= f4 and "--same-repo" not in f4, "M4 must be M2 + tier weighting"
+    assert {"--tier3", "--same-repo", "--tier-aware-loss"} <= f4, "M4 must be M3 + tier weighting"
     f1 = flags("m1.slurm")
     assert not ({"--tier3", "--same-repo", "--tier-aware-loss"} & f1), "M1 must have no hard negatives"
 

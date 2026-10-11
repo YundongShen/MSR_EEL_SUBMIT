@@ -18,7 +18,7 @@ echo "Job started: $(date)"
 echo "Node: $(hostname)"
 echo "GPU: $(nvidia-smi --query-gpu=name --format=csv,noheader)"
 
-# M4: M2 (Tier-3 same-instance negatives) + Tier-aware loss weighting (Tier-1 w=1.0, Tier-2 w=0.67)
+# M4: M3 + Tier-aware loss weighting (Tier-1 w=1.0, Tier-2 w=0.67)
 python train.py \
     --instances data/processed/instances_full.jsonl \
     --encoder   microsoft/unixcoder-base \
@@ -26,6 +26,7 @@ python train.py \
     --checkpoint-dir checkpoints/m4 \
     --pair-types req_test req_hunk orig_hunk req_orig \
     --tier3     data/cache/tier3_hunks.jsonl \
+    --same-repo \
     --tier-aware-loss
 
 echo "Done: $(date)"

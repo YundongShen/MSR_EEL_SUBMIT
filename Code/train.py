@@ -535,7 +535,7 @@ if __name__ == "__main__":
     add_retained_args(parser)
     parser.add_argument("--same-repo", action="store_true",
                         help="Same-repo cross-issue hard negatives (M3 = M2 + this flag, i.e. together with --tier3)")
-    parser.add_argument("--tier-aware-loss", action="store_true", help="Tier-1/2 loss weighting (M4 = M2 + this flag, i.e. with --tier3, without --same-repo)")
+    parser.add_argument("--tier-aware-loss", action="store_true", help="Tier-1/2 loss weighting (M4 = M3 + this flag, i.e. with --tier3 and --same-repo)")
     args = parser.parse_args()
 
     cfg = default_config

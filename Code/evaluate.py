@@ -834,12 +834,17 @@ def run_baseline_retrieval(
     """
     log.info("=== Baseline %s: Retrieval (%s split, repo_pool=%s) ===", label, split, repo_pool)
     tier_rel = cfg.eval.tier_relevance
-    acc: dict[str, list[float]] = {"ndcg_k": [], "t2_recall": [], "psr": []}
+    acc: dict[str, list[float]] = {"ndcg_k": [], "t1_recall": [], "t2_recall": [], "psr": []}
     for n, (inst, candidates, tiers, tiebreaks) in enumerate(retrieval_candidates(
             cfg, split=split, all_instances=all_instances, repo_pool=repo_pool, repo_pool_max=repo_pool_max), 1):
         req = inst.get("requirement", "")[:cfg.data.max_req_chars]
         scores = [float(x) for x in score_fn(req, [c[0] for c in candidates])]
         ndcg, t2, psr = _instance_metrics(scores, tiers, tiebreaks, tier_rel)
+        tier1_total = sum(t == 1 for t in tiers)
+        if ndcg is not None and tier1_total:
+            retained_total = sum(t in (1, 2) for t in tiers)
+            ranked = sorted(zip(scores, tiers, tiebreaks), key=lambda x: (x[0], x[2]), reverse=True)
+            acc["t1_recall"].append(sum(t == 1 for _, t, _ in ranked[:retained_total]) / tier1_total)
         for key, value in (("ndcg_k", ndcg), ("t2_recall", t2), ("psr", psr)):
             if value is not None:
                 acc[key].append(value)
@@ -852,12 +857,15 @@ def run_baseline_retrieval(
         "repo_pool":   repo_pool,
         "n_instances": len(acc["ndcg_k"]),
         "ndcg_k":      float(np.mean(acc["ndcg_k"])) if acc["ndcg_k"] else None,
+        "t1_recall":   float(np.mean(acc["t1_recall"])) if acc["t1_recall"] else None,
+        "n_t1_recall": len(acc["t1_recall"]),
         "t2_recall":   float(np.mean(acc["t2_recall"])) if acc["t2_recall"] else None,
         "n_t2_recall": len(acc["t2_recall"]),
         "perfect_sep": float(np.mean(acc["psr"])) if acc["psr"] else None,
     }
     log.info("=== %s ===", label)
     log.info("  nDCG@k       mean=%s  n=%d", results["ndcg_k"], results["n_instances"])
+    log.info("  T1-Recall    mean=%s  n=%d", results["t1_recall"], results["n_t1_recall"])
     log.info("  T2-Recall    mean=%s  n=%d", results["t2_recall"], results["n_t2_recall"])
     log.info("  Perfect-Sep  mean=%s  n=%d", results["perfect_sep"], len(acc["psr"]))
     return results

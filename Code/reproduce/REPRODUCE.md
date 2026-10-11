@@ -133,13 +133,15 @@ older checkpoints without this stamp.
 python baselines/baselines_bm25.py "${A[@]}" --output logs/baseline_bm25.json
 python baselines/baselines_pretrained.py --model microsoft/codebert-base "${A[@]}" --output logs/baseline_codebert.json
 python baselines/baselines_pretrained.py --model microsoft/graphcodebert-base "${A[@]}" --output logs/baseline_graphcodebert.json
+python baselines/baselines_pretrained.py --model microsoft/unixcoder-base "${A[@]}" --output logs/baseline_unixcoder_req_hunk.json
 python baselines/baselines_extra.py --mode codet5 --model Salesforce/codet5p-110m-embedding "${A[@]}" --output logs/baseline_codet5.json
 python baselines/baselines_extra.py --mode coderetriever --model microsoft/graphcodebert-base "${A[@]}" --output logs/baseline_pooler_retrieval.json
 python baselines/baselines_extra.py --mode cross_encoder --model cross-encoder/ms-marco-MiniLM-L-6-v2 "${A[@]}" --output logs/baseline_cross_encoder.json
 ```
 
-BM25 uses lexical matching. CodeBERT and GraphCodeBERT use normalized mean
-token embeddings. CodeT5 uses the CodeT5+ 110M embedding checkpoint.
+BM25 uses lexical matching. CodeBERT, GraphCodeBERT, and the UniXCoder baseline
+score REQ–HUNK cosine similarity using normalized mean token embeddings. M0
+uses the three-view retention score. CodeT5 uses the CodeT5+ 110M embedding checkpoint.
 Pooler-based Retrieval uses GraphCodeBERT's randomly initialized pooler without
 task-specific training. The `coderetriever` CLI mode selects this pooler
 configuration; the result JSON records the GraphCodeBERT model ID.

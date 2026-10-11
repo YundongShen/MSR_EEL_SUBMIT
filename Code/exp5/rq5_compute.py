@@ -17,6 +17,11 @@ ap.add_argument("--scores", nargs="+", default=sorted(str(p) for p in Path(__fil
 ap.add_argument("--draws", type=int, default=2000, help="random tie-break draws per issue")
 args = ap.parse_args()
 S = Path(args.survey)
+pending_file = S / "review_pending.csv"
+if pending_file.exists():
+    pending = [r for r in csv.DictReader(pending_file.open()) if r["status"] == "pending"]
+    if pending:
+        ap.error(f"{len(pending)} replaced hunks await reviewer confirmation; see {pending_file}")
 
 t2i = {r["task_id"]: r["swebench_instance_id"] for r in csv.DictReader(open(S / "task_id_mapping.csv"))}
 votes = {}

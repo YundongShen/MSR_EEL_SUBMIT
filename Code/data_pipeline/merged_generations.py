@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import gzip
+import hashlib
 import json
 import re
 from pathlib import Path
@@ -93,6 +94,13 @@ def normalize_hunk(hunk: dict, default_sample: int = 0) -> dict:
 def hunk_identity(hunk: dict) -> tuple:
     # The new-side line offset can change when other hunks precede this edit.
     return hunk["file"], hunk["old_start"], tuple(hunk["text"].splitlines()[1:])
+
+
+def export_hunk_key(hunk: dict) -> str:
+    value = [hunk.get("file", hunk.get("filepath")),
+             hunk.get("old_start", hunk.get("old_start_line")),
+             hunk.get("text", hunk.get("hunk_diff")).rstrip("\n")]
+    return hashlib.sha256(json.dumps(value, ensure_ascii=False).encode()).hexdigest()
 
 
 def gold_distance(hunk: dict, reference: list[dict]) -> int:

@@ -17,7 +17,7 @@ package = types.ModuleType("data")
 package.__path__ = [str(ROOT / "data")]
 sys.modules["data"] = package
 
-from data_pipeline.merged_generations import candidate_hunks, diff_hunks, gold_distance, read_jsonl
+from data_pipeline.merged_generations import candidate_hunks, diff_hunks, export_hunk_key, gold_distance, read_jsonl
 from data_pipeline import sample_haiku_merge as sampler
 from data_pipeline import build_dataset
 from data.llm_client import LLMClient
@@ -94,11 +94,13 @@ class SamplingChecks(unittest.TestCase):
         record, count = merge(None, data, result(diff()))
         self.assertEqual(count, 1)
         original = copy.deepcopy(record["generation"])
+        record["export_order"] = {"retained": ["old"]}
         record, count = merge(record, data, result(diff(new_start=4) + diff(30), "later response"), 1)
         self.assertEqual(count, 1)
         self.assertEqual(record["generation"], original)
         self.assertNotIn("later response", json.dumps(record))
         self.assertNotIn("modified_files", record["generation"])
+        self.assertNotIn("export_order", record)
         self.assertEqual([h["sample"] for h in candidate_hunks(record)], [0, 1])
         self.assertEqual(sampler.next_sample(record), 2)
         record, count = merge(record, data, result(diff(30), "duplicate"), 2)
@@ -195,6 +197,54 @@ class SamplingChecks(unittest.TestCase):
                     "--generations", str(output), "--dry-run", "--max", "1"]):
                 sampler.main()
             self.assertEqual(output.read_bytes(), before)
+
+
+    def test_build_restores_source_context_and_export_order(self):
+        with tempfile.TemporaryDirectory() as temp:
+            folder = Path(temp)
+            data = inst()
+            record = {
+                "instance_id": data["instance_id"], "repo": data["repo"],
+                "meta": {"gold_patch": diff(10) + diff(20)},
+                "generation": {"extracted_diff": diff(10) + diff(20) + diff(45)},
+            }
+            hunks = candidate_hunks(record)
+            record["export_order"] = {
+                "retained": [export_hunk_key(hunks[1]), export_hunk_key(hunks[0])],
+                "tier3": [export_hunk_key(hunks[2])],
+                "retained_issue": 0, "tier3_issue": 0,
+            }
+            generations, sources = folder / "generations.jsonl.gz", folder / "sources.jsonl.gz"
+            sampler.save_records(generations, {data["instance_id"]: record})
+            sampler.save_records(sources, {data["instance_id"]: data})
+            instances = folder / "instances.jsonl"
+            sampler.save_records(instances, {data["instance_id"]: {
+                "instance_id": data["instance_id"], "fail_to_pass_ids": []}})
+            splits = folder / "splits.json"
+            splits.write_text(json.dumps({"train_ids": [data["instance_id"]], "val_ids": [], "test_ids": []}))
+            retained, tier3, manifest = (folder / name for name in ("retained.jsonl", "tier3.jsonl", "manifest.json"))
+            args = ["build_dataset.py", "--generations", str(generations),
+                    "--source-instances", str(sources), "--instances", str(instances),
+                    "--splits", str(splits), "--retained-out", str(retained),
+                    "--tier3-out", str(tier3), "--manifest", str(manifest)]
+            with patch.object(sys, "argv", args):
+                build_dataset.main()
+            rows = list(read_jsonl(retained))[0]["llm_t12_hunks"]
+            self.assertEqual([h["old_start_line"] for h in rows], [20, 10])
+            self.assertEqual([h["hunk_id"] for h in rows], [0, 1])
+            self.assertEqual(rows[0]["context_before"], [f"line{i}" for i in range(14, 19)])
+            self.assertEqual(rows[0]["context_after"], [f"line{i}" for i in range(20, 25)])
+            self.assertEqual([h["tier_label"] for h in rows], [2, 2])
+            self.assertEqual(json.loads(manifest.read_text())["total"]["T3_hunks"], 1)
+            broken = copy.deepcopy(record)
+            broken["generation"]["extracted_diff"] = diff(10, "changed") + diff(20) + diff(45)
+            sampler.save_records(generations, {data["instance_id"]: broken})
+            with patch.object(sys, "argv", args), self.assertRaisesRegex(ValueError, "export_order"):
+                build_dataset.main()
+            sampler.save_records(generations, {data["instance_id"]: record})
+            sources.unlink()
+            with patch.object(sys, "argv", args), self.assertRaisesRegex(ValueError, "source_files missing"):
+                build_dataset.main()
 
 
 if __name__ == "__main__":

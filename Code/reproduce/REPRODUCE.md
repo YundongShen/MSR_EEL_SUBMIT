@@ -1,8 +1,7 @@
 # Reproduction
 
-Use the final submission repository, `MSR_EEL_SUBMIT`. Commands below run from
-its `Code` directory. Data comes from the adjacent `Data` directory; no older
-`MSR_EEL_Data` selection is downloaded or substituted.
+Commands below run from the `Code` directory of `MSR_EEL_SUBMIT` and use the
+published data in the adjacent `Data` directory.
 
 ## Environment and data
 
@@ -15,11 +14,10 @@ export PYTHONHASHSEED=42
 ```
 
 The supported environment is Python 3.11 or 3.12 with the dependencies in
-`requirements.txt`. The default interpreter is `python3.12`; override it with
-`EEL_PYTHON_BIN`. Linux GPU setup uses PyTorch 2.5.1 CUDA 12.1 wheels. Set
+`reproduce/requirements.txt`. The default interpreter is `python3.12`; set
+`EEL_PYTHON_BIN` to use another interpreter. Linux GPU setup uses PyTorch 2.5.1
+CUDA 12.1 wheels. Set
 `EEL_TORCH_INDEX_URL=https://download.pytorch.org/whl/cpu` for CPU-only setup.
-These package pins describe a supported runtime, rather than a complete freeze
-of the historical Alvis environment.
 
 `bash reproduce/setup_env.sh --check` checks the published data without writing
 files or installing packages. `--data-only` prepares data without installing an
@@ -36,9 +34,8 @@ submission's `Data` directory. The setup checks:
 
 Setup decompresses the parsed instances into `data/processed/`, copies the fixed
 splits and generated candidates, and creates Django and non-Django instance
-files. It does not regenerate labels or modify the published files. The instance
-loader excludes reference-patch hunks; model candidates are read from
-`llm_t12_hunks.jsonl` and `tier3_hunks.jsonl`.
+files. Model candidates are read from `llm_t12_hunks.jsonl` and
+`tier3_hunks.jsonl`; reference-patch hunks are excluded by the instance loader.
 
 `Retained-H` denotes LLM-generated hunks matched to the reference patch
 (T1/T2); `Gold-H` denotes the reference patch's own hunks. Code and JSON use
@@ -49,8 +46,7 @@ For Slurm, prefix a command with `sbatch reproduce/job.sbatch`. Supply the
 account, partition, GPU type and time limit required by your cluster as `sbatch`
 options. Setup creates `logs/` before submission. The wrapper uses one GPU and
 eight CPU cores. Training and encoder evaluation benefit from a GPU; BM25 and
-data preparation can run on CPU. Resource settings are runtime choices, not
-claims about the hardware of every historical job.
+data preparation can run on CPU.
 
 ## Protocol and training
 
@@ -62,10 +58,9 @@ at 0.07, is learned and is clamped to [0.01, 1.0]. Batch size is 32; each epoch
 draws 250000 pair-type-balanced samples. The four pair types are REQ–TEST,
 REQ–HUNK, ORIG–HUNK and REQ–ORIG, with unit weights.
 
-Ten epochs is the maximum training budget. The historical REQ-only and TEST-view
+Ten epochs is the maximum training budget. The REQ-only and TEST-view
 runs completed six and seven epochs before timing out; their evaluations used
-the best validation checkpoint, saved at epoch one. A fresh ten-epoch run is a
-new experiment and must report its own selected checkpoint and results.
+the best validation checkpoint, saved at epoch one.
 
 ```bash
 python train.py --instances data/processed/instances_full.jsonl --epochs 10 --checkpoint-dir checkpoints/m1 --pair-types req_test req_hunk orig_hunk req_orig
@@ -77,8 +72,7 @@ python train.py --instances data/processed/instances_full.jsonl --epochs 10 --ch
 M1 uses in-batch negatives. M2 adds same-issue T3 negatives. M3 retains M2's
 negatives and adds up to three retained hunks from other issues in the same
 repository per anchor. M4 uses this M3 configuration with T1/T2 loss weights
-1.0/0.67, matching the submitted training log. M0 is the untrained backbone
-without the projection for the ranking evaluation.
+1.0/0.67. M0 uses the untrained backbone without the projection for ranking.
 
 ```bash
 python train.py --instances data/processed/instances_full.jsonl --epochs 10 --checkpoint-dir checkpoints/m2_abl_no_orig --pair-types req_test req_hunk --tier3 data/cache/tier3_hunks.jsonl
@@ -89,8 +83,7 @@ python train.py --instances data/processed/instances_full.jsonl --epochs 10 --ch
 ```
 
 TEST-view retains REQ as a training anchor but scores with TEST alone. The
-ORIG-only model uses the ORIG–HUNK relation; removing REQ yields that same
-relation and is not an additional row in the main ablation table.
+ORIG-only model and the no-REQ ablation both use the ORIG–HUNK relation.
 
 ## Core ranking and repository-view ablations
 
@@ -129,10 +122,10 @@ python evaluate.py --checkpoint checkpoints/exp2_test_only/best.pt --exp retriev
 python evaluate.py --checkpoint checkpoints/m2_abl_no_req/best.pt --exp retrieval "${A[@]}" --score-alpha 0.0 --score-beta 0.0 --score-gamma 1.0
 ```
 
-Checkpoints are produced by training and are not supplied by environment setup.
-The default loader requires a generated-data provenance stamp. The
-`--allow-legacy-checkpoint` option is for inspecting unstamped historical
-checkpoints; it does not establish agreement with the current dataset.
+Training produces the checkpoints used by the evaluation commands. Checkpoint
+weights are not included in the repository. The default loader checks the
+generated-data provenance stamp; `--allow-legacy-checkpoint` permits loading
+older checkpoints without this stamp.
 
 ## Baseline implementations
 
@@ -147,16 +140,13 @@ python baselines/baselines_extra.py --mode cross_encoder --model cross-encoder/m
 
 BM25 uses lexical matching. CodeBERT and GraphCodeBERT use normalized mean
 token embeddings. CodeT5 uses the CodeT5+ 110M embedding checkpoint.
-Pooler-based Retrieval uses GraphCodeBERT's pooler output; the pooler is
-randomly initialized and receives no task-specific training. The existing
-`coderetriever` CLI mode is used for this configuration and is not an
-implementation of the published CodeRetriever model. The historical JSON with
-that filename records the actual GraphCodeBERT model ID.
+Pooler-based Retrieval uses GraphCodeBERT's randomly initialized pooler without
+task-specific training. The `coderetriever` CLI mode selects this pooler
+configuration; the result JSON records the GraphCodeBERT model ID.
 
-The supplied Cross-Encoder command evaluates the pretrained MS MARCO ranker
-without retention-label training. A retention-trained Cross-Encoder requires
-separate training code and its trained checkpoint, neither supplied here. The
-REQ-only command above is the supervised requirement–hunk baseline.
+Cross-Encoder evaluates the pretrained MS MARCO ranker without task-specific
+training. The REQ-only command above trains the supervised requirement–hunk
+baseline.
 
 ## RQ3 diagnostics and Django figures
 
@@ -173,23 +163,21 @@ comparison includes test hunks with matched source units and excludes T0.
 
 The Django scripts select all 849 Django issues. Figure 4 fits UMAP on the
 untrained projected hunk representation and transforms M2 hunks into that
-space; its reference background remains the M0 background. This visualization
-uses an untrained projection, unlike the M0 ranking and difficulty baselines.
+space; its reference background remains the M0 background.
 Figure 5 and the five-region statistics use diagnostic similarities: TEST is a
 normalized mean test representation, and missing matched ORIG falls back to
-the normalized mean of the issue's first 16 source units. These diagnostic
-coordinates differ from the ranking score above. Region percentages are
-computed among retained T1/T2 hunks, not all hunks.
+the normalized mean of the issue's first 16 source units. Region percentages
+are computed among retained T1/T2 hunks.
 
-Optional region classification must explicitly use the Django data:
+To classify Django regions:
 
 ```bash
 python analysis/analyze_regions.py --npz logs/django_viz_data.npz --instances data/processed/instances_full.jsonl --out logs/django_region_analysis.json
 ```
 
-Optional edit-type analysis labels generated retained hunks and requires newly
-exported scores with `hunk_key`; historical score files without this key cannot
-be joined by this script. It does not change T1/T2 labels.
+Optional edit-type analysis labels generated retained hunks. Export scores with
+`hunk_key` using the command below before running the analysis. Edit-type labels
+are separate from the T1/T2 labels.
 
 ```bash
 python evaluate.py --checkpoint checkpoints/m2/best.pt --exp geometry --instances data/processed/instances_full.jsonl --llm-t12 data/cache/llm_t12_hunks.jsonl --tier3 data/cache/tier3_hunks.jsonl "${W[@]}" --save-hunk-scores logs/exp2_hunk_scores_m2.jsonl
@@ -197,7 +185,7 @@ python analysis/exp2_label_hunks.py --instances data/processed/instances_full.js
 python analysis/exp2_analysis.py
 ```
 
-## RQ4: leave-Django-out and available evidence
+## RQ4: generalization
 
 ```bash
 python train.py --instances data/processed/instances_non_django.jsonl --epochs 10 --checkpoint-dir checkpoints/exp4_ldo --pair-types req_hunk req_test orig_hunk req_orig --tier3 data/cache/tier3_hunks.jsonl
@@ -209,34 +197,40 @@ The leave-Django-out model is trained without Django in either training or
 validation and evaluated on the 204 eligible Django issues with T0 distractors.
 
 `../Data/Evaluation/generalization/results/rq4_results.json` summarizes the
-historical RQ4 results: EEL 82 issues; leave-Django-out 204; Gemini 41; Qwen 43;
+recorded RQ4 results: EEL 82 issues; leave-Django-out 204; Gemini 41; Qwen 43;
 DeepSeek 21; multilingual 109; and 17 GitHub PRs (9 Python, 8 non-Python).
 GitHub PRs use nDCG@5 with a different candidate construction and no PSR.
-The included logs support the recorded numeric results. Complete historical
-candidate inputs for the cross-generator, multilingual and PR experiments are
-not included; see `artifact_manifest.json` in the same directory. Their result
-records can be inspected, but this guide does not provide a complete rerun from
-the available count summaries or partial candidate files.
+The directory contains result logs, summaries and partial input artifacts.
+Complete candidate inputs for the cross-generator, multilingual and PR
+experiments are not included. `artifact_manifest.json` lists the available and
+missing inputs needed to rerun these experiments.
 
 ## Candidate sampling and rebuilding
+
+Rebuild the published candidate files from the archived generations and raw
+source inputs:
+
+```bash
+python data_pipeline/build_dataset.py --generations data/cache/haiku_generations.jsonl.gz --source-instances data/raw/swebench_full_instances.jsonl.gz --instances data/processed/instances_full.jsonl --splits data/processed/splits.json --retained-out data/cache/rebuilt_llm_t12_hunks.jsonl --tier3-out data/cache/rebuilt_tier3_hunks.jsonl --manifest data/cache/rebuilt_dataset_manifest.json
+```
+
+The archived records include `export_order` to preserve output ordering.
 
 Training and evaluation above use the published candidates without rebuilding
 them. For a new sampling experiment, set `ANTHROPIC_API_KEY` and use a separate
 generation output. Samples are batched until the number of matched generated
 hunks reaches the reference-hunk count. Duplicate hunks are removed; later
 samples are merged into the issue record. If matches exceed that count, the
-nearest matches are retained. Later full responses are not all preserved in
-the compact records. Reusing a run ID resumes the corresponding sampling round.
+matches with the smallest start-line distances to reference hunks in the same
+file are retained. Reusing a run ID resumes the corresponding sampling round.
 
 ```bash
 python data_pipeline/sample_haiku_merge.py --input data/raw/swebench_full_instances.jsonl.gz --generations data/cache/new_haiku_generations.jsonl.gz --model claude-haiku-4-5-20251001 --temperature 0.7 --max-tokens 4096 --samples 1 --run-id new-sampling --dry-run
 python data_pipeline/sample_haiku_merge.py --input data/raw/swebench_full_instances.jsonl.gz --generations data/cache/new_haiku_generations.jsonl.gz --model claude-haiku-4-5-20251001 --temperature 0.7 --max-tokens 4096 --samples 1 --run-id new-sampling
-python data_pipeline/build_dataset.py --generations data/cache/new_haiku_generations.jsonl.gz --instances data/processed/instances_full.jsonl --splits data/processed/splits.json --retained-out data/cache/new_llm_t12_hunks.jsonl --tier3-out data/cache/new_tier3_hunks.jsonl --manifest data/cache/new_dataset_manifest.json
+python data_pipeline/build_dataset.py --generations data/cache/new_haiku_generations.jsonl.gz --source-instances data/raw/swebench_full_instances.jsonl.gz --instances data/processed/instances_full.jsonl --splits data/processed/splits.json --retained-out data/cache/new_llm_t12_hunks.jsonl --tier3-out data/cache/new_tier3_hunks.jsonl --manifest data/cache/new_dataset_manifest.json
 ```
 
-New API samples, rebuilt labels and retrained models may yield different
-counts or scores; they are not replacements for the recorded historical
-results. `GEMINI_API_KEY` is needed for optional edit-type labeling, and
+`GEMINI_API_KEY` is needed for optional edit-type labeling, and
 `ANTHROPIC_API_KEY` for optional region classification and sampling.
 
 ## Submitted result records
@@ -249,7 +243,6 @@ results. `GEMINI_API_KEY` is needed for optional edit-type labeling, and
 | RQ4 transfer | `generalization/` |
 | Human evaluation | `Discussion/` |
 
-Evaluation commands write fresh outputs to `logs/`; training writes selected
-weights to `checkpoints/<variant>/best.pt`. Submitted historical records remain
-under `Data/Evaluation/`. Numeric agreement alone does not verify a historical
-run's candidate construction or checkpoint provenance.
+Evaluation commands write outputs to `logs/`. Training saves the checkpoint
+with the lowest validation loss to `checkpoints/<variant>/best.pt`. Submitted
+training logs and evaluation results are stored under `Data/Evaluation/`.

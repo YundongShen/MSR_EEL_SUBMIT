@@ -117,6 +117,7 @@ def merge_sample(record: dict | None, inst: dict, result: dict, *, sample: int,
             seen.add(identity)
             merged.append(hunk)
             added += 1
+    record.pop("export_order", None)
     record["merged_hunks"] = merged
     record["merged_hunks"] = candidate_hunks(record)
     summary = {

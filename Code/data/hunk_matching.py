@@ -40,6 +40,9 @@ def parse_hunks(patch: str) -> list[dict]:
             current_file = m.group(1).strip() if m else None
             continue
         if raw.startswith("+++ "):
+            if current_file == "/dev/null":
+                m = re.match(r"^\+\+\+ (?:b/)?(.+)", raw)
+                current_file = m.group(1).strip() if m else current_file
             continue
         if raw.startswith("@@"):
             if current_lines and current_file and old_start is not None:

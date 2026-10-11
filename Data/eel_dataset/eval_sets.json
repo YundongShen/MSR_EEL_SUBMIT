@@ -72,7 +72,6 @@
    "sympy__sympy-13877",
    "sympy__sympy-15678",
    "sympy__sympy-16052",
-   "sympy__sympy-18200",
    "sympy__sympy-18621",
    "sympy__sympy-18698",
    "sympy__sympy-19040",
@@ -82,12 +81,12 @@
    "sympy__sympy-21627",
    "sympy__sympy-22914",
    "sympy__sympy-22934",
-   "sympy__sympy-24102"
+   "sympy__sympy-24102",
+   "sympy__sympy-13346"
   ],
   "t2_recall_instances": [
    "astropy__astropy-13234",
    "astropy__astropy-13398",
-   "astropy__astropy-7008",
    "astropy__astropy-7218",
    "django__django-11216",
    "django__django-11883",
@@ -131,7 +130,8 @@
    "sphinx-doc__sphinx-9828",
    "sympy__sympy-12108",
    "sympy__sympy-12798",
-   "sympy__sympy-13877"
+   "sympy__sympy-13877",
+   "sympy__sympy-13346"
   ]
  }
 }

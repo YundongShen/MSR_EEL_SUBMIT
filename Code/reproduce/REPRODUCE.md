@@ -235,6 +235,34 @@ python data_pipeline/build_dataset.py --generations data/cache/new_haiku_generat
 `GEMINI_API_KEY` is needed for optional edit-type labeling, and
 `ANTHROPIC_API_KEY` for optional region classification and sampling.
 
+## Hunk similarity
+
+This analysis compares changed lines using UniXCoder cosine similarity. Retained
+hunks are paired with reference hunks in the same file less than 20 lines apart. Pairing
+first uses unique references; the remaining 622 hunks use the nearest same-file
+reference. T3 hunks use the nearest same-file reference, with a closest-path
+fallback for one hunk. The random control uses another issue in the same
+repository, with seed 0.
+
+Recompute the statistics from the submitted pairs and embeddings:
+
+```bash
+mkdir -p logs/hunk_similarity
+python analysis/hunk_similarity/analyse_ux.py > logs/hunk_similarity/table.txt
+```
+
+To rebuild pairs and embeddings from the published candidates:
+
+```bash
+mkdir -p logs/hunk_similarity
+python analysis/hunk_similarity/prep.py > logs/hunk_similarity/prep.log
+python analysis/hunk_similarity/embed_ux.py --pairs logs/hunk_similarity/pairs.json
+python analysis/hunk_similarity/analyse_ux.py --pairs logs/hunk_similarity/pairs.json --embeddings logs/hunk_similarity/emb_ux.npy > logs/hunk_similarity/table.txt
+```
+
+For GPU submission, replace the embedding command with
+`sbatch analysis/hunk_similarity/run_embed_ux.slurm --pairs logs/hunk_similarity/pairs.json`.
+
 ## Submitted result records
 
 | Paper experiment | Result directory under `../Data/Evaluation/` |
@@ -244,6 +272,7 @@ python data_pipeline/build_dataset.py --generations data/cache/new_haiku_generat
 | RQ2 repository-view ablations | `view_ablation/` |
 | RQ4 transfer | `generalization/` |
 | Human evaluation | `Discussion/` |
+| Hunk similarity | `hunk_similarity/` |
 
 Evaluation commands write outputs to `logs/`. Training saves the checkpoint
 with the lowest validation loss to `checkpoints/<variant>/best.pt`. Submitted

@@ -1,0 +1,12 @@
+17:58:03 [INFO] Device: cuda
+17:58:03 [INFO] use_projection: False
+17:58:06 [WARNING] Checkpoint none not found — evaluating with random weights.
+17:58:06 [INFO] === Experiment 2: Retrieval ===
+17:58:08 [INFO] Test instances: 229
+17:58:08 [INFO] Tier-3 lookup: 743 instances with scope-creep hunks
+17:58:08 [INFO] Building repo-level distractor pool (test split only) …
+17:58:08 [INFO] Repo pool: 11 repos, 862 total hunks
+18:01:32 [INFO] T1-Recall(K=Retained-H)  mean=0.5070  std=0.3648  n=44  (top-K = |T1∪T2|)
+18:01:32 [INFO] nDCG@k_retained  mean=0.5897  std=0.3529  n=82  (k = |T1∪T2| per instance)
+18:01:32 [INFO] T2-Recall(K=Retained-H)  mean=0.6776  std=0.3188  n=47  (top-K = |T1∪T2|)
+18:01:32 [INFO] Perfect-Sep  mean=0.2805  n=82  (all T3 ranked after all Retained-H)

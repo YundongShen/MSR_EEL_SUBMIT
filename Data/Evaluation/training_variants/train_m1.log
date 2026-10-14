@@ -4,7 +4,7 @@
 16:40:39 [INFO] Splits — train: 207834  val: 20446
 The new embeddings will be initialized from a multivariate normal distribution that has old embeddings' mean and covariance. As described in this article: https://nlp.stanford.edu/~johnhew/vocab-expansion.html. To disable this, use `mean_resizing=False`
 16:40:42 [INFO] Encoder parameters: 126,720,768
-16:40:42 [INFO] === Epoch 1 / 10 ===
+16:40:42 [INFO] === Epoch 7 / 10 ===
 16:41:41 [INFO] step=50  loss=3.1194  τ=0.070  lr=5.00e-06  [req_hunk=0.328  req_orig=1.793  orig_hunk=0.342  req_test=0.657]
 16:42:39 [INFO] step=100  loss=2.6753  τ=0.070  lr=1.00e-05  [orig_hunk=0.119  req_test=0.965  req_hunk=0.753  req_orig=0.838]
 16:43:37 [INFO] step=150  loss=2.3210  τ=0.070  lr=1.50e-05  [req_hunk=0.215  req_orig=1.161  orig_hunk=0.020  req_test=0.925]

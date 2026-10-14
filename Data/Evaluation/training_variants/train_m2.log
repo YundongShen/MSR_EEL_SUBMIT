@@ -5,7 +5,7 @@
 The new embeddings will be initialized from a multivariate normal distribution that has old embeddings' mean and covariance. As described in this article: https://nlp.stanford.edu/~johnhew/vocab-expansion.html. To disable this, use `mean_resizing=False`
 16:40:42 [INFO] Encoder parameters: 126,720,768
 16:40:42 [INFO] Loaded Tier-3 hard negatives: 743 instances (applied to req_hunk + orig_hunk)
-16:40:42 [INFO] === Epoch 1 / 10 ===
+16:40:42 [INFO] === Epoch 7 / 10 ===
 16:41:51 [INFO] step=50  loss=3.9617  τ=0.070  lr=5.00e-06  [req_hunk=0.946  req_orig=1.602  orig_hunk=0.441  req_test=0.973]
 16:43:00 [INFO] step=100  loss=3.1727  τ=0.070  lr=1.00e-05  [orig_hunk=0.275  req_test=0.870  req_hunk=1.121  req_orig=0.907]
 16:44:07 [INFO] step=150  loss=2.7125  τ=0.070  lr=1.50e-05  [req_hunk=0.668  req_orig=1.176  orig_hunk=0.059  req_test=0.808]

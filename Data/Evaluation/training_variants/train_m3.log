@@ -6,7 +6,7 @@ The new embeddings will be initialized from a multivariate normal distribution t
 17:18:03 [INFO] Encoder parameters: 126,720,768
 17:18:03 [INFO] Loaded Tier-3 hard negatives: 743 instances (applied to req_hunk + orig_hunk)
 17:18:03 [INFO] Built same-repo cross-issue hard-neg index: 1833 instances with cross-issue pool
-17:18:03 [INFO] === Epoch 7 / 10 ===
+17:18:03 [INFO] === Epoch 1 / 10 ===
 17:19:54 [INFO] step=50  loss=4.2837  τ=0.070  lr=5.00e-06  [req_hunk=0.985  req_orig=1.860  orig_hunk=0.654  req_test=0.785]
 17:21:45 [INFO] step=100  loss=3.6874  τ=0.070  lr=1.00e-05  [orig_hunk=0.463  req_test=1.237  req_hunk=1.244  req_orig=0.744]
 17:23:34 [INFO] step=150  loss=2.8475  τ=0.070  lr=1.50e-05  [req_hunk=0.750  req_orig=1.307  orig_hunk=0.130  req_test=0.661]

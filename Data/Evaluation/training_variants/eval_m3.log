@@ -10,7 +10,7 @@ The new embeddings will be initialized from a multivariate normal distribution t
 19:46:10 [INFO] Tier-3 lookup: 743 instances with scope-creep hunks
 19:46:10 [INFO] Building repo-level distractor pool (test split only) …
 19:46:10 [INFO] Repo pool: 11 repos, 862 total hunks
-19:49:34 [INFO] T1-Recall(K=Retained-H)  mean=0.7182  std=0.3469  n=43  (top-K = |T1∪T2|)
-19:49:34 [INFO] nDCG@k_retained  mean=0.7803  std=0.3245  n=82  (k = |T1∪T2| per instance)
+19:49:34 [INFO] T1-Recall(K=Retained-H)  mean=0.7104  std=0.3517  n=43  (top-K = |T1∪T2|)
+19:49:34 [INFO] nDCG@k_gold  mean=0.7786  std=0.3277  n=82  (k = |T1∪T2| per instance)
 19:49:34 [INFO] T2-Recall(K=Retained-H)  mean=0.7985  std=0.3182  n=47  (top-K = |T1∪T2|)
-19:49:34 [INFO] Perfect-Sep  mean=0.8049  n=82  (all T3 ranked after all Retained-H)
+19:49:34 [INFO] Perfect-Sep  mean=0.8049  n=82  (all T3 ranked after all gold)

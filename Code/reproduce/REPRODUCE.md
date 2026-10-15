@@ -195,7 +195,7 @@ leave-SymPy-out issues, 99 Python PRs, 149 non-Python PRs, 102 Gemini issues,
 144 Qwen issues, 165 DeepSeek issues, and 148 multilingual issues. All use
 nDCG at the number of retained hunks and report PSR.
 
-The directory `实验前格式版本` contains the experiment inputs. `采样后格式版本`
+The directory `evaluation_inputs` contains the experiment inputs. `candidate_pool`
 contains the larger candidate pools. `eval_logs` and `scores` contain the
 corresponding run logs and per-issue rankings. The additional Django-omitted
 comparison is retained under its own name; the reported repository shift uses
@@ -205,7 +205,7 @@ Select eligible issues without changing candidates or shrinking the T0 pool:
 
 ```bash
 G=../Data/Evaluation/generalization
-python "$G/scripts/make_subset_version.py" "$G/实验前格式版本/github_prs_python/instances_asgold_keep1_p60.jsonl.gz" "$G/实验前格式版本/github_prs_python/tier3_mix10.jsonl.gz" logs/rq4_python_eligible_ids.json
+python "$G/scripts/make_subset_version.py" "$G/evaluation_inputs/github_prs_python/instances_asgold_keep1_p60.jsonl.gz" "$G/evaluation_inputs/github_prs_python/tier3_mix10.jsonl.gz" logs/rq4_python_eligible_ids.json
 ```
 
 The selector requires at least one retained candidate and one T3 candidate.

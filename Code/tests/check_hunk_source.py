@@ -101,10 +101,11 @@ def check_sentinel_and_fallback() -> None:
 def check_validation() -> None:
     ok = {"i": [gen_hunk()]}
     validate_generated_hunks(ok, (1, 2), "ok")                              # accepted
+    validate_generated_hunks({"i": [gen_hunk(hunk_diff="@@ -1,1 +1,1 @@ def f\n-x\n+y\n")]}, (1, 2), "named")
     bad = {
         "no sample field (reference-patch record)": {"i": [{k: v for k, v in gen_hunk().items() if k != "sample"}]},
         "wrong tier": {"i": [gen_hunk(tier=3)]},
-        "git-diff rendering (function header)": {"i": [gen_hunk(hunk_diff="@@ -1,1 +1,1 @@ def f\n-x\n+y\n")]},
+        "invalid diff header": {"i": [gen_hunk(hunk_diff="@@ invalid\n-x\n+y\n")]},
     }
     for name, recs in bad.items():
         try:

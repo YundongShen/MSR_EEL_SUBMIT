@@ -5,7 +5,7 @@ For each SWE-bench instance:
      the reference patch and the prompt names the reference patch's files ("The file(s) to
      modify are: ...").
   2. Call the LLM with the unconstrained prompt: "Fix the bug. Make any changes necessary."
-  3. Parse the SEARCH/REPLACE response and apply it → unified diff (difflib).
+  3. Parse the SEARCH/REPLACE response and apply it → unified diff.
   4. Append the full record (prompt inputs, raw response, extracted diff) to the generations
      file.  Nothing is labelled here.
 
@@ -34,7 +34,9 @@ import datetime
 import json
 import logging
 import re
+import subprocess
 import sys
+import tempfile
 import time
 from pathlib import Path
 
@@ -148,8 +150,6 @@ def _apply_sr_blocks_partial(
     Unlike the original _apply_sr_blocks, this does not abort on first failure.
     Returns a unified diff of all successfully applied blocks (may be empty).
     """
-    import difflib
-
     parts: list[str] = []
     for filepath, old_text, new_text in blocks:
         # Resolve path
@@ -168,17 +168,25 @@ def _apply_sr_blocks_partial(
             continue
 
         modified = original[:idx] + new_text + original[idx + len(old_text):]
-        diff_lines = list(difflib.unified_diff(
-            original.splitlines(keepends=True),
-            modified.splitlines(keepends=True),
-            fromfile=f"a/{filepath}",
-            tofile=f"b/{filepath}",
-        ))
-        if diff_lines:
-            chunk = "".join(diff_lines)
-            if not chunk.endswith("\n"):
-                chunk += "\n"
-            parts.append(chunk)
+        with tempfile.TemporaryDirectory() as temp:
+            folder = Path(temp)
+            old_path = folder / ("old" + Path(filepath).suffix)
+            new_path = folder / ("new" + Path(filepath).suffix)
+            old_path.write_text(original, encoding="utf-8")
+            new_path.write_text(modified, encoding="utf-8")
+            attributes = folder / "attributes"
+            attributes.write_text("*.py diff=python\n", encoding="utf-8")
+            result = subprocess.run(
+                ["git", "-c", f"core.attributesFile={attributes}", "diff", "--no-index",
+                 "--no-color", "--no-ext-diff", "--no-textconv", "--text",
+                 "--diff-algorithm=myers", "--unified=3", "--", old_path.name, new_path.name],
+                cwd=folder, capture_output=True,
+            )
+            if result.returncode not in (0, 1):
+                raise RuntimeError(result.stderr.decode("utf-8", errors="replace").strip() or "git diff failed")
+            _, marker, body = result.stdout.decode("utf-8").partition("\n@@ ")
+            if marker:
+                parts.append(f"--- a/{filepath}\n+++ b/{filepath}\n@@ {body}")
 
     return "".join(parts)
 

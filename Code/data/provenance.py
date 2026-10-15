@@ -20,7 +20,6 @@ HUNK_SOURCE = "llm_generated_matched"
 
 _REQUIRED_FIELDS = ("filepath", "old_start_line", "hunk_diff", "tier_label", "sample")
 _HEADER = re.compile(r"^@@ -\d+(?:,\d+)? \+\d+(?:,\d+)? @@(.*)$")
-MAX_FUNCTION_HEADER_RATE = 0.05
 
 
 class CheckpointProvenanceError(RuntimeError):
@@ -38,18 +37,12 @@ def hunk_key(hunk: dict) -> str:
     return hashlib.sha1(raw.encode()).hexdigest()[:12]
 
 
-def _has_function_header(hunk_diff: str) -> bool:
-    m = _HEADER.match(hunk_diff.split("\n", 1)[0])
-    return bool(m and m.group(1).strip())
-
-
 def validate_generated_hunks(
     by_instance: dict[str, list[dict]],
     allowed_tiers: tuple[int, ...],
     source: str,
 ) -> None:
     """Raise if ``by_instance`` does not look like build_dataset.py output (LLM-generated hunks)."""
-    n = headers = 0
     for iid, hunks in by_instance.items():
         for h in hunks:
             missing = [k for k in _REQUIRED_FIELDS if k not in h]
@@ -60,15 +53,8 @@ def validate_generated_hunks(
                 )
             if h["tier_label"] not in allowed_tiers:
                 raise ValueError(f"{source}: {iid} has tier_label={h['tier_label']!r}, expected one of {allowed_tiers}")
-            if not str(h["hunk_diff"]).startswith("@@"):
+            if not _HEADER.match(str(h["hunk_diff"]).split("\n", 1)[0]):
                 raise ValueError(f"{source}: {iid} has a hunk_diff that is not a unified-diff hunk")
-            n += 1
-            headers += _has_function_header(h["hunk_diff"])
-    if n and headers / n > MAX_FUNCTION_HEADER_RATE:
-        raise ValueError(
-            f"{source}: {headers}/{n} hunks carry a function name after '@@'. LLM-generated hunks "
-            "(difflib) never do; git-diff rendered hunks are the reference patch's own. Rebuild the file."
-        )
 
 
 def file_digest(path: str | Path | None) -> str | None:

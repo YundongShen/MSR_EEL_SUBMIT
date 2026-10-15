@@ -21,6 +21,8 @@ from data_pipeline.merged_generations import candidate_hunks, diff_hunks, export
 from data_pipeline import sample_haiku_merge as sampler
 from data_pipeline import build_dataset
 from data.llm_client import LLMClient
+from data_pipeline.generate_candidates import _apply_sr_blocks_partial
+from data.provenance import validate_generated_hunks
 
 
 def diff(start=1, value="fixed", new_start=None, file="a.py"):
@@ -47,6 +49,51 @@ def merge(record, data, generation, sample=0, run_id="round"):
 
 
 class SamplingChecks(unittest.TestCase):
+    def test_native_diff_headers_and_application(self):
+        import subprocess
+
+        original = "class Example:\n    def method(self):\n" + "".join(
+            f"        value{i} = {i}\n" for i in range(20))
+        for filepath, source, old, new, named in [
+            ("pkg/example.py", original, "value10 = 10", "value10 = 99", True),
+            ("pkg/top.py", "import os\nvalue = 1\n", "value = 1", "value = 2", False),
+            ("pkg/a file.txt", "value = 1\n", "value = 1", "value = 2", False),
+            ("pkg/no_newline.py", "value = 1", "value = 1", "value = 2", False),
+            ("pkg/windows.py", "import os\r\nvalue = 1\r\n", "value = 1", "value = 2", False),
+            ("pkg/delete.py", "value = 1\n", "value = 1\n", "", False),
+        ]:
+            with self.subTest(filepath=filepath):
+                text = _apply_sr_blocks_partial({filepath: source}, [(filepath, old, new)])
+                hunks = diff_hunks(text)
+                self.assertEqual([h["file"] for h in hunks], [filepath])
+                header = hunks[0]["text"].splitlines()[0]
+                self.assertEqual("def method(self):" in header, named)
+                with tempfile.TemporaryDirectory() as temp:
+                    target = Path(temp) / filepath
+                    target.parent.mkdir(parents=True, exist_ok=True)
+                    target.write_text(source)
+                    subprocess.run(["git", "apply", "-"], cwd=temp, input=text,
+                                   text=True, capture_output=True, check=True)
+                    self.assertEqual(target.read_bytes().decode(), source.replace(old, new))
+
+    def test_native_diff_noop_and_failure(self):
+        source = {"a.py": "value = 1\n"}
+        self.assertEqual(_apply_sr_blocks_partial(source, [("a.py", "value = 1", "value = 1")]), "")
+        with patch("data_pipeline.generate_candidates.subprocess.run", return_value=
+                   types.SimpleNamespace(returncode=2, stderr=b"git failed", stdout=b"")):
+            with self.assertRaisesRegex(RuntimeError, "git failed"):
+                _apply_sr_blocks_partial(source, [("a.py", "value = 1", "value = 2")])
+
+    def test_native_diff_validation(self):
+        for suffix in ["", " def f():"]:
+            hunk = {"filepath": "a.py", "old_start_line": 1, "sample": 0,
+                    "hunk_diff": f"@@ -1,1 +1,1 @@{suffix}\n-x\n+y\n", "tier_label": 1}
+            validate_generated_hunks({"i": [hunk]}, (1, 2), "generated")
+            for invalid in [{k: v for k, v in hunk.items() if k != "sample"},
+                            {**hunk, "tier_label": 3}, {**hunk, "hunk_diff": "@@ invalid\n-x\n+y\n"}]:
+                with self.assertRaises(ValueError):
+                    validate_generated_hunks({"i": [invalid]}, (1, 2), "invalid")
+
     def test_quota_keeps_closest_matches_and_unmatched_hunks(self):
         record = {"meta": {"gold_patch": diff(10)}, "generation": {
             "extracted_diff": diff(3) + diff(9) + diff(10) + diff(40)}}

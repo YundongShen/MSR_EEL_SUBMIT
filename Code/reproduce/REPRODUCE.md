@@ -189,23 +189,37 @@ python analysis/exp2_analysis.py
 
 ## RQ4: generalization
 
+`../Data/Evaluation/generalization/results/rq4_results.json` reports macro-averages
+recomputed from the saved per-issue rankings. The RQ4 evaluations contain 159
+leave-SymPy-out issues, 99 Python PRs, 149 non-Python PRs, 102 Gemini issues,
+144 Qwen issues, 165 DeepSeek issues, and 148 multilingual issues. All use
+nDCG at the number of retained hunks and report PSR.
+
+The directory `实验前格式版本` contains the experiment inputs. `采样后格式版本`
+contains the larger candidate pools. `eval_logs` and `scores` contain the
+corresponding run logs and per-issue rankings. The additional Django-omitted
+comparison is retained under its own name; the reported repository shift uses
+the SymPy-omitted model.
+
+Select eligible issues without changing candidates or shrinking the T0 pool:
+
 ```bash
-python train.py --instances data/processed/instances_non_django.jsonl --epochs 10 --checkpoint-dir checkpoints/exp4_ldo --pair-types req_hunk req_test orig_hunk req_orig --tier3 data/cache/tier3_hunks.jsonl
-D=(--instances data/processed/instances_django_only.jsonl --llm-t12 data/cache/llm_t12_hunks.jsonl --tier3 data/cache/tier3_hunks.jsonl --all-instances --repo-pool)
-python evaluate.py --checkpoint checkpoints/exp4_ldo/best.pt --exp retrieval "${D[@]}" "${W[@]}"
+G=../Data/Evaluation/generalization
+python "$G/scripts/make_subset_version.py" "$G/实验前格式版本/github_prs_python/instances_asgold_keep1_p60.jsonl.gz" "$G/实验前格式版本/github_prs_python/tier3_mix10.jsonl.gz" logs/rq4_python_eligible_ids.json
 ```
 
-The leave-Django-out model is trained without Django in either training or
-validation and evaluated on the 204 eligible Django issues with T0 distractors.
+The selector requires at least one retained candidate and one T3 candidate.
+It writes issue IDs only. These instance archives use `gold_hunks` as the legacy
+field for generated retained candidates; the current model evaluator instead
+reads candidates from a separate `llm_t12_hunks` file. The archive format must be
+converted before using it with that evaluator.
 
-`../Data/Evaluation/generalization/results/rq4_results.json` summarizes the
-recorded RQ4 results: EEL 82 issues; leave-Django-out 204; Gemini 41; Qwen 43;
-DeepSeek 21; multilingual 109; and 17 GitHub PRs (9 Python, 8 non-Python).
-GitHub PRs use nDCG@5 with a different candidate construction and no PSR.
-The directory contains result logs, summaries and partial input artifacts.
-Complete candidate inputs for the cross-generator, multilingual and PR
-experiments are not included. `artifact_manifest.json` lists the available and
-missing inputs needed to rerun these experiments.
+Four fixed cross-generator labels differ from the stated start-line matching
+rule. Gemini sympy-12798 hunk 2 and Qwen sympy-13018 hunk 2 are retained despite
+distances of 39 and 23 lines from the closest same-file reference hunk. Qwen
+sympy-13173 hunk 30 and sympy-13852 hunk 3 are T3 despite distances of 18 and
+3 lines. Their coordinates agree with the original source context; the
+archived labels are preserved.
 
 ## Candidate sampling and rebuilding
 

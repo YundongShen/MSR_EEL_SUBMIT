@@ -1,0 +1,17 @@
+===== subset crossllm_deepseek7b: function name on 72% of T1/T2, with T0, Tier-3 file tier3_mix20.jsonl =====
+15:51:37 [INFO] Device: cuda
+15:51:37 [INFO] use_projection: True
+The new embeddings will be initialized from a multivariate normal distribution that has old embeddings' mean and covariance. As described in this article: https://nlp.stanford.edu/~johnhew/vocab-expansion.html. To disable this, use `mean_resizing=False`
+/home/x_yushe/eel_rerun/evaluate.py:69: FutureWarning: You are using `torch.load` with `weights_only=False` (the current default value), which uses the default pickle module implicitly. It is possible to construct malicious pickle data which will execute arbitrary code during unpickling (See https://github.com/pytorch/pytorch/blob/main/SECURITY.md#untrusted-models for more details). In a future release, the default value for `weights_only` will be flipped to `True`. This limits the functions that could be executed during unpickling. Arbitrary objects will no longer be allowed to be loaded via this mode unless they are explicitly allowlisted by the user via `torch.serialization.add_safe_globals`. We recommend you start setting `weights_only=True` for any use case where you don't have full control of the loaded file. Please open an issue on GitHub for any issues related to this experimental feature.
+  ckpt = torch.load(ckpt_path, map_location=device)
+15:51:42 [INFO] Loaded encoder from checkpoints/m2/best.pt
+15:51:42 [INFO] === Experiment 2: Retrieval ===
+15:51:42 [INFO] Test instances: 229
+15:51:42 [INFO] Tier-3 lookup: 170 instances with scope-creep hunks
+15:51:42 [INFO] Building repo-level distractor pool (test split only) …
+15:51:42 [INFO] Repo pool: 11 repos, 525 total hunks
+15:54:39 [INFO] T1-Recall(K=gold)  mean=0.7121  std=0.3379  n=69  (top-K = |T1∪T2|)
+15:54:39 [INFO] nDCG@k_gold  mean=0.7102  std=0.3682  n=165  (k = |T1∪T2| per instance)
+15:54:39 [INFO] T2-Recall(K=gold)  mean=0.6491  std=0.4073  n=106  (top-K = |T1∪T2|)
+15:54:39 [INFO] Perfect-Sep  mean=0.6545  n=165  (all T3 ranked after all gold)
+Done Tue Oct 13 15:54:41 CEST 2026

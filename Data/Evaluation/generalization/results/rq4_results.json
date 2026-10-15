@@ -1,155 +1,156 @@
 {
-  "result_type": "historical_reported_results",
-  "metrics_recomputed": false,
   "results": [
     {
       "experiment": "eel",
-      "description": "Original result",
       "n_instances": 82,
-      "ndcg": {
-        "k": "number_of_retained_hunks",
-        "value": 0.8248
-      },
-      "psr": 0.9024,
+      "n_t1_hunks": 165,
+      "n_t2_hunks": 206,
+      "n_t3_hunks": 143,
+      "n_t0_hunks": 3498,
+      "ndcg_k": 0.7808074139467945,
+      "t1_recall": 0.7490486257928118,
+      "t2_recall": 0.7874366767983789,
+      "psr": 0.8414634146341463,
       "table_values": {
-        "ndcg": "0.825",
-        "psr": "0.902"
-      },
-      "source": {
-        "file": "logs/eval_m2_6661589.err",
-        "ndcg_line": 34,
-        "psr_line": 36
+        "ndcg_k": "0.781",
+        "psr": "0.841"
       }
     },
     {
-      "experiment": "django_omitted",
-      "description": "Django omitted from training",
-      "n_instances": 204,
-      "ndcg": {
-        "k": "number_of_retained_hunks",
-        "value": 0.8785
-      },
-      "psr": 0.9706,
+      "experiment": "sympy_omitted",
+      "n_instances": 159,
+      "n_repositories": 1,
+      "n_t1_hunks": 730,
+      "n_t2_hunks": 325,
+      "n_t3_hunks": 278,
+      "n_t0_hunks": 7950,
+      "ndcg_k": 0.792661837439788,
+      "t1_recall": 0.7696156506328921,
+      "t2_recall": 0.7988394061052141,
+      "psr": 0.7735849056603774,
       "table_values": {
-        "ndcg": "0.879",
-        "psr": "0.971"
-      },
-      "source": {
-        "file": "logs/eval_exp4_ldo_pool_6928354.err",
-        "ndcg_line": 28,
-        "psr_line": 30
+        "ndcg_k": "0.793",
+        "psr": "0.774"
       }
     },
     {
-      "experiment": "github_pr_python",
-      "description": "GitHub PRs (Python)",
-      "n_instances": 9,
-      "ndcg": {
-        "k": 5,
-        "value": 0.8342
-      },
-      "psr": null,
+      "experiment": "github_prs_python",
+      "n_instances": 99,
+      "n_repositories": 48,
+      "n_t1_hunks": 28,
+      "n_t2_hunks": 140,
+      "n_t3_hunks": 150,
+      "n_t0_hunks": 765,
+      "ndcg_k": 0.7654059239932267,
+      "t1_recall": 0.6984126984126984,
+      "t2_recall": 0.7476190476190476,
+      "psr": 0.7575757575757576,
       "table_values": {
-        "ndcg": "0.834",
-        "psr": null
-      },
-      "source": {
-        "file": "results/exp5_eval_llm_merged_m2.json",
-        "json_path": "by_language.python.aggregate"
+        "ndcg_k": "0.765",
+        "psr": "0.758"
       }
     },
     {
-      "experiment": "github_pr_non_python",
-      "description": "GitHub PRs (Non-Python)",
-      "n_instances": 8,
-      "ndcg": {
-        "k": 5,
-        "value": 0.7252
-      },
-      "psr": null,
+      "experiment": "github_prs_non_python",
+      "n_instances": 149,
+      "n_repositories": 66,
+      "n_t1_hunks": 98,
+      "n_t2_hunks": 148,
+      "n_t3_hunks": 225,
+      "n_t0_hunks": 1157,
+      "ndcg_k": 0.7354713677790059,
+      "t1_recall": 0.7268518518518519,
+      "t2_recall": 0.6866666666666666,
+      "psr": 0.6577181208053692,
       "table_values": {
-        "ndcg": "0.725",
-        "psr": null
-      },
-      "source": {
-        "file": "results/exp5_eval_llm_merged_m2.json",
-        "json_path": "by_language.non-python.aggregate"
+        "ndcg_k": "0.735",
+        "psr": "0.658"
       }
     },
     {
       "experiment": "gemini",
-      "description": "Gemini-2.5-Flash-Lite",
-      "n_instances": 41,
-      "ndcg": {
-        "k": "number_of_retained_hunks",
-        "value": 0.82
-      },
-      "psr": 0.878,
+      "n_instances": 102,
+      "n_repositories": 10,
+      "n_t1_hunks": 95,
+      "n_t2_hunks": 156,
+      "n_t3_hunks": 189,
+      "n_t0_hunks": 3713,
+      "ndcg_k": 0.7678351867058818,
+      "t1_recall": 0.819481981981982,
+      "t2_recall": 0.6788632119514473,
+      "psr": 0.7549019607843137,
       "table_values": {
-        "ndcg": "0.820",
-        "psr": "0.878"
-      },
-      "source": {
-        "file": "logs/eval_exp4_crossllm_6923906.err",
-        "ndcg_line": 28,
-        "psr_line": 30
+        "ndcg_k": "0.768",
+        "psr": "0.755"
       }
     },
     {
-      "experiment": "qwen",
-      "description": "Qwen2.5-Coder-7B",
-      "n_instances": 43,
-      "ndcg": {
-        "k": "number_of_retained_hunks",
-        "value": 0.8555
-      },
-      "psr": 0.9302,
+      "experiment": "qwen7b",
+      "n_instances": 144,
+      "n_repositories": 10,
+      "n_t1_hunks": 125,
+      "n_t2_hunks": 153,
+      "n_t3_hunks": 264,
+      "n_t0_hunks": 5454,
+      "ndcg_k": 0.7381732207737725,
+      "t1_recall": 0.7431003584229391,
+      "t2_recall": 0.7,
+      "psr": 0.6527777777777778,
       "table_values": {
-        "ndcg": "0.856",
-        "psr": "0.930"
-      },
-      "source": {
-        "file": "logs/tier3_qwen_v2_6928410.err",
-        "ndcg_line": 739,
-        "psr_line": 741
+        "ndcg_k": "0.738",
+        "psr": "0.653"
       }
     },
     {
-      "experiment": "deepseek",
-      "description": "DeepSeek-Coder-7B",
-      "n_instances": 21,
-      "ndcg": {
-        "k": "number_of_retained_hunks",
-        "value": 0.8587
-      },
-      "psr": 0.9524,
+      "experiment": "deepseek7b",
+      "n_instances": 165,
+      "n_repositories": 11,
+      "n_t1_hunks": 149,
+      "n_t2_hunks": 211,
+      "n_t3_hunks": 306,
+      "n_t0_hunks": 6890,
+      "ndcg_k": 0.7102425629419283,
+      "t1_recall": 0.7120867055649664,
+      "t2_recall": 0.6491464510332435,
+      "psr": 0.6545454545454545,
       "table_values": {
-        "ndcg": "0.859",
-        "psr": "0.952"
-      },
-      "source": {
-        "file": "logs/tier3_deepseek_v2_6928411.err",
-        "ndcg_line": 779,
-        "psr_line": 781
+        "ndcg_k": "0.710",
+        "psr": "0.655"
       }
     },
     {
       "experiment": "multilingual",
-      "description": "SWE-bench Multilingual",
-      "n_instances": 109,
-      "ndcg": {
-        "k": "number_of_retained_hunks",
-        "value": 0.6647
-      },
-      "psr": 0.8073,
+      "n_instances": 148,
+      "n_repositories": 38,
+      "n_t1_hunks": 52,
+      "n_t2_hunks": 227,
+      "n_t3_hunks": 278,
+      "n_t0_hunks": 1716,
+      "ndcg_k": 0.7582289565351725,
+      "t1_recall": 0.7634408602150538,
+      "t2_recall": 0.7316804407713499,
+      "psr": 0.6824324324324325,
       "table_values": {
-        "ndcg": "0.665",
-        "psr": "0.807"
-      },
-      "source": {
-        "file": "logs/eval_multilingual_m2_pool_6928353.err",
-        "ndcg_line": 28,
-        "psr_line": 30
+        "ndcg_k": "0.758",
+        "psr": "0.682"
+      }
+    }
+  ],
+  "additional_results": [
+    {
+      "experiment": "django_omitted",
+      "n_instances": 204,
+      "n_t1_hunks": 0,
+      "n_t2_hunks": 1092,
+      "n_t3_hunks": 327,
+      "n_t0_hunks": 10200,
+      "ndcg_k": 0.8713342397673911,
+      "t1_recall": null,
+      "t2_recall": 0.8550507990591434,
+      "psr": 0.8970588235294118,
+      "table_values": {
+        "ndcg_k": "0.871",
+        "psr": "0.897"
       }
     }
   ]

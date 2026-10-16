@@ -1,4 +1,4 @@
-===== EVAL best.pt on the 1cdf6f2 test set =====
+===== m2 =====
 07:19:01 [INFO] Device: cuda
 07:19:01 [INFO] use_projection: True
 The new embeddings will be initialized from a multivariate normal distribution that has old embeddings' mean and covariance. As described in this article: https://nlp.stanford.edu/~johnhew/vocab-expansion.html. To disable this, use `mean_resizing=False`

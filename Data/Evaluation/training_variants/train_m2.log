@@ -1,4 +1,3 @@
-===== TRAIN M2 on 1cdf6f2 Thu Oct 15 21:55:27 CEST 2026 =====
 21:55:42 [INFO] Device: cuda
 21:55:42 [INFO] Loading dataset from /proj/test_extender/ICLR/EditBoundaryDetection/generalization_rebuild/ft_noformat/instances_all_1cdf6f2_oldschema.jsonl
 21:55:45 [INFO] Dataset stats: {'total_pairs': 250734, 'by_pair_type': {'req_hunk': 9223, 'orig_hunk': 15815, 'req_orig': 218166, 'req_test': 7530}, 'by_tier': {1: 9257, 2: 15781}, 'unique_instances': 2291}

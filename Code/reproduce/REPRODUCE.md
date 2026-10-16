@@ -205,6 +205,11 @@ corresponding run logs and per-issue rankings. The additional Django-omitted
 comparison is retained under its own name; the reported repository shift uses
 the SymPy-omitted model.
 
+```bash
+LSO_JOB=$(sbatch --parsable slurm/generalization/train_exp4_lso.slurm)
+sbatch --dependency=afterok:"${LSO_JOB}" slurm/generalization/eval_exp4_lso.slurm
+```
+
 Select eligible issues without changing candidates or shrinking the T0 pool:
 
 ```bash

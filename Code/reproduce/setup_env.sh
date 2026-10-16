@@ -106,11 +106,15 @@ if raw.is_file():
 with gzip.open(source / "instances_full.jsonl.gz", "rb") as src, \
      (processed / "instances_full.jsonl").open("wb") as full, \
      (processed / "instances_django_only.jsonl").open("wb") as dj, \
-     (processed / "instances_non_django.jsonl").open("wb") as other:
+     (processed / "instances_non_django.jsonl").open("wb") as other, \
+     (processed / "instances_sympy_only.jsonl").open("wb") as sympy, \
+     (processed / "instances_non_sympy.jsonl").open("wb") as non_sympy:
     for line in src:
         full.write(line)
         if line.strip():
-            (dj if json.loads(line)["instance_id"].startswith("django__") else other).write(line)
+            iid = json.loads(line)["instance_id"]
+            (dj if iid.startswith("django__") else other).write(line)
+            (sympy if iid.startswith("sympy__") else non_sympy).write(line)
 print("Runtime data prepared from", source)
 PY
 

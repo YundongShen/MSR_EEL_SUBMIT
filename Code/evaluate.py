@@ -765,7 +765,7 @@ def run_retrieval(
     weights = weight_grid or [(cfg.eval.score_alpha, cfg.eval.score_beta, cfg.eval.score_gamma)]
 
     # Per weight triple: nDCG@k (k = retained count), T2-Recall and PSR of every instance where defined
-    acc = [{"ndcg_k": [], "t2_recall": [], "psr": []} for _ in weights]
+    acc = [{"ndcg_k": [], "t1_recall": [], "t2_recall": [], "psr": []} for _ in weights]
 
     for inst, candidates, tiers, tiebreaks in retrieval_candidates(
             cfg, split=split, all_instances=all_instances, repo_pool=repo_pool, repo_pool_max=repo_pool_max):
@@ -792,6 +792,11 @@ def run_retrieval(
         for (alpha, beta, gamma), a in zip(weights, acc):
             scores = (alpha * sim_req + beta * sim_test + gamma * sim_orig).tolist()
             ndcg, t2, psr = _instance_metrics(scores, tiers, tiebreaks, tier_rel)
+            tier1_total = sum(t == 1 for t in tiers)
+            if ndcg is not None and tier1_total:
+                retained_total = sum(t in (1, 2) for t in tiers)
+                ranked = sorted(zip(scores, tiers, tiebreaks), key=lambda x: (x[0], x[2]), reverse=True)
+                a["t1_recall"].append(sum(t == 1 for _, t, _ in ranked[:retained_total]) / tier1_total)
             for key, value in (("ndcg_k", ndcg), ("t2_recall", t2), ("psr", psr)):
                 if value is not None:
                     a[key].append(value)
@@ -806,6 +811,9 @@ def run_retrieval(
 
     if len(weights) == 1:
         a = acc[0]
+        if a["t1_recall"]:
+            log.info("T1-Recall(K=Retained-H)  mean=%.4f  std=%.4f  n=%d  (top-K = |T1∪T2|)",
+                     np.mean(a["t1_recall"]), np.std(a["t1_recall"]), len(a["t1_recall"]))
         if a["ndcg_k"]:
             log.info("nDCG@k_retained  mean=%.4f  std=%.4f  n=%d  (k = |T1∪T2| per instance)",
                      np.mean(a["ndcg_k"]), np.std(a["ndcg_k"]), len(a["ndcg_k"]))

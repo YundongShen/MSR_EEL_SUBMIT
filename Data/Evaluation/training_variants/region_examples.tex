@@ -15,11 +15,11 @@ Replace all \texttt{OSError} aliases, including \texttt{IOError}, \texttt{Enviro
 \noindent
 $s_r=0.83$, $s_t=0.78$, and $s_o=0.87$.
 
-The hunk directly implements the requested replacement. Its test similarity also exceeds the R1 threshold.
+The hunk replaces \texttt{IOError} with \texttt{OSError}, as requested.
 
 \paragraph{R2 --- Requirement and Structure Aligned \textnormal{($s_r>\tau_r$, $s_o>\tau_o$)}}
 
-R2 contains requirement-aligned edits with strong support from the original implementation but weak TEST similarity.
+R2 contains hunks with high REQ and ORIG similarity and low TEST similarity.
 
 \smallskip
 \noindent\textit{Requirement (django\#10924):}
@@ -34,11 +34,11 @@ R2 contains requirement-aligned edits with strong support from the original impl
 \noindent
 $s_r=0.87$, $s_t=0.00$, and $s_o=0.98$.
 
-The hunk directly addresses the requirement and remains closely aligned with the surrounding implementation. Its support therefore comes from both REQ and ORIG.
+The hunk replaces direct access to \texttt{self.path} with a call to \texttt{self.\_get\_path()}. Both REQ and ORIG similarities exceed their thresholds.
 
 \paragraph{R3 --- Requirement-Oriented \textnormal{($s_r>\tau_r$)}}
 
-R3 contains hunks with strong REQ similarity but weak TEST and ORIG similarity.
+R3 contains hunks whose REQ score exceeds its threshold while the TEST and ORIG scores do not.
 
 \smallskip
 \noindent\textit{Requirement (django\#10301):}
@@ -54,7 +54,7 @@ SQLite database functions such as \texttt{Power} and \texttt{Sqrt} raise an \tex
 \noindent
 $s_r=0.79$, $s_t=0.38$, and $s_o=0.00$.
 
-The hunk has high REQ similarity and low TEST similarity. REQ provides its main scoring signal.
+The hunk adds an import of \texttt{wraps}. REQ is the only similarity component above its threshold.
 
 \paragraph{R4 --- Structure-Oriented \textnormal{($s_o>\tau_o$)}}
 
@@ -75,7 +75,7 @@ SQLite versions before 3.25.0 do not support window functions, so Django should 
 \noindent
 $s_r=0.53$, $s_t=0.00$, and $s_o=0.87$.
 
-The requirement concerns SQLite, whereas the hunk renames an Oracle feature flag. Its high ORIG similarity reflects similarity to the original code; it does not establish that the change is required.
+The hunk renames an Oracle backend feature flag and has high ORIG similarity.
 
 \paragraph{R5 --- Weakly Aligned}
 
@@ -96,4 +96,4 @@ Admin changelist ordering detection should account for unconditional \texttt{Uni
 \noindent
 $s_r=-0.19$, $s_t=-0.12$, and $s_o=-0.06$.
 
-The hunk only reorders the types in an \texttt{isinstance} check rather than accounting for unique constraints. It occurs near the relevant implementation but does not correspond to the reference patch. Its weak alignment with all three views places it in R5.
+The hunk reorders two types in an \texttt{isinstance} check. All three similarity scores are below their respective thresholds.

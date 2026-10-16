@@ -1,14 +1,8 @@
-"""Exp3: Mechanism Analysis — M2 learns to use repository signals.
-
-Two analyses prove that M2's improvement is mechanistic (it uses ORIG signals),
-not generic (harder training making it generally better).
+"""RQ3 mechanism diagnostics.
 
   Analysis A — Stratified Evaluation (Hard vs Easy)
     Split test instances by mean T3-REQ cosine similarity, measured with the
     *untrained* (M0) encoder to avoid circular dependency.
-    Hard group: T3 hunks semantically close to REQ → REQ-only methods fail.
-    Easy group: T3 hunks far from REQ → any method works.
-    Expected: M1≈M2 on Easy, M2>>M1 on Hard.
 
   Analysis B — ORIG Signal Alignment
     For every hunk with a matched ORIG unit, compute sim(hunk_emb, orig_emb)

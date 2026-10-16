@@ -1,19 +1,6 @@
 """Evaluation entry point for Edit Entailment Learning.
 
-Two experiments:
-
-  Experiment 1 — Geometric Structure Validation
-    Verifies that the three-tier necessity gradient exists in the learned
-    embedding space.  For each test instance, we compute the Edit Entailment
-    Score for every hunk (Tier 1/2 retained + Tier 3 unconstrained extras).
-    Mann-Whitney U tests confirm that Tier 1 > Tier 2 > Tier 3 (p < 0.01).
-    A histogram is saved to logs/geometry_hist.png.
-
-  Experiment 2 — Retrieval (nDCG@k)
-    Given a mixed candidate set (retained + unconstrained hunks), rank by
-    entailment score and compute nDCG@k with tier-weighted relevance:
-      Tier 1 → relevance 3,  Tier 2 → relevance 2,  Tier 3 → relevance 0.
-    Also reports Tier-2-specific recall (the hardest sub-task).
+Geometry analysis and within-issue retention ranking.
 
 Usage:
     python evaluate.py --exp geometry
@@ -121,7 +108,7 @@ def _load_all_instances(cfg: Config) -> list[dict]:
 
 
 # ---------------------------------------------------------------------------
-# Experiment 1 — Geometric Structure Validation
+# Geometric Structure Validation
 # ---------------------------------------------------------------------------
 
 _TIER_COLORS = {
@@ -611,7 +598,7 @@ def _ndcg(relevances: list[float], k: int) -> float:
 
 
 # ---------------------------------------------------------------------------
-# Experiment 2 — Retrieval (nDCG@k)
+# Retrieval (nDCG@k)
 # ---------------------------------------------------------------------------
 
 def _instance_metrics(

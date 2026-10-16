@@ -1,4 +1,4 @@
-"""Zero-shot pretrained-encoder baseline for Exp 1.
+"""Pretrained-encoder baseline for retention ranking.
 
 Scores each candidate hunk as:
     score = cosine_similarity( mean_pool(encode(REQ)), mean_pool(encode(HUNK)) )

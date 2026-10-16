@@ -1,6 +1,6 @@
-"""RQ5 results table from the survey labels and the per-hunk scores of each method.
+"""Survey-based ranking metrics from labels and per-hunk scores.
 
-usage: python exp5/rq5_compute.py --survey <MSR_EEL_Data>/exp5_survey [--scores exp5/scores_*.json ...]
+usage: python exp5/rq5_compute.py --survey ../Data/Evaluation/Discussion [--scores exp5/scores_*.json ...]
 Each score file: {"meta": {"name": ...}, "scores": {"<instance_id>|<hunk_id>": {"score": float}}}.
 """
 import argparse, csv, json, random, statistics, sys

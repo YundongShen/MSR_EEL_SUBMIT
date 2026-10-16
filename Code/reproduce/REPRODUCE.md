@@ -34,8 +34,8 @@ submission's `Data` directory. The setup checks:
 | Django issues / eligible Django issues | 849 / 204 |
 
 Setup decompresses the parsed instances into `data/processed/`, copies the fixed
-splits and generated candidates, and creates Django and non-Django instance
-files. Model candidates are read from `llm_t12_hunks.jsonl` and
+splits and generated candidates, and creates Django and SymPy instance subsets
+and their complements. Model candidates are read from `llm_t12_hunks.jsonl` and
 `tier3_hunks.jsonl`; reference-patch hunks are excluded by the instance loader.
 
 `Retained-H` denotes LLM-generated hunks matched to the reference patch
@@ -106,7 +106,8 @@ Core ranking uses the 82 eligible test issues. `--repo-pool` adds up to 50
 same-repository retained hunks from other test issues as T0 candidates, with
 sampling and tie breaks seeded at 42. All baseline commands use the same
 candidate iterator. nDCG uses gains 3/2/0/0 for T1/T2/T3/T0 and
-`k = |T1 union T2|`. T2-Recall is averaged over the 47 eligible issues with T2;
+`k = |T1 union T2|`. T1-Recall is averaged over the 43 eligible issues with T1;
+T2-Recall is averaged over the 47 eligible issues with T2;
 PSR compares T1/T2 against T3 and excludes T0.
 
 ```bash
@@ -161,7 +162,7 @@ python analysis/viz_django.py --out-prefix logs/django_viz --plot-only
 python analysis/plot_django_regions.py --embs logs/django_viz_embs.npz --out-prefix logs/django --scatter-only
 ```
 
-Table VI uses the core test split. Semantic difficulty groups the 82 eligible
+The mechanism diagnostics use the core test split. Semantic difficulty groups the 82 eligible
 issues into 41/41 using M0's mean requirement–T3 cosine similarity. The ORIG
 comparison includes test hunks with matched source units and excludes T0.
 
@@ -292,7 +293,7 @@ For GPU submission, replace the embedding command with
 | Paper experiment | Result directory under `../Data/Evaluation/` |
 |---|---|
 | RQ1 baseline JSONs | `baselines/` |
-| EEL, M0–M4, RQ3 training and Table VI analysis | `training_variants/` |
+| EEL, training variants, and RQ3 diagnostics | `training_variants/` |
 | RQ2 repository-view ablations | `view_ablation/` |
 | RQ4 transfer | `generalization/` |
 | Human evaluation | `Discussion/` |

@@ -1,4 +1,4 @@
-"""BM25 lexical baseline for Exp 1.
+"""BM25 lexical baseline for retention ranking.
 
 Scores each candidate hunk as BM25(tokenize(REQ), tokenize(HUNK)).
 Candidate set includes both retained hunks (T1/T2) and Tier-3 scope-creep

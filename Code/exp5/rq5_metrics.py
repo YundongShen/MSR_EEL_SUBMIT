@@ -1,4 +1,4 @@
-"""RQ5 metrics: Remove Precision, Must-Retain Recall (and nDCG@k, not reported).
+"""Survey-based ranking metrics: Remove Precision, Must-Retain Recall, and nDCG@k.
 
 - human label per hunk = median of 3 reviewers, MR=2, OP=1, RM=0
 - per issue: n hunks, removal budget b = number of hunks with median RM, k = n - b

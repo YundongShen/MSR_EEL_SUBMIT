@@ -1,14 +1,14 @@
-"""Regression checks for the training objective and model selection (paper Eq. 2, Table IV).
+"""Regression checks for the training objective and model selection.
 
 Run from the project root (CPU only, no model download):
-    CUDA_VISIBLE_DEVICES="" gpu_env312/bin/python tests/check_training_objective.py
+    CUDA_VISIBLE_DEVICES="" python tests/check_training_objective.py
 
   1. InfoNCE with a hard-negative mask equals the hand-computed loss over in-batch ∪ OWN hard negatives,
      and differs from the shared-pool loss (the old behaviour: every anchor saw every anchor's Tier-3 hunks)
   2. train._train_step builds the mask so that anchor i is masked to the Tier-3 hunks of ITS instance
      (and the same-repo hunks sampled for it), and nothing leaks between anchors / instances
   3. train.validate uses the variant's hard negatives (validation loss measures what the variant learns)
-  4. the M-variant recipes are what Table IV says: M3 = M2 + same-repo negatives, M4 = M3 + tier weighting
+  4. M3 = M2 + same-repo negatives; M4 = M3 + tier weighting
 """
 
 from __future__ import annotations

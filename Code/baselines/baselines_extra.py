@@ -1,27 +1,4 @@
-"""Extra baselines for Exp 1: Cross-Encoder, CodeT5+, CodeRetriever.
-
-Three additional baselines for comparison with EEL:
-
-1. cross_encoder  — Jointly encodes (REQ, HUNK) via cross-attention.
-   Default model: checkpoints/cross_encoder (fine-tuned microsoft/unixcoder-base)
-   Uses AutoModelForSequenceClassification; no sentence-transformers needed.
-
-2. codet5         — CodeT5+ 110M embedding bi-encoder.
-   Default model: Salesforce/codet5p-110m-embedding  (trust_remote_code=True)
-   cos-sim(encode(REQ), encode(HUNK))
-
-3. coderetriever  — Code-search bi-encoder (Liu et al., EMNLP 2022).
-   Default model: Lazyhope/unixcoder-nine-cpp
-   Same bi-encoder pattern as baselines/baselines_pretrained.py; different code-search ckpt.
-
-Usage:
-    python baselines/baselines_extra.py --mode cross_encoder
-    python baselines/baselines_extra.py --mode codet5
-    python baselines/baselines_extra.py --mode coderetriever
-    python baselines/baselines_extra.py --mode coderetriever \\
-        --model Lazyhope/unixcoder-nine-cpp \\
-        --output logs/baseline_coderetriever.json
-"""
+"""Cross-Encoder and embedding baselines for retention ranking."""
 
 from __future__ import annotations
 
@@ -90,7 +67,7 @@ class CrossEncoderScorer:
 
 
 class BiEncoder:
-    """Mean-pool bi-encoder. Works for both CodeT5+ and CodeRetriever models."""
+    """Pretrained embedding scorer."""
 
     def __init__(
         self,

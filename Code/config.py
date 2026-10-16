@@ -89,10 +89,10 @@ class EvalConfig:
         3: 0.0,   # Tier 3: scope creep
     })
 
-    # Experiment 1: how many instances to use for geometric validation
+    # Number of instances for geometric validation
     geometry_n_instances: int = -1   # -1 = all test instances
 
-    # Experiment 2: retrieval top-k values
+    # Retrieval top-k values
     retrieval_k_values: tuple[int, ...] = (5, 10, 20)
 
     # Optional: path to tier3_hunks.jsonl for mixing Tier-3 into evaluation

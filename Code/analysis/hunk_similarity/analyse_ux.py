@@ -24,8 +24,8 @@ res=dict(
  counts=d['counts'])
 json.dump(res,open(args.output,'w'),indent=1)
 c=res['changed_lines']
-print('n\t均值\t中位数\t四分位')
-print(f"A:LLM retained hunk 对匹配参考 hunk\t{c['A']['n']}\t{c['A']['mean']:.3f}\t{c['A']['median']:.3f}\t{c['A']['p25']:.3f} 到 {c['A']['p75']:.3f}")
-print(f"B:T3 hunk 对同文件(或路径最近)参考 hunk\t{c['B']['n']}\t{c['B']['mean']:.3f}\t{c['B']['median']:.3f}\t{c['B']['p25']:.3f} 到 {c['B']['p75']:.3f}")
-print(f"差(A−B)\t\t{c['diff_A_minus_B']['mean']:+.3f}\t{c['diff_A_minus_B']['median']:+.3f}")
-print(f"参考:随机无关的参考 hunk\t{c['random_control']['n']}\t{c['random_control']['mean']:.3f}\t{c['random_control']['median']:.3f}")
+print('Pair\tn\tMean\tMedian\tIQR')
+print(f"A: Retained LLM hunk vs. matched reference hunk\t{c['A']['n']}\t{c['A']['mean']:.3f}\t{c['A']['median']:.3f}\t{c['A']['p25']:.3f} to {c['A']['p75']:.3f}")
+print(f"B: T3 hunk vs. same-file or nearest-path reference hunk\t{c['B']['n']}\t{c['B']['mean']:.3f}\t{c['B']['median']:.3f}\t{c['B']['p25']:.3f} to {c['B']['p75']:.3f}")
+print(f"Difference (A-B)\t\t{c['diff_A_minus_B']['mean']:+.3f}\t{c['diff_A_minus_B']['median']:+.3f}")
+print(f"Control: Random unrelated reference hunk\t{c['random_control']['n']}\t{c['random_control']['mean']:.3f}\t{c['random_control']['median']:.3f}")

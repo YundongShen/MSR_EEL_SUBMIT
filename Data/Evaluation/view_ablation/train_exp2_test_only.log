@@ -1501,4 +1501,4 @@ To disable this warning, you can either:
 11:04:57 [INFO] step=62350  loss=0.0813  τ=0.059  lr=1.95e-06  [req_hunk=0.081  req_test=0.000]
 11:06:06 [INFO] step=62400  loss=0.5701  τ=0.059  lr=1.94e-06  [req_test=0.568  req_hunk=0.002]
 11:07:14 [INFO] step=62450  loss=0.3736  τ=0.059  lr=1.93e-06  [req_test=0.272  req_hunk=0.101]
-slurmstepd: error: *** JOB 6911917 ON alvis3-24 CANCELLED AT 2026-07-24T11:07:41 DUE TO TIME LIMIT ***
+slurmstepd: error: *** JOB 6911917 ON [redacted] CANCELLED AT 2026-07-24T11:07:41 DUE TO TIME LIMIT ***

@@ -14,20 +14,3 @@ The new embeddings will be initialized from a multivariate normal distribution t
 07:22:28 [INFO] nDCG@k_gold  mean=0.8066  std=0.2972  n=82  (k = |T1∪T2| per instance)
 07:22:28 [INFO] T2-Recall(K=gold)  mean=0.7962  std=0.3045  n=47  (top-K = |T1∪T2|)
 07:22:28 [INFO] Perfect-Sep  mean=0.8780  n=82  (all T3 ranked after all gold)
-===== EVAL epoch 1 on the 1cdf6f2 test set =====
-07:22:37 [INFO] Device: cuda
-07:22:37 [INFO] use_projection: True
-The new embeddings will be initialized from a multivariate normal distribution that has old embeddings' mean and covariance. As described in this article: https://nlp.stanford.edu/~johnhew/vocab-expansion.html. To disable this, use `mean_resizing=False`
-/home/x_yushe/eel_rerun/evaluate.py:69: FutureWarning: You are using `torch.load` with `weights_only=False` (the current default value), which uses the default pickle module implicitly. It is possible to construct malicious pickle data which will execute arbitrary code during unpickling (See https://github.com/pytorch/pytorch/blob/main/SECURITY.md#untrusted-models for more details). In a future release, the default value for `weights_only` will be flipped to `True`. This limits the functions that could be executed during unpickling. Arbitrary objects will no longer be allowed to be loaded via this mode unless they are explicitly allowlisted by the user via `torch.serialization.add_safe_globals`. We recommend you start setting `weights_only=True` for any use case where you don't have full control of the loaded file. Please open an issue on GitHub for any issues related to this experimental feature.
-  ckpt = torch.load(ckpt_path, map_location=device)
-07:22:39 [INFO] Loaded encoder from /tmp/m2new_17788615/ckpt/epoch_001.pt
-07:22:39 [INFO] === Experiment 2: Retrieval ===
-07:22:39 [INFO] Test instances: 229
-07:22:39 [INFO] Tier-3 lookup: 743 instances with scope-creep hunks
-07:22:39 [INFO] Building repo-level distractor pool (test split only) …
-07:22:39 [INFO] Repo pool: 11 repos, 862 total hunks
-07:26:04 [INFO] T1-Recall(K=gold)  mean=0.7622  std=0.3316  n=43  (top-K = |T1∪T2|)
-07:26:04 [INFO] nDCG@k_gold  mean=0.8066  std=0.2972  n=82  (k = |T1∪T2| per instance)
-07:26:04 [INFO] T2-Recall(K=gold)  mean=0.7962  std=0.3045  n=47  (top-K = |T1∪T2|)
-07:26:04 [INFO] Perfect-Sep  mean=0.8780  n=82  (all T3 ranked after all gold)
-Done Fri Oct 16 07:26:04 CEST 2026

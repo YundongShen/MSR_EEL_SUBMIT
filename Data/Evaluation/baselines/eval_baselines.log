@@ -40,14 +40,4 @@ You should probably TRAIN this model on a down-stream task to be able to use it 
 15:40:22 [INFO]   T2-Recall    mean=0.4098  n=47
 15:40:22 [INFO]   Perfect-Sep  mean=0.2561  n=82
 15:40:22 [INFO] Results saved → /proj/test_extender/ICLR/EditBoundaryDetection/generalization_rebuild/logs/tables_1cdf6f2/baselineT0_codet5.json
-===== cross_encoder (with T0) =====
-15:40:31 [INFO] Mode: cross_encoder  Model: cross-encoder/ms-marco-MiniLM-L-6-v2
-15:40:32 [INFO] Loading cross-encoder: cross-encoder/ms-marco-MiniLM-L-6-v2
-15:40:33 [INFO] Test instances: 229
-15:40:33 [INFO] Tier-3 lookup: 743 instances
-15:40:43 [INFO] === cross-encoder/ms-marco-MiniLM-L-6-v2 ===
-15:40:43 [INFO]   nDCG@k_gold  mean=0.3919  n=82
-15:40:43 [INFO]   T2-Recall    mean=0.4486  n=47
-15:40:43 [INFO]   Perfect-Sep  mean=0.2805  n=82
-15:40:43 [INFO] Results saved → /proj/test_extender/ICLR/EditBoundaryDetection/generalization_rebuild/logs/tables_1cdf6f2/baselineT0_cross_encoder.json
 Done Thu Oct 15 15:40:44 CEST 2026

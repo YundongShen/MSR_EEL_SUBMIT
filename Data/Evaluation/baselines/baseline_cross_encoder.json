@@ -1,10 +1,10 @@
 {
-  "model": "cross-encoder/ms-marco-MiniLM-L-6-v2",
+  "model": "/proj/test_extender/ICLR/EditBoundaryDetection/checkpoints_submit/ce_trained/new_with_cross",
   "n_instances": 82,
-  "ndcg_k": 0.3919310859361341,
-  "t2_recall": 0.4485731171901385,
-  "t1_recall": 0.37370381556428073,
+  "ndcg_k": 0.6909471077416508,
+  "t2_recall": 0.6944697737250929,
+  "t1_recall": 0.6728908688211014,
   "n_t1_recall": 43,
   "n_t2_recall": 47,
-  "perfect_sep": 0.2804878048780488
+  "perfect_sep": 0.8170731707317073
 }

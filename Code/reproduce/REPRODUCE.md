@@ -136,7 +136,7 @@ python baselines/baselines_pretrained.py --model microsoft/graphcodebert-base "$
 python baselines/baselines_pretrained.py --model microsoft/unixcoder-base "${A[@]}" --output logs/baseline_unixcoder_req_hunk.json
 python baselines/baselines_extra.py --mode codet5 --model Salesforce/codet5p-110m-embedding "${A[@]}" --output logs/baseline_codet5.json
 python baselines/baselines_extra.py --mode coderetriever --model microsoft/graphcodebert-base "${A[@]}" --output logs/baseline_pooler_retrieval.json
-python baselines/baselines_extra.py --mode cross_encoder --model cross-encoder/ms-marco-MiniLM-L-6-v2 "${A[@]}" --output logs/baseline_cross_encoder.json
+python baselines/baselines_extra.py --mode cross_encoder --model checkpoints/cross_encoder "${A[@]}" --output logs/baseline_cross_encoder.json
 ```
 
 BM25 uses lexical matching. CodeBERT, GraphCodeBERT, and the UniXCoder baseline
@@ -146,9 +146,9 @@ Pooler-based Retrieval uses GraphCodeBERT's randomly initialized pooler without
 task-specific training. The `coderetriever` CLI mode selects this pooler
 configuration; the result JSON records the GraphCodeBERT model ID.
 
-Cross-Encoder evaluates the pretrained MS MARCO ranker without task-specific
-training. The REQ-only command above trains the supervised requirement–hunk
-baseline.
+Cross-Encoder fine-tunes `microsoft/unixcoder-base` on training-split
+requirement–hunk pairs and evaluates the checkpoint with the lowest validation
+loss. The REQ-only command above trains the supervised requirement–hunk baseline.
 
 ## RQ3 diagnostics and Django figures
 

@@ -1,9 +1,9 @@
 """Extra baselines for Exp 1: Cross-Encoder, CodeT5+, CodeRetriever.
 
-Three additional zero-shot baselines for comparison with EEL:
+Three additional baselines for comparison with EEL:
 
 1. cross_encoder  — Jointly encodes (REQ, HUNK) via cross-attention.
-   Default model: cross-encoder/ms-marco-MiniLM-L-6-v2
+   Default model: checkpoints/cross_encoder (fine-tuned microsoft/unixcoder-base)
    Uses AutoModelForSequenceClassification; no sentence-transformers needed.
 
 2. codet5         — CodeT5+ 110M embedding bi-encoder.
@@ -196,7 +196,7 @@ def run_biencoder(
 # ---------------------------------------------------------------------------
 
 _DEFAULTS = {
-    "cross_encoder":  "cross-encoder/ms-marco-MiniLM-L-6-v2",
+    "cross_encoder":  "checkpoints/cross_encoder",
     "codet5":         "Salesforce/codet5p-110m-embedding",
     "coderetriever":  "Lazyhope/unixcoder-nine-cpp",
 }

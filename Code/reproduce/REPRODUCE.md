@@ -131,6 +131,7 @@ older checkpoints without this stamp.
 ## Baseline implementations
 
 ```bash
+python baselines/cross_encoder_train.py --instances data/processed/instances_full.jsonl --llm-t12 data/cache/llm_t12_hunks.jsonl --tier3 data/cache/tier3_hunks.jsonl --splits data/processed/splits.json --out checkpoints/cross_encoder --cross-negatives 3 --epochs 3 --accum 8
 python baselines/baselines_bm25.py "${A[@]}" --output logs/baseline_bm25.json
 python baselines/baselines_pretrained.py --model microsoft/codebert-base "${A[@]}" --output logs/baseline_codebert.json
 python baselines/baselines_pretrained.py --model microsoft/graphcodebert-base "${A[@]}" --output logs/baseline_graphcodebert.json

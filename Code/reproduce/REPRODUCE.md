@@ -5,9 +5,10 @@ published data in the adjacent `Data` directory.
 
 ## Environment and data
 
+From the root of the downloaded and extracted replication package:
+
 ```bash
-git clone https://github.com/YundongShen/MSR_EEL_SUBMIT.git
-cd MSR_EEL_SUBMIT/Code
+cd Code
 bash reproduce/setup_env.sh
 source env/bin/activate
 export PYTHONHASHSEED=42

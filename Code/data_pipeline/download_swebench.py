@@ -1,6 +1,6 @@
 """Download SWE-bench Lite and clone repos at their base commits.
 
-Run ONCE on the Berzelius LOGIN NODE (has internet access):
+Run once on a node with internet access:
 
     python data_pipeline/download_swebench.py --output data/raw/swebench_instances.jsonl
 

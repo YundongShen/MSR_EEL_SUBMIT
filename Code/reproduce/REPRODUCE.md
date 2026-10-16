@@ -166,10 +166,13 @@ comparison includes test hunks with matched source units and excludes T0.
 The Django scripts select all 849 Django issues. Figure 4 fits UMAP on the
 untrained projected hunk representation and transforms M2 hunks into that
 space; its reference background remains the M0 background.
-Figure 5 and the five-region statistics use diagnostic similarities: TEST is a
-normalized mean test representation, and missing matched ORIG falls back to
-the normalized mean of the issue's first 16 source units. Region percentages
-are computed among retained T1/T2 hunks.
+Figure 5 uses diagnostic similarities: TEST is a normalized mean test
+representation, and missing matched ORIG falls back to the normalized mean
+of the issue's first 16 source units. The five-region statistics use the
+individual EEL score components: TEST is the maximum similarity across tests,
+and missing TEST or matched ORIG contributes zero. The per-hunk scores and
+run log are in `Data/Evaluation/training_variants/region_analysis.json` and
+`region_analysis.log`. Region percentages are computed among retained T1/T2 hunks.
 
 To classify Django regions:
 

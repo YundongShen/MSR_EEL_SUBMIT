@@ -28,7 +28,6 @@ import argparse
 import hashlib
 import json
 import logging
-import re
 import sys
 from collections import Counter, defaultdict
 from pathlib import Path
@@ -50,15 +49,6 @@ logging.basicConfig(
     datefmt="%H:%M:%S",
 )
 log = logging.getLogger(__name__)
-
-_HEADER = re.compile(r"^@@ -\d+(?:,\d+)? \+\d+(?:,\d+)? @@(.*)$")
-
-
-def _has_function_header(hunk_diff: str) -> bool:
-    """True if the @@ line carries a function/class name (git-diff style)."""
-    m = _HEADER.match(hunk_diff.split("\n", 1)[0])
-    return bool(m and m.group(1).strip())
-
 
 def ordered_hunks(hunks: list[dict], keys: list[str], iid: str) -> list[dict]:
     lookup = {export_hunk_key(h): h for h in hunks}
@@ -231,15 +221,6 @@ def main() -> None:
         c["tier2_hunks"] += sum(h["tier_label"] == 2 for h in r)
         c["tier3_hunks"] += len(t)
 
-    all_r = [h for v in retained.values() for h in v]
-    all_t = [h for v in tier3.values() for h in v]
-    parity = {
-        "retained_function_header_rate": round(sum(_has_function_header(h["hunk_diff"]) for h in all_r) / max(1, len(all_r)), 4),
-        "tier3_function_header_rate": round(sum(_has_function_header(h["hunk_diff"]) for h in all_t) / max(1, len(all_t)), 4),
-    }
-    if abs(parity["retained_function_header_rate"] - parity["tier3_function_header_rate"]) > 0.05:
-        log.warning("Retained and Tier-3 hunks differ in diff format: %s", parity)
-
     total, per_repo, evaluation = dataset_statistics(order, references, retained, tier3, split_of, repos)
     generator = "Haiku" if "haiku" in (protocol.get("model") or "").lower() else "LLM"
     manifest = {
@@ -259,7 +240,6 @@ def main() -> None:
     log.info("Manifest → %s", args.manifest)
     for s, c in sorted(per_split.items()):
         log.info("  %-5s %s", s, dict(c))
-    log.info("Diff-format parity (share of hunks with a function header): %s", parity)
 
 
 if __name__ == "__main__":

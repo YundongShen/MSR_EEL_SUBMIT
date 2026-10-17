@@ -225,13 +225,6 @@ field for generated retained candidates; the current model evaluator instead
 reads candidates from a separate `llm_t12_hunks` file. The archive format must be
 converted before using it with that evaluator.
 
-Four fixed cross-generator labels differ from the stated start-line matching
-rule. Gemini sympy-12798 hunk 2 and Qwen sympy-13018 hunk 2 are retained despite
-distances of 39 and 23 lines from the closest same-file reference hunk. Qwen
-sympy-13173 hunk 30 and sympy-13852 hunk 3 are T3 despite distances of 18 and
-3 lines. Their coordinates agree with the original source context; the
-archived labels are preserved.
-
 ## Candidate sampling and rebuilding
 
 Rebuild the published candidate files from the archived generations and raw

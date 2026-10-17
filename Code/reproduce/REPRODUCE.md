@@ -158,8 +158,7 @@ The mechanism diagnostics use the core test split. Semantic difficulty groups th
 issues into 41/41 using M0's mean requirement–T3 cosine similarity. The ORIG
 comparison includes test hunks with matched source units and excludes T0.
 
-Representations and similarity definitions for Figures 4 and 5, ranking, and
-region statistics are in the
+Analysis details and output records are listed in the
 [analysis notes](../analysis/README.md#django-figures-and-region-statistics).
 
 To classify Django regions:

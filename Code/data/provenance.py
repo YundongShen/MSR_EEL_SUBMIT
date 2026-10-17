@@ -122,15 +122,14 @@ def check_checkpoint(ckpt: dict, path: str | Path, allow_legacy: bool = False) -
     stamp = ckpt.get("data_provenance")
     problem = None
     if stamp is None:
-        problem = ("has no data_provenance stamp, so it predates the generated-hunk protocol "
-                   "(it may have been trained on the reference patch's own hunks)")
+        problem = "has no data_provenance stamp"
     elif stamp.get("hunk_source") != HUNK_SOURCE or stamp.get("protocol_version") != PROTOCOL_VERSION:
         problem = (f"was trained with hunk_source={stamp.get('hunk_source')!r}, "
                    f"protocol_version={stamp.get('protocol_version')!r}; expected "
                    f"{HUNK_SOURCE!r}, {PROTOCOL_VERSION}")
     if problem:
         if allow_legacy:
-            log.warning("LEGACY CHECKPOINT %s %s. Results are NOT comparable to the paper protocol.", path, problem)
+            log.warning("Checkpoint %s: %s", path, problem)
             return stamp
         raise CheckpointProvenanceError(
             f"Checkpoint {path} {problem}. Retrain it with train.py, or pass --allow-legacy-checkpoint "

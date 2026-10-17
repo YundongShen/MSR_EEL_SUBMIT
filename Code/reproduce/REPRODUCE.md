@@ -199,7 +199,7 @@ Select eligible issues without changing candidates or shrinking the T0 pool:
 
 ```bash
 G=../Data/Evaluation/generalization
-python "$G/scripts/make_subset_version.py" "$G/evaluation_inputs/github_prs_python/instances_asgold_keep1_p60.jsonl.gz" "$G/evaluation_inputs/github_prs_python/tier3_mix10.jsonl.gz" logs/rq4_python_eligible_ids.json
+python "$G/scripts/make_subset_version.py" "$G/evaluation_inputs/github_prs_python/instances.jsonl.gz" "$G/evaluation_inputs/github_prs_python/tier3_mix10.jsonl.gz" logs/rq4_python_eligible_ids.json
 ```
 
 The selector requires at least one retained candidate and one T3 candidate.

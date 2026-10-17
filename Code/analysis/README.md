@@ -5,15 +5,32 @@ Commands for these analyses are in the
 
 ## Django figures and region statistics
 
-The Django scripts select all 849 Django issues. Figure 4 fits UMAP on the
-untrained projected hunk representation and transforms M2 hunks into that
-space; its reference background remains the M0 background.
+The Django scripts select all 849 Django issues.
 
-Figure 5 uses diagnostic similarities: TEST is a normalized mean test
-representation, and missing matched ORIG falls back to the normalized mean
-of the issue's first 16 source units. The five-region statistics use the
-individual EEL score components: TEST is the maximum similarity across tests,
-and missing TEST or matched ORIG contributes zero. Region percentages are
+### Figure 4: representation geometry
+
+Both panels use 256-dimensional representations from the encoder and projection
+head. The untrained reference, labeled M0 in the plot, uses the pretrained
+backbone with a randomly initialized projection head. UMAP is fitted on these
+hunk representations and transforms the trained M2 hunks into the same space.
+REQ, TEST, and ORIG background positions remain those of the untrained reference.
+The M0 ranking baseline uses 768-dimensional mean-pooled backbone embeddings
+with the projection head bypassed.
+
+### Figure 5: diagnostic similarities
+
+REQ similarity compares each hunk with its requirement. TEST similarity compares
+the hunk with the normalized mean of its issue's test embeddings and determines
+the point's color intensity. ORIG similarity compares the hunk with the normalized
+mean of its matched source-unit embeddings. When no source unit matches, it uses
+the normalized mean of the issue's first 16 available source units. Missing tests
+or an issue without source units contribute zero.
+
+### Ranking and region statistics
+
+Ranking uses the maximum hunk similarity across individual tests. Its ORIG term
+uses matched source units and contributes zero when none matches. The reported
+five-region statistics use these EEL score components. Region percentages are
 computed among retained T1/T2 hunks. The per-hunk scores and run log are in
 [`region_analysis.json`](../../Data/Evaluation/training_variants/region_analysis.json)
 and [`region_analysis.log`](../../Data/Evaluation/training_variants/region_analysis.log).

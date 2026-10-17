@@ -59,21 +59,18 @@ at 0.07, is learned and is clamped to [0.01, 1.0]. Batch size is 32; each epoch
 draws 250000 pair-type-balanced samples. The four pair types are REQ–TEST,
 REQ–HUNK, ORIG–HUNK and REQ–ORIG, with unit weights.
 
-Ten epochs is the maximum training budget. The REQ-only and TEST-view
-runs completed six and seven epochs before timing out; their evaluations used
-the best validation checkpoint, saved at epoch one.
+Ten epochs is the maximum training budget.
 
 ```bash
 python train.py --instances data/processed/instances_full.jsonl --epochs 10 --checkpoint-dir checkpoints/m1 --pair-types req_test req_hunk orig_hunk req_orig
 python train.py --instances data/processed/instances_full.jsonl --epochs 10 --checkpoint-dir checkpoints/m2 --pair-types req_test req_hunk orig_hunk req_orig --tier3 data/cache/tier3_hunks.jsonl
 python train.py --instances data/processed/instances_full.jsonl --epochs 10 --checkpoint-dir checkpoints/m3 --pair-types req_test req_hunk orig_hunk req_orig --tier3 data/cache/tier3_hunks.jsonl --same-repo
-python train.py --instances data/processed/instances_full.jsonl --epochs 10 --checkpoint-dir checkpoints/m4 --pair-types req_test req_hunk orig_hunk req_orig --tier3 data/cache/tier3_hunks.jsonl --same-repo --tier-aware-loss
 ```
 
 M1 uses in-batch negatives. M2 adds same-issue T3 negatives. M3 retains M2's
 negatives and adds up to three retained hunks from other issues in the same
-repository per anchor. M4 uses this M3 configuration with T1/T2 loss weights
-1.0/0.67. M0 uses the untrained backbone without the projection for ranking.
+repository per anchor. M0 uses the untrained backbone without the projection
+for ranking.
 
 ```bash
 python train.py --instances data/processed/instances_full.jsonl --epochs 10 --checkpoint-dir checkpoints/m2_abl_no_orig --pair-types req_test req_hunk --tier3 data/cache/tier3_hunks.jsonl
@@ -115,7 +112,6 @@ python evaluate.py --checkpoint none --no-projection --exp retrieval "${A[@]}" "
 python evaluate.py --checkpoint checkpoints/m1/best.pt --exp retrieval "${A[@]}" "${W[@]}"
 python evaluate.py --checkpoint checkpoints/m2/best.pt --exp retrieval "${A[@]}" "${W[@]}"
 python evaluate.py --checkpoint checkpoints/m3/best.pt --exp retrieval "${A[@]}" "${W[@]}"
-python evaluate.py --checkpoint checkpoints/m4/best.pt --exp retrieval "${A[@]}" "${W[@]}"
 
 python evaluate.py --checkpoint checkpoints/m2_abl_no_orig/best.pt --exp retrieval "${A[@]}" --score-alpha 1.0 --score-beta 0.5 --score-gamma 0.0
 python evaluate.py --checkpoint checkpoints/m2_abl_no_test/best.pt --exp retrieval "${A[@]}" --score-alpha 1.0 --score-beta 0.0 --score-gamma 0.5
@@ -138,16 +134,12 @@ python baselines/baselines_pretrained.py --model microsoft/codebert-base "${A[@]
 python baselines/baselines_pretrained.py --model microsoft/graphcodebert-base "${A[@]}" --output logs/baseline_graphcodebert.json
 python baselines/baselines_pretrained.py --model microsoft/unixcoder-base "${A[@]}" --output logs/baseline_unixcoder_req_hunk.json
 python baselines/baselines_extra.py --mode codet5 --model Salesforce/codet5p-110m-embedding "${A[@]}" --output logs/baseline_codet5.json
-python baselines/baselines_extra.py --mode coderetriever --model microsoft/graphcodebert-base "${A[@]}" --output logs/baseline_pooler_retrieval.json
 python baselines/baselines_extra.py --mode cross_encoder --model checkpoints/cross_encoder "${A[@]}" --output logs/baseline_cross_encoder.json
 ```
 
 BM25 uses lexical matching. CodeBERT, GraphCodeBERT, and the UniXCoder baseline
 score REQ–HUNK cosine similarity using normalized mean token embeddings. M0
 uses the three-view retention score. CodeT5 uses the CodeT5+ 110M embedding checkpoint.
-Pooler-based Retrieval uses GraphCodeBERT's randomly initialized pooler without
-task-specific training. The `coderetriever` CLI mode selects this pooler
-configuration; the result JSON records the GraphCodeBERT model ID.
 
 Cross-Encoder fine-tunes `microsoft/unixcoder-base` on training-split
 requirement–hunk pairs and evaluates the checkpoint with the lowest validation
@@ -166,16 +158,8 @@ The mechanism diagnostics use the core test split. Semantic difficulty groups th
 issues into 41/41 using M0's mean requirement–T3 cosine similarity. The ORIG
 comparison includes test hunks with matched source units and excludes T0.
 
-The Django scripts select all 849 Django issues. Figure 4 fits UMAP on the
-untrained projected hunk representation and transforms M2 hunks into that
-space; its reference background remains the M0 background.
-Figure 5 uses diagnostic similarities: TEST is a normalized mean test
-representation, and missing matched ORIG falls back to the normalized mean
-of the issue's first 16 source units. The five-region statistics use the
-individual EEL score components: TEST is the maximum similarity across tests,
-and missing TEST or matched ORIG contributes zero. The per-hunk scores and
-run log are in `Data/Evaluation/training_variants/region_analysis.json` and
-`region_analysis.log`. Region percentages are computed among retained T1/T2 hunks.
+Details of the Django figures and region statistics are in the
+[analysis notes](../analysis/README.md#django-figures-and-region-statistics).
 
 To classify Django regions:
 
@@ -203,9 +187,8 @@ nDCG at the number of retained hunks and report PSR.
 
 The directory `evaluation_inputs` contains the experiment inputs. `candidate_pool`
 contains the larger candidate pools. `eval_logs` and `scores` contain the
-corresponding run logs and per-issue rankings. The additional Django-omitted
-comparison is retained under its own name; the reported repository shift uses
-the SymPy-omitted model.
+corresponding run logs and per-issue rankings. The reported repository shift
+uses the SymPy-omitted model.
 
 ```bash
 LSO_JOB=$(sbatch --parsable slurm/generalization/train_exp4_lso.slurm)
@@ -234,8 +217,6 @@ source inputs:
 python data_pipeline/build_dataset.py --generations data/cache/haiku_generations.jsonl.gz --source-instances data/raw/swebench_full_instances.jsonl.gz --instances data/processed/instances_full.jsonl --splits data/processed/splits.json --retained-out data/cache/rebuilt_llm_t12_hunks.jsonl --tier3-out data/cache/rebuilt_tier3_hunks.jsonl --manifest data/cache/rebuilt_dataset_manifest.json
 ```
 
-The archived records include `export_order` to preserve output ordering.
-
 Training and evaluation above use the published candidates without rebuilding
 them. For a new sampling experiment, set `ANTHROPIC_API_KEY` and use a separate
 generation output. Samples are batched until the number of matched generated
@@ -255,12 +236,8 @@ python data_pipeline/build_dataset.py --generations data/cache/new_haiku_generat
 
 ## Hunk similarity
 
-This analysis compares changed lines using UniXCoder cosine similarity. Retained
-hunks are paired with reference hunks in the same file less than 20 lines apart. Pairing
-first uses unique references; the remaining 622 hunks use the nearest same-file
-reference. T3 hunks use the nearest same-file reference, with a closest-path
-fallback for one hunk. The random control uses another issue in the same
-repository, with seed 0.
+This analysis compares changed lines using UniXCoder cosine similarity.
+Pairing details are in the [analysis notes](../analysis/README.md#hunk-similarity).
 
 Recompute the statistics from the submitted pairs and embeddings:
 
@@ -295,3 +272,31 @@ For GPU submission, replace the embedding command with
 Evaluation commands write outputs to `logs/`. Training saves the checkpoint
 with the lowest validation loss to `checkpoints/<variant>/best.pt`. Submitted
 training logs and evaluation results are stored under `Data/Evaluation/`.
+
+## Historical versions
+
+### M4
+
+M4 uses the M3 configuration with T1/T2 loss weights 1.0/0.67.
+
+```bash
+python train.py --instances data/processed/instances_full.jsonl --epochs 10 --checkpoint-dir checkpoints/m4 --pair-types req_test req_hunk orig_hunk req_orig --tier3 data/cache/tier3_hunks.jsonl --same-repo --tier-aware-loss
+python evaluate.py --checkpoint checkpoints/m4/best.pt --exp retrieval "${A[@]}" "${W[@]}"
+```
+
+### Pooler-based Retrieval
+
+Pooler-based Retrieval uses GraphCodeBERT's randomly initialized pooler without
+task-specific training. The `coderetriever` CLI mode selects this pooler
+configuration; the result JSON records the GraphCodeBERT model ID.
+
+```bash
+python baselines/baselines_extra.py --mode coderetriever --model microsoft/graphcodebert-base "${A[@]}" --output logs/baseline_pooler_retrieval.json
+```
+
+### Django-omitted comparison
+
+The Django-omitted comparison is a historical version of the repository-shift
+experiment. Its records are stored under
+`Data/Evaluation/generalization/eval_logs/django_omitted.log` and
+`Data/Evaluation/generalization/scores/per_issue_django_omitted.json`.

@@ -21,7 +21,7 @@ from data_pipeline.merged_generations import candidate_hunks, diff_hunks, export
 from data_pipeline import sample_haiku_merge as sampler
 from data_pipeline import build_dataset
 from data.llm_client import LLMClient
-from data_pipeline.generate_candidates import _apply_sr_blocks_partial
+from data_pipeline.generate_candidates import generate, _PATCH_SYSTEM
 from data.provenance import validate_generated_hunks
 
 
@@ -38,8 +38,8 @@ def inst():
 
 
 def result(patch_text, raw="first response"):
-    return {"extracted_diff": patch_text, "raw_response": raw, "sr_blocks_found": 1,
-            "sr_blocks_applied": 1, "modified_files": {"a.py": "not retained"}}
+    return {"extracted_diff": patch_text, "raw_response": raw,
+            "modified_files": {"a.py": "not retained"}}
 
 
 def merge(record, data, generation, sample=0, run_id="round"):
@@ -49,40 +49,41 @@ def merge(record, data, generation, sample=0, run_id="round"):
 
 
 class SamplingChecks(unittest.TestCase):
-    def test_native_diff_headers_and_application(self):
-        import subprocess
+    def test_generated_patch_headers_are_preserved(self):
+        for suffix in ("", " def example():"):
+            with self.subTest(suffix=suffix):
+                text = diff().replace(" @@\n", f" @@{suffix}\n") + diff(30, file="b.py")
+                llm = types.SimpleNamespace(complete=lambda system, user: text)
+                generated = generate(inst(), llm)
+                self.assertEqual(generated, {"raw_response": text, "extracted_diff": text})
+                record, count = merge(None, inst(), generated)
+                self.assertEqual(count, 2)
+                self.assertEqual([h["text"] for h in candidate_hunks(record)],
+                                 [h["text"] for h in diff_hunks(text)])
+                self.assertNotIn("sr_blocks_found", record["sampling"]["runs"][0])
+                self.assertEqual(record["generation"]["raw_response"], text)
 
-        original = "class Example:\n    def method(self):\n" + "".join(
-            f"        value{i} = {i}\n" for i in range(20))
-        for filepath, source, old, new, named in [
-            ("pkg/example.py", original, "value10 = 10", "value10 = 99", True),
-            ("pkg/top.py", "import os\nvalue = 1\n", "value = 1", "value = 2", False),
-            ("pkg/a file.txt", "value = 1\n", "value = 1", "value = 2", False),
-            ("pkg/no_newline.py", "value = 1", "value = 1", "value = 2", False),
-            ("pkg/windows.py", "import os\r\nvalue = 1\r\n", "value = 1", "value = 2", False),
-            ("pkg/delete.py", "value = 1\n", "value = 1\n", "", False),
-        ]:
-            with self.subTest(filepath=filepath):
-                text = _apply_sr_blocks_partial({filepath: source}, [(filepath, old, new)])
-                hunks = diff_hunks(text)
-                self.assertEqual([h["file"] for h in hunks], [filepath])
-                header = hunks[0]["text"].splitlines()[0]
-                self.assertEqual("def method(self):" in header, named)
-                with tempfile.TemporaryDirectory() as temp:
-                    target = Path(temp) / filepath
-                    target.parent.mkdir(parents=True, exist_ok=True)
-                    target.write_text(source)
-                    subprocess.run(["git", "apply", "-"], cwd=temp, input=text,
-                                   text=True, capture_output=True, check=True)
-                    self.assertEqual(target.read_bytes().decode(), source.replace(old, new))
+    def test_generated_patch_fences_and_api_failure(self):
+        text = diff()
+        for raw in (f"```diff\n{text}```", f"```patch\n{text}```", f"```\n{text}```"):
+            generated = generate(inst(), types.SimpleNamespace(complete=lambda system, user: raw))
+            self.assertEqual(generated["raw_response"], raw)
+            self.assertEqual(generated["extracted_diff"], text)
+        self.assertIsNone(generate(inst(), types.SimpleNamespace(complete=lambda system, user: None)))
 
-    def test_native_diff_noop_and_failure(self):
-        source = {"a.py": "value = 1\n"}
-        self.assertEqual(_apply_sr_blocks_partial(source, [("a.py", "value = 1", "value = 1")]), "")
-        with patch("data_pipeline.generate_candidates.subprocess.run", return_value=
-                   types.SimpleNamespace(returncode=2, stderr=b"git failed", stdout=b"")):
-            with self.assertRaisesRegex(RuntimeError, "git failed"):
-                _apply_sr_blocks_partial(source, [("a.py", "value = 1", "value = 2")])
+    def test_non_patch_response_stops_sampling(self):
+        with tempfile.TemporaryDirectory() as temp:
+            data = inst()
+            input_path, output = Path(temp) / "input.jsonl", Path(temp) / "generations.jsonl"
+            sampler.save_records(input_path, {data["instance_id"]: data})
+            args = ["sample_haiku_merge.py", "--input", str(input_path), "--generations", str(output),
+                    "--run-id", "non-patch", "--sleep", "0"]
+            with patch.object(LLMClient, "complete", return_value="Here is the updated code.") as complete, \
+                    patch.dict(sampler.os.environ, {"ANTHROPIC_API_KEY": "test"}), \
+                    patch.object(sys, "argv", args):
+                with self.assertRaisesRegex(RuntimeError, "generation failed"):
+                    sampler.main()
+            complete.assert_called_once()
 
     def test_native_diff_validation(self):
         for suffix in ["", " def f():"]:
@@ -110,10 +111,10 @@ class SamplingChecks(unittest.TestCase):
             output = Path(temp) / "generations.jsonl"
             sampler.save_records(input_path, {data["instance_id"]: data})
             responses = [
-                "<<<<<<< SEARCH\nFILE: a.py\nline39\n=======\nextra\n>>>>>>> REPLACE",
-                "<<<<<<< SEARCH\nFILE: a.py\nline39\n=======\nextra\n>>>>>>> REPLACE",
-                "<<<<<<< SEARCH\nFILE: a.py\nline9\n=======\nfixed\n>>>>>>> REPLACE",
-                "<<<<<<< SEARCH\nFILE: a.py\nline13\n=======\nnear\n>>>>>>> REPLACE",
+                diff(40, "extra"),
+                diff(40, "extra"),
+                diff(10),
+                diff(14, "near"),
             ]
             requests = []
 
@@ -205,8 +206,8 @@ class SamplingChecks(unittest.TestCase):
             sampler.save_records(input_path, {data["instance_id"]: data})
             requests = []
             responses = [
-                "<<<<<<< SEARCH\nFILE: a.py\nline0\n=======\nfixed\n>>>>>>> REPLACE",
-                "<<<<<<< SEARCH\nFILE: a.py\nline29\n=======\nextra\n>>>>>>> REPLACE",
+                diff(),
+                diff(30, "extra"),
             ]
 
             def create(**kwargs):
@@ -224,7 +225,9 @@ class SamplingChecks(unittest.TestCase):
             self.assertTrue(all(r["temperature"] == 0.7 and r["max_tokens"] == 4096 for r in requests))
             record = sampler.load_records(output)[data["instance_id"]]
             self.assertEqual([h["sample"] for h in candidate_hunks(record)], [0, 1])
-            self.assertNotIn("line29\n=======", record["generation"]["raw_response"])
+            self.assertEqual(record["generation"]["raw_response"], diff())
+            self.assertEqual(record["generation"]["system_prompt"], _PATCH_SYSTEM)
+            self.assertTrue(all(r["system"] == _PATCH_SYSTEM for r in requests))
             self.assertEqual(len(record["sampling"]["runs"]), 2)
 
             splits = folder / "splits.json"

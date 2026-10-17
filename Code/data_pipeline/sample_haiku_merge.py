@@ -127,8 +127,6 @@ def merge_sample(record: dict | None, inst: dict, result: dict, *, sample: int,
         "user_prompt_sha256": hashlib.sha256(user_prompt.encode()).hexdigest(),
         "response_sha256": hashlib.sha256(result.get("raw_response", "").encode()).hexdigest(),
         "n_hunks": len(hunks), "n_added": added,
-        "sr_blocks_found": result.get("sr_blocks_found", 0),
-        "sr_blocks_applied": result.get("sr_blocks_applied", 0),
     }
     record.setdefault("sampling", {}).setdefault("runs", []).append(summary)
     return record, added
@@ -184,8 +182,7 @@ def run(args, records: dict[str, dict], run_id: str, split_ids, selected_ids) ->
     llm = None
     if not args.dry_run:
         from data.llm_client import LLMClient
-        from data.patch_generator import _UNCONSTRAINED_SYSTEM
-        from data_pipeline.generate_candidates import generate, _build_user_prompt
+        from data_pipeline.generate_candidates import generate, _build_user_prompt, _PATCH_SYSTEM
         llm = LLMClient(provider="anthropic", model=args.model, temperature=args.temperature,
                         max_tokens=args.max_tokens, max_retries=2, retry_delay=5.0)
     processed = calls = 0
@@ -231,11 +228,11 @@ def run(args, records: dict[str, dict], run_id: str, split_ids, selected_ids) ->
                 sample = next_sample(records.get(iid))
                 result = generate(inst, llm, code_budget=args.code_budget)
                 calls += 1
-                if result is None:
+                if result is None or not diff_hunks(result.get("extracted_diff") or ""):
                     raise RuntimeError(f"{iid}: generation failed; rerun with --run-id {run_id} to resume")
                 record, added = merge_sample(records.get(iid), inst, result, sample=sample,
                     run_id=run_id, model=args.model, temperature=args.temperature,
-                    max_tokens=args.max_tokens, system_prompt=_UNCONSTRAINED_SYSTEM, user_prompt=user_prompt)
+                    max_tokens=args.max_tokens, system_prompt=_PATCH_SYSTEM, user_prompt=user_prompt)
                 records[iid] = record
                 save_records(args.generations, records)
                 log.info("%s sample=%d: added=%d merged=%d", iid, sample, added, len(record["merged_hunks"]))

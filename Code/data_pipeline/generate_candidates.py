@@ -5,7 +5,7 @@ For each SWE-bench instance:
      the reference patch and the prompt names the reference patch's files ("The file(s) to
      modify are: ...").
   2. Call the LLM with the unconstrained prompt: "Fix the bug. Make any changes necessary."
-  3. Parse the SEARCH/REPLACE response and apply it → unified diff.
+  3. Read the proposed changes from the response.
   4. Append the full record (prompt inputs, raw response, extracted diff) to the generations
      file.  Nothing is labelled here.
 
@@ -34,9 +34,7 @@ import datetime
 import json
 import logging
 import re
-import subprocess
 import sys
-import tempfile
 import time
 from pathlib import Path
 
@@ -45,11 +43,9 @@ sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 from data.hunk_matching import parse_hunks
 from data.llm_client import LLMClient
 from data.patch_generator import (
-    _UNCONSTRAINED_SYSTEM,
     _CLAUDE_CODE_BUDGET,
     _relevant_context,
     _extract_diff_file_paths,
-    _fuzzy_find,
 )
 from data.data_loader import DataSample
 
@@ -61,134 +57,13 @@ logging.basicConfig(
 log = logging.getLogger(__name__)
 
 
-# ---------------------------------------------------------------------------
-# SR parsing — handles both standard (with FILE:) and compact (no FILE:) formats
-# ---------------------------------------------------------------------------
-
-# Standard format: <<<<<<< SEARCH / FILE: path / old / ======= / new / >>>>>>> REPLACE
-_SR_WITH_FILE = re.compile(
-    r"<<<<<<< SEARCH\s*\nFILE:\s*(.+?)\n(.*?)=======\n(.*?)>>>>>>> REPLACE",
-    re.DOTALL,
+_PATCH_SYSTEM = (
+    "You are a coding assistant. Fix the bug described in the issue.\n\n"
+    "You may modify any relevant part of the codebase if needed to produce a robust fix.\n\n"
+    "The final code should resolve the issue while keeping existing tests passing.\n\n"
+    "Keep your response focused on the code changes, preserving the original formatting "
+    "and surrounding context."
 )
-# Compact format (Haiku): <<<<<<< SEARCH / old / ======= / new / >>>>>>> REPLACE
-_SR_NO_FILE = re.compile(
-    r"<<<<<<< SEARCH\s*\n(?!FILE:)(.*?)=======\n(.*?)>>>>>>> REPLACE",
-    re.DOTALL,
-)
-
-
-def _parse_sr_blocks_extended(
-    text: str,
-    source_files: dict[str, str],
-) -> list[tuple[str, str, str]]:
-    """Parse SR blocks from LLM output, supporting both FILE: and no-FILE: formats.
-
-    For blocks without a FILE: header (common in Haiku), the file is inferred by
-    fuzzy-matching the SEARCH text against all source files.
-    """
-    blocks: list[tuple[str, str, str]] = []
-
-    # Standard format (with FILE: header) — matches first, take precedence
-    for m in _SR_WITH_FILE.finditer(text):
-        blocks.append((m.group(1).strip(), m.group(2), m.group(3)))
-
-    if blocks:
-        return blocks
-
-    # Fallback: compact format — infer file from content
-    for m in _SR_NO_FILE.finditer(text):
-        old_text = m.group(1)
-        new_text = m.group(2)
-        # Try to find which source file contains this SEARCH text
-        best_file = None
-        for filepath, src in source_files.items():
-            if _fuzzy_find(src, old_text) is not None:
-                best_file = filepath
-                break
-        if best_file:
-            blocks.append((best_file, old_text, new_text))
-        else:
-            log.debug("No-FILE SR block: SEARCH text not found in any source file")
-
-    return blocks
-
-
-# ---------------------------------------------------------------------------
-# SR application helpers
-# ---------------------------------------------------------------------------
-
-def _apply_sr_to_files(
-    source_files: dict[str, str],
-    blocks: list[tuple[str, str, str]],
-) -> dict[str, str]:
-    """Apply SR blocks, returning {filepath: new_content} for each modified file."""
-    modified: dict[str, str] = {}
-    for filepath, old_text, new_text in blocks:
-        resolved = filepath
-        if resolved not in source_files:
-            candidates = [k for k in source_files if k.endswith(resolved)]
-            if len(candidates) == 1:
-                resolved = candidates[0]
-            else:
-                continue
-        if resolved not in modified:
-            modified[resolved] = source_files[resolved]
-        idx = _fuzzy_find(modified[resolved], old_text)
-        if idx is not None:
-            modified[resolved] = (
-                modified[resolved][:idx] + new_text + modified[resolved][idx + len(old_text):]
-            )
-    return modified
-
-
-def _apply_sr_blocks_partial(
-    source_files: dict[str, str],
-    blocks: list[tuple[str, str, str]],
-) -> str:
-    """Apply SEARCH/REPLACE blocks, skipping any that don't match.
-
-    Unlike the original _apply_sr_blocks, this does not abort on first failure.
-    Returns a unified diff of all successfully applied blocks (may be empty).
-    """
-    parts: list[str] = []
-    for filepath, old_text, new_text in blocks:
-        # Resolve path
-        if filepath not in source_files:
-            candidates = [k for k in source_files if k.endswith(filepath)]
-            if len(candidates) == 1:
-                filepath = candidates[0]
-            else:
-                log.debug("SR: cannot resolve file '%s'", filepath)
-                continue
-
-        original = source_files[filepath]
-        idx = _fuzzy_find(original, old_text)
-        if idx is None:
-            log.debug("SR: SEARCH block not found in '%s' (skipping)", filepath)
-            continue
-
-        modified = original[:idx] + new_text + original[idx + len(old_text):]
-        with tempfile.TemporaryDirectory() as temp:
-            folder = Path(temp)
-            old_path = folder / ("old" + Path(filepath).suffix)
-            new_path = folder / ("new" + Path(filepath).suffix)
-            old_path.write_text(original, encoding="utf-8")
-            new_path.write_text(modified, encoding="utf-8")
-            attributes = folder / "attributes"
-            attributes.write_text("*.py diff=python\n", encoding="utf-8")
-            result = subprocess.run(
-                ["git", "-c", f"core.attributesFile={attributes}", "diff", "--no-index",
-                 "--no-color", "--no-ext-diff", "--no-textconv", "--text",
-                 "--diff-algorithm=myers", "--unified=3", "--", old_path.name, new_path.name],
-                cwd=folder, capture_output=True,
-            )
-            if result.returncode not in (0, 1):
-                raise RuntimeError(result.stderr.decode("utf-8", errors="replace").strip() or "git diff failed")
-            _, marker, body = result.stdout.decode("utf-8").partition("\n@@ ")
-            if marker:
-                parts.append(f"--- a/{filepath}\n+++ b/{filepath}\n@@ {body}")
-
-    return "".join(parts)
 
 
 # ---------------------------------------------------------------------------
@@ -219,7 +94,7 @@ def _build_user_prompt(inst: dict, code_budget: int = _CLAUDE_CODE_BUDGET) -> st
         f"## Issue\n{issue_text}\n"
         f"{file_hint}\n"
         f"## Codebase\n{code_ctx}\n\n"
-        "Fix the issue using SEARCH/REPLACE blocks as instructed."
+        "Fix the issue."
     )
 
 
@@ -229,30 +104,20 @@ def generate(inst: dict, llm: LLMClient, code_budget: int = _CLAUDE_CODE_BUDGET)
     Returns the generation fields, or None if the instance has no reference hunks or the
     LLM call fails.  The raw response is always kept, even when no patch can be extracted.
     """
-    source_files: dict[str, str] = inst.get("source_files", {})
-
     if not parse_hunks(inst.get("patch", "")):
         log.debug("%s: no reference hunks, skipping", inst.get("instance_id"))
         return None
 
     user = _build_user_prompt(inst, code_budget=code_budget)
-    raw = llm.complete(_UNCONSTRAINED_SYSTEM, user)
+    raw = llm.complete(_PATCH_SYSTEM, user)
     if raw is None:
         log.warning("%s: LLM returned None", inst.get("instance_id"))
         return None
 
-    # Parse SR blocks → unified diff (extended parser handles Haiku's no-FILE: format)
-    blocks = _parse_sr_blocks_extended(raw, source_files)
+    fenced = re.search(r"```(?:diff|patch)?[ \t]*\r?\n(.*?)```", raw, re.DOTALL)
     return {
         "raw_response": raw,
-        "extracted_diff": _apply_sr_blocks_partial(source_files, blocks) if blocks else "",
-        "modified_files": _apply_sr_to_files(source_files, blocks) if blocks else {},
-        "sr_blocks_found": len(blocks),
-        "sr_blocks_applied": len([b for b in blocks if _fuzzy_find(
-            source_files.get(b[0], source_files.get(
-                next((k for k in source_files if k.endswith(b[0])), b[0]), ""
-            )), b[1]
-        ) is not None]) if blocks else 0,
+        "extracted_diff": fenced.group(1) if fenced else raw,
     }
 
 
@@ -402,14 +267,13 @@ def main() -> None:
                     "provider": args.provider,
                     "temperature": args.temperature,
                     "max_tokens": args.max_tokens,
-                    "system_prompt": _UNCONSTRAINED_SYSTEM,
+                    "system_prompt": _PATCH_SYSTEM,
                     **result,
                 },
             }
             fout.write(json.dumps(record) + "\n")
             fout.flush()
-            log.info("  → generated  (SR: %d/%d applied)",
-                     result["sr_blocks_applied"], result["sr_blocks_found"])
+            log.info("  → generated")
 
             if args.sleep > 0:
                 time.sleep(args.sleep)

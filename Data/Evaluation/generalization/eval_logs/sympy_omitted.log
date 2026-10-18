@@ -344,7 +344,7 @@ best.pt: epoch 2 val_loss 4.7005
 22:56:41 [INFO] nDCG@k_gold  mean=0.7927  std=0.2870  n=159  (k = |T1∪T2| per instance)
 22:56:41 [INFO] T2-Recall(K=gold)  mean=0.7988  std=0.2806  n=42  (top-K = |T1∪T2|)
 22:56:41 [INFO] Perfect-Sep  mean=0.7736  n=159  (all T3 ranked after all gold)
-===== EVAL old M2 on the same sympy issues =====
+===== EVAL M2 on the same sympy issues =====
 22:56:52 [INFO] Device: cuda
 22:56:52 [INFO] use_projection: True
 22:56:56 [INFO] Loaded encoder from checkpoints/m2/best.pt

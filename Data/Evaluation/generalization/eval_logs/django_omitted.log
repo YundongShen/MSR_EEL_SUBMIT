@@ -10,7 +10,7 @@
 13:15:44 [INFO] nDCG@k_gold  mean=0.8713  std=0.2118  n=204  (k = |T1∪T2| per instance)
 13:15:44 [INFO] T2-Recall(K=gold)  mean=0.8551  std=0.2166  n=204  (top-K = |T1∪T2|)
 13:15:44 [INFO] Perfect-Sep  mean=0.8971  n=204  (all T3 ranked after all gold)
-===== m2 (old M2, same Django issues) =====
+===== M2 (same Django issues) =====
 13:15:55 [INFO] Device: cuda
 13:15:55 [INFO] use_projection: True
 13:15:58 [INFO] Loaded encoder from checkpoints/m2/best.pt

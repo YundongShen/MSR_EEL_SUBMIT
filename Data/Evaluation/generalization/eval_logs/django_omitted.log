@@ -1,9 +1,6 @@
 ===== exp4_ldo (Django omitted from training) =====
 12:48:58 [INFO] Device: cuda
 12:48:58 [INFO] use_projection: True
-The new embeddings will be initialized from a multivariate normal distribution that has old embeddings' mean and covariance. As described in this article: https://nlp.stanford.edu/~johnhew/vocab-expansion.html. To disable this, use `mean_resizing=False`
-/workspace/eel/evaluate.py:69: FutureWarning: You are using `torch.load` with `weights_only=False` (the current default value), which uses the default pickle module implicitly. It is possible to construct malicious pickle data which will execute arbitrary code during unpickling (See https://github.com/pytorch/pytorch/blob/main/SECURITY.md#untrusted-models for more details). In a future release, the default value for `weights_only` will be flipped to `True`. This limits the functions that could be executed during unpickling. Arbitrary objects will no longer be allowed to be loaded via this mode unless they are explicitly allowlisted by the user via `torch.serialization.add_safe_globals`. We recommend you start setting `weights_only=True` for any use case where you don't have full control of the loaded file. Please open an issue on GitHub for any issues related to this experimental feature.
-  ckpt = torch.load(ckpt_path, map_location=device)
 12:49:03 [INFO] Loaded encoder from /workspace/eel/old_v1/checkpoints/exp4_ldo/best.pt
 12:49:03 [INFO] === Experiment 2: Retrieval ===
 12:49:04 [INFO] Test instances: 849
@@ -16,9 +13,6 @@ The new embeddings will be initialized from a multivariate normal distribution t
 ===== m2 (old M2, same Django issues) =====
 13:15:55 [INFO] Device: cuda
 13:15:55 [INFO] use_projection: True
-The new embeddings will be initialized from a multivariate normal distribution that has old embeddings' mean and covariance. As described in this article: https://nlp.stanford.edu/~johnhew/vocab-expansion.html. To disable this, use `mean_resizing=False`
-/workspace/eel/evaluate.py:69: FutureWarning: You are using `torch.load` with `weights_only=False` (the current default value), which uses the default pickle module implicitly. It is possible to construct malicious pickle data which will execute arbitrary code during unpickling (See https://github.com/pytorch/pytorch/blob/main/SECURITY.md#untrusted-models for more details). In a future release, the default value for `weights_only` will be flipped to `True`. This limits the functions that could be executed during unpickling. Arbitrary objects will no longer be allowed to be loaded via this mode unless they are explicitly allowlisted by the user via `torch.serialization.add_safe_globals`. We recommend you start setting `weights_only=True` for any use case where you don't have full control of the loaded file. Please open an issue on GitHub for any issues related to this experimental feature.
-  ckpt = torch.load(ckpt_path, map_location=device)
 13:15:58 [INFO] Loaded encoder from checkpoints/m2/best.pt
 13:15:58 [INFO] === Experiment 2: Retrieval ===
 13:15:58 [INFO] Test instances: 849

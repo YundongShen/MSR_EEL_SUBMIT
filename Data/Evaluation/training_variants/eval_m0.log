@@ -1,7 +1,5 @@
-===== m0 =====
 19:35:11 [INFO] Device: cuda
 19:35:11 [INFO] use_projection: False
-The new embeddings will be initialized from a multivariate normal distribution that has old embeddings' mean and covariance. As described in this article: https://nlp.stanford.edu/~johnhew/vocab-expansion.html. To disable this, use `mean_resizing=False`
 19:35:13 [WARNING] Checkpoint none not found — evaluating with random weights.
 19:35:13 [INFO] === Experiment 2: Retrieval ===
 19:35:13 [INFO] Test instances: 229

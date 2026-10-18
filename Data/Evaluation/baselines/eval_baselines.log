@@ -12,7 +12,6 @@
 15:38:37 [INFO] Device: cuda
 15:38:37 [INFO] Loading tokenizer and model: microsoft/graphcodebert-base
 Some weights of RobertaModel were not initialized from the model checkpoint at microsoft/graphcodebert-base and are newly initialized: ['roberta.pooler.dense.bias', 'roberta.pooler.dense.weight']
-You should probably TRAIN this model on a down-stream task to be able to use it for predictions and inference.
 15:38:40 [INFO] Test instances: 229
 15:38:40 [INFO] Tier-3 lookup: 743 instances
 15:39:06 [INFO] === microsoft/graphcodebert-base ===

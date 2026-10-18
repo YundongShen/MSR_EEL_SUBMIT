@@ -2,7 +2,6 @@
 16:40:37 [INFO] Loading dataset from data/processed/instances_full.jsonl
 16:40:39 [INFO] Dataset stats: {'total_pairs': 250734, 'by_pair_type': {'req_hunk': 9223, 'orig_hunk': 15815, 'req_orig': 218166, 'req_test': 7530}, 'by_tier': {1: 9257, 2: 15781}, 'unique_instances': 2291}
 16:40:39 [INFO] Splits — train: 207834  val: 20446
-The new embeddings will be initialized from a multivariate normal distribution that has old embeddings' mean and covariance. As described in this article: https://nlp.stanford.edu/~johnhew/vocab-expansion.html. To disable this, use `mean_resizing=False`
 16:40:42 [INFO] Encoder parameters: 126,720,768
 16:40:42 [INFO] === Epoch 1 / 10 ===
 16:41:41 [INFO] step=50  loss=3.1194  τ=0.070  lr=5.00e-06  [req_hunk=0.328  req_orig=1.793  orig_hunk=0.342  req_test=0.657]
@@ -161,42 +160,10 @@ The new embeddings will be initialized from a multivariate normal distribution t
 19:09:27 [INFO] step=7700  loss=0.8469  τ=0.067  lr=1.95e-05  [req_test=0.706  req_hunk=0.003  req_orig=0.001  orig_hunk=0.137]
 19:10:25 [INFO] step=7750  loss=0.4099  τ=0.067  lr=1.95e-05  [req_orig=0.313  req_test=0.085  req_hunk=0.011  orig_hunk=0.001]
 19:11:24 [INFO] step=7800  loss=0.7719  τ=0.067  lr=1.95e-05  [req_hunk=0.009  req_orig=0.442  req_test=0.320  orig_hunk=0.000]
-huggingface/tokenizers: The current process just got forked, after parallelism has already been used. Disabling parallelism to avoid deadlocks...
-To disable this warning, you can either:
-	- Avoid using `tokenizers` before the fork if possible
-	- Explicitly set the environment variable TOKENIZERS_PARALLELISM=(true | false)
-huggingface/tokenizers: The current process just got forked, after parallelism has already been used. Disabling parallelism to avoid deadlocks...
-To disable this warning, you can either:
-	- Avoid using `tokenizers` before the fork if possible
-	- Explicitly set the environment variable TOKENIZERS_PARALLELISM=(true | false)
-huggingface/tokenizers: The current process just got forked, after parallelism has already been used. Disabling parallelism to avoid deadlocks...
-To disable this warning, you can either:
-	- Avoid using `tokenizers` before the fork if possible
-	- Explicitly set the environment variable TOKENIZERS_PARALLELISM=(true | false)
-huggingface/tokenizers: The current process just got forked, after parallelism has already been used. Disabling parallelism to avoid deadlocks...
-To disable this warning, you can either:
-	- Avoid using `tokenizers` before the fork if possible
-	- Explicitly set the environment variable TOKENIZERS_PARALLELISM=(true | false)
 19:14:58 [INFO] Epoch 1 — train_loss=0.8827  val_loss=4.6771
 19:14:59 [INFO] Saved checkpoint → checkpoints/m1/epoch_001.pt  (val_loss=4.6771)
 19:15:00 [INFO] Saved checkpoint → checkpoints/m1/best.pt  (val_loss=4.6771)
 19:15:00 [INFO] === Epoch 2 / 10 ===
-huggingface/tokenizers: The current process just got forked, after parallelism has already been used. Disabling parallelism to avoid deadlocks...
-To disable this warning, you can either:
-	- Avoid using `tokenizers` before the fork if possible
-	- Explicitly set the environment variable TOKENIZERS_PARALLELISM=(true | false)
-huggingface/tokenizers: The current process just got forked, after parallelism has already been used. Disabling parallelism to avoid deadlocks...
-To disable this warning, you can either:
-	- Avoid using `tokenizers` before the fork if possible
-	- Explicitly set the environment variable TOKENIZERS_PARALLELISM=(true | false)
-huggingface/tokenizers: The current process just got forked, after parallelism has already been used. Disabling parallelism to avoid deadlocks...
-To disable this warning, you can either:
-	- Avoid using `tokenizers` before the fork if possible
-	- Explicitly set the environment variable TOKENIZERS_PARALLELISM=(true | false)
-huggingface/tokenizers: The current process just got forked, after parallelism has already been used. Disabling parallelism to avoid deadlocks...
-To disable this warning, you can either:
-	- Avoid using `tokenizers` before the fork if possible
-	- Explicitly set the environment variable TOKENIZERS_PARALLELISM=(true | false)
 19:15:44 [INFO] step=7850  loss=0.5656  τ=0.067  lr=1.95e-05  [req_test=0.099  orig_hunk=0.004  req_orig=0.403  req_hunk=0.060]
 19:16:43 [INFO] step=7900  loss=0.1744  τ=0.067  lr=1.95e-05  [req_orig=0.004  req_hunk=0.015  req_test=0.154  orig_hunk=0.001]
 19:17:42 [INFO] step=7950  loss=0.7098  τ=0.067  lr=1.95e-05  [orig_hunk=0.025  req_hunk=0.004  req_test=0.681  req_orig=0.000]
@@ -353,42 +320,10 @@ To disable this warning, you can either:
 21:43:46 [INFO] step=15500  loss=0.4679  τ=0.064  lr=1.82e-05  [req_test=0.458  req_orig=0.007  req_hunk=0.002  orig_hunk=0.001]
 21:44:44 [INFO] step=15550  loss=0.4038  τ=0.064  lr=1.81e-05  [req_hunk=0.003  req_test=0.119  req_orig=0.267  orig_hunk=0.015]
 21:45:42 [INFO] step=15600  loss=0.6399  τ=0.064  lr=1.81e-05  [orig_hunk=0.009  req_hunk=0.001  req_test=0.620  req_orig=0.010]
-huggingface/tokenizers: The current process just got forked, after parallelism has already been used. Disabling parallelism to avoid deadlocks...
-To disable this warning, you can either:
-	- Avoid using `tokenizers` before the fork if possible
-	- Explicitly set the environment variable TOKENIZERS_PARALLELISM=(true | false)
-huggingface/tokenizers: The current process just got forked, after parallelism has already been used. Disabling parallelism to avoid deadlocks...
-To disable this warning, you can either:
-	- Avoid using `tokenizers` before the fork if possible
-	- Explicitly set the environment variable TOKENIZERS_PARALLELISM=(true | false)
-huggingface/tokenizers: The current process just got forked, after parallelism has already been used. Disabling parallelism to avoid deadlocks...
-To disable this warning, you can either:
-	- Avoid using `tokenizers` before the fork if possible
-	- Explicitly set the environment variable TOKENIZERS_PARALLELISM=(true | false)
-huggingface/tokenizers: The current process just got forked, after parallelism has already been used. Disabling parallelism to avoid deadlocks...
-To disable this warning, you can either:
-	- Avoid using `tokenizers` before the fork if possible
-	- Explicitly set the environment variable TOKENIZERS_PARALLELISM=(true | false)
 21:49:30 [INFO] Epoch 2 — train_loss=0.5648  val_loss=4.6618
 21:49:31 [INFO] Saved checkpoint → checkpoints/m1/epoch_002.pt  (val_loss=4.6618)
 21:49:33 [INFO] Saved checkpoint → checkpoints/m1/best.pt  (val_loss=4.6618)
 21:49:33 [INFO] === Epoch 3 / 10 ===
-huggingface/tokenizers: The current process just got forked, after parallelism has already been used. Disabling parallelism to avoid deadlocks...
-To disable this warning, you can either:
-	- Avoid using `tokenizers` before the fork if possible
-	- Explicitly set the environment variable TOKENIZERS_PARALLELISM=(true | false)
-huggingface/tokenizers: The current process just got forked, after parallelism has already been used. Disabling parallelism to avoid deadlocks...
-To disable this warning, you can either:
-	- Avoid using `tokenizers` before the fork if possible
-	- Explicitly set the environment variable TOKENIZERS_PARALLELISM=(true | false)
-huggingface/tokenizers: The current process just got forked, after parallelism has already been used. Disabling parallelism to avoid deadlocks...
-To disable this warning, you can either:
-	- Avoid using `tokenizers` before the fork if possible
-	- Explicitly set the environment variable TOKENIZERS_PARALLELISM=(true | false)
-huggingface/tokenizers: The current process just got forked, after parallelism has already been used. Disabling parallelism to avoid deadlocks...
-To disable this warning, you can either:
-	- Avoid using `tokenizers` before the fork if possible
-	- Explicitly set the environment variable TOKENIZERS_PARALLELISM=(true | false)
 21:50:03 [INFO] step=15650  loss=0.8669  τ=0.064  lr=1.81e-05  [req_test=0.253  req_orig=0.516  req_hunk=0.002  orig_hunk=0.095]
 21:51:01 [INFO] step=15700  loss=0.3201  τ=0.064  lr=1.81e-05  [req_hunk=0.000  orig_hunk=0.001  req_orig=0.316  req_test=0.003]
 21:51:59 [INFO] step=15750  loss=0.9172  τ=0.064  lr=1.81e-05  [req_orig=0.030  req_hunk=0.019  orig_hunk=0.021  req_test=0.847]
@@ -545,41 +480,9 @@ To disable this warning, you can either:
 00:17:56 [INFO] step=23300  loss=0.3524  τ=0.063  lr=1.60e-05  [req_hunk=0.005  req_test=0.238  orig_hunk=0.001  req_orig=0.109]
 00:18:54 [INFO] step=23350  loss=0.0926  τ=0.063  lr=1.60e-05  [req_hunk=0.059  req_orig=0.007  orig_hunk=0.026  req_test=0.000]
 00:19:52 [INFO] step=23400  loss=0.5703  τ=0.063  lr=1.59e-05  [orig_hunk=0.057  req_test=0.283  req_hunk=0.000  req_orig=0.229]
-huggingface/tokenizers: The current process just got forked, after parallelism has already been used. Disabling parallelism to avoid deadlocks...
-To disable this warning, you can either:
-	- Avoid using `tokenizers` before the fork if possible
-	- Explicitly set the environment variable TOKENIZERS_PARALLELISM=(true | false)
-huggingface/tokenizers: The current process just got forked, after parallelism has already been used. Disabling parallelism to avoid deadlocks...
-To disable this warning, you can either:
-	- Avoid using `tokenizers` before the fork if possible
-	- Explicitly set the environment variable TOKENIZERS_PARALLELISM=(true | false)
-huggingface/tokenizers: The current process just got forked, after parallelism has already been used. Disabling parallelism to avoid deadlocks...
-To disable this warning, you can either:
-	- Avoid using `tokenizers` before the fork if possible
-	- Explicitly set the environment variable TOKENIZERS_PARALLELISM=(true | false)
-huggingface/tokenizers: The current process just got forked, after parallelism has already been used. Disabling parallelism to avoid deadlocks...
-To disable this warning, you can either:
-	- Avoid using `tokenizers` before the fork if possible
-	- Explicitly set the environment variable TOKENIZERS_PARALLELISM=(true | false)
 00:23:53 [INFO] Epoch 3 — train_loss=0.4877  val_loss=4.6843
 00:23:55 [INFO] Saved checkpoint → checkpoints/m1/epoch_003.pt  (val_loss=4.6843)
 00:23:55 [INFO] === Epoch 4 / 10 ===
-huggingface/tokenizers: The current process just got forked, after parallelism has already been used. Disabling parallelism to avoid deadlocks...
-To disable this warning, you can either:
-	- Avoid using `tokenizers` before the fork if possible
-	- Explicitly set the environment variable TOKENIZERS_PARALLELISM=(true | false)
-huggingface/tokenizers: The current process just got forked, after parallelism has already been used. Disabling parallelism to avoid deadlocks...
-To disable this warning, you can either:
-	- Avoid using `tokenizers` before the fork if possible
-	- Explicitly set the environment variable TOKENIZERS_PARALLELISM=(true | false)
-huggingface/tokenizers: The current process just got forked, after parallelism has already been used. Disabling parallelism to avoid deadlocks...
-To disable this warning, you can either:
-	- Avoid using `tokenizers` before the fork if possible
-	- Explicitly set the environment variable TOKENIZERS_PARALLELISM=(true | false)
-huggingface/tokenizers: The current process just got forked, after parallelism has already been used. Disabling parallelism to avoid deadlocks...
-To disable this warning, you can either:
-	- Avoid using `tokenizers` before the fork if possible
-	- Explicitly set the environment variable TOKENIZERS_PARALLELISM=(true | false)
 00:24:11 [INFO] step=23450  loss=0.6080  τ=0.063  lr=1.59e-05  [req_orig=0.362  req_test=0.245  orig_hunk=0.001  req_hunk=0.000]
 00:25:09 [INFO] step=23500  loss=0.3940  τ=0.063  lr=1.59e-05  [req_orig=0.113  req_test=0.279  req_hunk=0.002  orig_hunk=0.000]
 00:26:08 [INFO] step=23550  loss=1.0357  τ=0.063  lr=1.59e-05  [req_test=0.057  req_orig=0.709  orig_hunk=0.268  req_hunk=0.002]
@@ -736,41 +639,9 @@ To disable this warning, you can either:
 02:52:04 [INFO] step=31100  loss=0.0077  τ=0.061  lr=1.32e-05  [req_test=0.000  orig_hunk=0.002  req_orig=0.002  req_hunk=0.003]
 02:53:02 [INFO] step=31150  loss=0.3944  τ=0.061  lr=1.32e-05  [req_test=0.246  req_orig=0.148  orig_hunk=0.000  req_hunk=0.000]
 02:53:59 [INFO] step=31200  loss=0.5818  τ=0.061  lr=1.32e-05  [req_test=0.341  req_hunk=0.000  req_orig=0.220  orig_hunk=0.021]
-huggingface/tokenizers: The current process just got forked, after parallelism has already been used. Disabling parallelism to avoid deadlocks...
-To disable this warning, you can either:
-	- Avoid using `tokenizers` before the fork if possible
-	- Explicitly set the environment variable TOKENIZERS_PARALLELISM=(true | false)
-huggingface/tokenizers: The current process just got forked, after parallelism has already been used. Disabling parallelism to avoid deadlocks...
-To disable this warning, you can either:
-	- Avoid using `tokenizers` before the fork if possible
-	- Explicitly set the environment variable TOKENIZERS_PARALLELISM=(true | false)
-huggingface/tokenizers: The current process just got forked, after parallelism has already been used. Disabling parallelism to avoid deadlocks...
-To disable this warning, you can either:
-	- Avoid using `tokenizers` before the fork if possible
-	- Explicitly set the environment variable TOKENIZERS_PARALLELISM=(true | false)
-huggingface/tokenizers: The current process just got forked, after parallelism has already been used. Disabling parallelism to avoid deadlocks...
-To disable this warning, you can either:
-	- Avoid using `tokenizers` before the fork if possible
-	- Explicitly set the environment variable TOKENIZERS_PARALLELISM=(true | false)
 02:58:15 [INFO] Epoch 4 — train_loss=0.4565  val_loss=4.6650
 02:58:16 [INFO] Saved checkpoint → checkpoints/m1/epoch_004.pt  (val_loss=4.6650)
 02:58:16 [INFO] === Epoch 5 / 10 ===
-huggingface/tokenizers: The current process just got forked, after parallelism has already been used. Disabling parallelism to avoid deadlocks...
-To disable this warning, you can either:
-	- Avoid using `tokenizers` before the fork if possible
-	- Explicitly set the environment variable TOKENIZERS_PARALLELISM=(true | false)
-huggingface/tokenizers: The current process just got forked, after parallelism has already been used. Disabling parallelism to avoid deadlocks...
-To disable this warning, you can either:
-	- Avoid using `tokenizers` before the fork if possible
-	- Explicitly set the environment variable TOKENIZERS_PARALLELISM=(true | false)
-huggingface/tokenizers: The current process just got forked, after parallelism has already been used. Disabling parallelism to avoid deadlocks...
-To disable this warning, you can either:
-	- Avoid using `tokenizers` before the fork if possible
-	- Explicitly set the environment variable TOKENIZERS_PARALLELISM=(true | false)
-huggingface/tokenizers: The current process just got forked, after parallelism has already been used. Disabling parallelism to avoid deadlocks...
-To disable this warning, you can either:
-	- Avoid using `tokenizers` before the fork if possible
-	- Explicitly set the environment variable TOKENIZERS_PARALLELISM=(true | false)
 02:58:19 [INFO] step=31250  loss=0.2351  τ=0.061  lr=1.31e-05  [req_test=0.230  req_orig=0.004  req_hunk=0.001  orig_hunk=0.000]
 02:59:17 [INFO] step=31300  loss=0.0527  τ=0.061  lr=1.31e-05  [req_orig=0.050  req_hunk=0.002  req_test=0.000  orig_hunk=0.001]
 03:00:14 [INFO] step=31350  loss=0.4891  τ=0.061  lr=1.31e-05  [orig_hunk=0.012  req_orig=0.307  req_hunk=0.029  req_test=0.141]
@@ -928,41 +799,9 @@ To disable this warning, you can either:
 05:27:10 [INFO] step=38950  loss=0.0116  τ=0.060  lr=1.01e-05  [orig_hunk=0.002  req_orig=0.010  req_test=0.000  req_hunk=0.000]
 05:28:08 [INFO] step=39000  loss=0.4496  τ=0.060  lr=1.01e-05  [req_test=0.400  req_hunk=0.044  orig_hunk=0.001  req_orig=0.005]
 05:29:06 [INFO] step=39050  loss=0.5605  τ=0.060  lr=1.00e-05  [req_test=0.184  orig_hunk=0.000  req_orig=0.375  req_hunk=0.001]
-huggingface/tokenizers: The current process just got forked, after parallelism has already been used. Disabling parallelism to avoid deadlocks...
-To disable this warning, you can either:
-	- Avoid using `tokenizers` before the fork if possible
-	- Explicitly set the environment variable TOKENIZERS_PARALLELISM=(true | false)
-huggingface/tokenizers: The current process just got forked, after parallelism has already been used. Disabling parallelism to avoid deadlocks...
-To disable this warning, you can either:
-	- Avoid using `tokenizers` before the fork if possible
-	- Explicitly set the environment variable TOKENIZERS_PARALLELISM=(true | false)
-huggingface/tokenizers: The current process just got forked, after parallelism has already been used. Disabling parallelism to avoid deadlocks...
-To disable this warning, you can either:
-	- Avoid using `tokenizers` before the fork if possible
-	- Explicitly set the environment variable TOKENIZERS_PARALLELISM=(true | false)
-huggingface/tokenizers: The current process just got forked, after parallelism has already been used. Disabling parallelism to avoid deadlocks...
-To disable this warning, you can either:
-	- Avoid using `tokenizers` before the fork if possible
-	- Explicitly set the environment variable TOKENIZERS_PARALLELISM=(true | false)
 05:32:37 [INFO] Epoch 5 — train_loss=0.4310  val_loss=4.6927
 05:32:39 [INFO] Saved checkpoint → checkpoints/m1/epoch_005.pt  (val_loss=4.6927)
 05:32:39 [INFO] === Epoch 6 / 10 ===
-huggingface/tokenizers: The current process just got forked, after parallelism has already been used. Disabling parallelism to avoid deadlocks...
-To disable this warning, you can either:
-	- Avoid using `tokenizers` before the fork if possible
-	- Explicitly set the environment variable TOKENIZERS_PARALLELISM=(true | false)
-huggingface/tokenizers: The current process just got forked, after parallelism has already been used. Disabling parallelism to avoid deadlocks...
-To disable this warning, you can either:
-	- Avoid using `tokenizers` before the fork if possible
-	- Explicitly set the environment variable TOKENIZERS_PARALLELISM=(true | false)
-huggingface/tokenizers: The current process just got forked, after parallelism has already been used. Disabling parallelism to avoid deadlocks...
-To disable this warning, you can either:
-	- Avoid using `tokenizers` before the fork if possible
-	- Explicitly set the environment variable TOKENIZERS_PARALLELISM=(true | false)
-huggingface/tokenizers: The current process just got forked, after parallelism has already been used. Disabling parallelism to avoid deadlocks...
-To disable this warning, you can either:
-	- Avoid using `tokenizers` before the fork if possible
-	- Explicitly set the environment variable TOKENIZERS_PARALLELISM=(true | false)
 05:33:25 [INFO] step=39100  loss=0.6069  τ=0.060  lr=1.00e-05  [req_hunk=0.000  req_test=0.591  orig_hunk=0.000  req_orig=0.015]
 05:34:24 [INFO] step=39150  loss=0.2807  τ=0.060  lr=1.00e-05  [req_hunk=0.050  req_orig=0.220  orig_hunk=0.011  req_test=0.000]
 05:35:21 [INFO] step=39200  loss=0.4094  τ=0.060  lr=9.98e-06  [req_hunk=0.019  orig_hunk=0.000  req_orig=0.011  req_test=0.380]
@@ -1119,41 +958,9 @@ To disable this warning, you can either:
 08:01:26 [INFO] step=46750  loss=0.3500  τ=0.059  lr=6.99e-06  [orig_hunk=0.015  req_hunk=0.001  req_test=0.000  req_orig=0.334]
 08:02:25 [INFO] step=46800  loss=0.1388  τ=0.059  lr=6.97e-06  [req_test=0.001  req_orig=0.004  req_hunk=0.134  orig_hunk=0.000]
 08:03:23 [INFO] step=46850  loss=0.3191  τ=0.059  lr=6.95e-06  [orig_hunk=0.000  req_orig=0.001  req_test=0.318  req_hunk=0.000]
-huggingface/tokenizers: The current process just got forked, after parallelism has already been used. Disabling parallelism to avoid deadlocks...
-To disable this warning, you can either:
-	- Avoid using `tokenizers` before the fork if possible
-	- Explicitly set the environment variable TOKENIZERS_PARALLELISM=(true | false)
-huggingface/tokenizers: The current process just got forked, after parallelism has already been used. Disabling parallelism to avoid deadlocks...
-To disable this warning, you can either:
-	- Avoid using `tokenizers` before the fork if possible
-	- Explicitly set the environment variable TOKENIZERS_PARALLELISM=(true | false)
-huggingface/tokenizers: The current process just got forked, after parallelism has already been used. Disabling parallelism to avoid deadlocks...
-To disable this warning, you can either:
-	- Avoid using `tokenizers` before the fork if possible
-	- Explicitly set the environment variable TOKENIZERS_PARALLELISM=(true | false)
-huggingface/tokenizers: The current process just got forked, after parallelism has already been used. Disabling parallelism to avoid deadlocks...
-To disable this warning, you can either:
-	- Avoid using `tokenizers` before the fork if possible
-	- Explicitly set the environment variable TOKENIZERS_PARALLELISM=(true | false)
 08:07:08 [INFO] Epoch 6 — train_loss=0.4076  val_loss=4.7010
 08:07:10 [INFO] Saved checkpoint → checkpoints/m1/epoch_006.pt  (val_loss=4.7010)
 08:07:10 [INFO] === Epoch 7 / 10 ===
-huggingface/tokenizers: The current process just got forked, after parallelism has already been used. Disabling parallelism to avoid deadlocks...
-To disable this warning, you can either:
-	- Avoid using `tokenizers` before the fork if possible
-	- Explicitly set the environment variable TOKENIZERS_PARALLELISM=(true | false)
-huggingface/tokenizers: The current process just got forked, after parallelism has already been used. Disabling parallelism to avoid deadlocks...
-To disable this warning, you can either:
-	- Avoid using `tokenizers` before the fork if possible
-	- Explicitly set the environment variable TOKENIZERS_PARALLELISM=(true | false)
-huggingface/tokenizers: The current process just got forked, after parallelism has already been used. Disabling parallelism to avoid deadlocks...
-To disable this warning, you can either:
-	- Avoid using `tokenizers` before the fork if possible
-	- Explicitly set the environment variable TOKENIZERS_PARALLELISM=(true | false)
-huggingface/tokenizers: The current process just got forked, after parallelism has already been used. Disabling parallelism to avoid deadlocks...
-To disable this warning, you can either:
-	- Avoid using `tokenizers` before the fork if possible
-	- Explicitly set the environment variable TOKENIZERS_PARALLELISM=(true | false)
 08:07:42 [INFO] step=46900  loss=0.6347  τ=0.059  lr=6.93e-06  [req_test=0.392  orig_hunk=0.000  req_orig=0.238  req_hunk=0.005]
 08:08:41 [INFO] step=46950  loss=0.1836  τ=0.059  lr=6.91e-06  [req_hunk=0.001  req_test=0.000  orig_hunk=0.001  req_orig=0.181]
 08:09:38 [INFO] step=47000  loss=0.9935  τ=0.059  lr=6.89e-06  [req_test=0.507  orig_hunk=0.002  req_hunk=0.194  req_orig=0.291]
@@ -1310,41 +1117,9 @@ To disable this warning, you can either:
 10:35:51 [INFO] step=54550  loss=0.6354  τ=0.059  lr=4.19e-06  [req_test=0.634  orig_hunk=0.000  req_hunk=0.000  req_orig=0.001]
 10:36:49 [INFO] step=54600  loss=0.1902  τ=0.059  lr=4.17e-06  [req_test=0.189  req_orig=0.001  req_hunk=0.000  orig_hunk=0.000]
 10:37:47 [INFO] step=54650  loss=0.2162  τ=0.059  lr=4.15e-06  [orig_hunk=0.000  req_hunk=0.001  req_test=0.001  req_orig=0.214]
-huggingface/tokenizers: The current process just got forked, after parallelism has already been used. Disabling parallelism to avoid deadlocks...
-To disable this warning, you can either:
-	- Avoid using `tokenizers` before the fork if possible
-	- Explicitly set the environment variable TOKENIZERS_PARALLELISM=(true | false)
-huggingface/tokenizers: The current process just got forked, after parallelism has already been used. Disabling parallelism to avoid deadlocks...
-To disable this warning, you can either:
-	- Avoid using `tokenizers` before the fork if possible
-	- Explicitly set the environment variable TOKENIZERS_PARALLELISM=(true | false)
-huggingface/tokenizers: The current process just got forked, after parallelism has already been used. Disabling parallelism to avoid deadlocks...
-To disable this warning, you can either:
-	- Avoid using `tokenizers` before the fork if possible
-	- Explicitly set the environment variable TOKENIZERS_PARALLELISM=(true | false)
-huggingface/tokenizers: The current process just got forked, after parallelism has already been used. Disabling parallelism to avoid deadlocks...
-To disable this warning, you can either:
-	- Avoid using `tokenizers` before the fork if possible
-	- Explicitly set the environment variable TOKENIZERS_PARALLELISM=(true | false)
 10:41:47 [INFO] Epoch 7 — train_loss=0.3917  val_loss=4.7031
 10:41:48 [INFO] Saved checkpoint → checkpoints/m1/epoch_007.pt  (val_loss=4.7031)
 10:41:48 [INFO] === Epoch 8 / 10 ===
-huggingface/tokenizers: The current process just got forked, after parallelism has already been used. Disabling parallelism to avoid deadlocks...
-To disable this warning, you can either:
-	- Avoid using `tokenizers` before the fork if possible
-	- Explicitly set the environment variable TOKENIZERS_PARALLELISM=(true | false)
-huggingface/tokenizers: The current process just got forked, after parallelism has already been used. Disabling parallelism to avoid deadlocks...
-To disable this warning, you can either:
-	- Avoid using `tokenizers` before the fork if possible
-	- Explicitly set the environment variable TOKENIZERS_PARALLELISM=(true | false)
-huggingface/tokenizers: The current process just got forked, after parallelism has already been used. Disabling parallelism to avoid deadlocks...
-To disable this warning, you can either:
-	- Avoid using `tokenizers` before the fork if possible
-	- Explicitly set the environment variable TOKENIZERS_PARALLELISM=(true | false)
-huggingface/tokenizers: The current process just got forked, after parallelism has already been used. Disabling parallelism to avoid deadlocks...
-To disable this warning, you can either:
-	- Avoid using `tokenizers` before the fork if possible
-	- Explicitly set the environment variable TOKENIZERS_PARALLELISM=(true | false)
 10:42:07 [INFO] step=54700  loss=0.7189  τ=0.059  lr=4.14e-06  [req_test=0.635  orig_hunk=0.000  req_orig=0.084  req_hunk=0.000]
 10:43:05 [INFO] step=54750  loss=0.1891  τ=0.059  lr=4.12e-06  [req_test=0.185  orig_hunk=0.001  req_hunk=0.001  req_orig=0.002]
 10:44:05 [INFO] step=54800  loss=0.7523  τ=0.059  lr=4.10e-06  [req_hunk=0.148  req_orig=0.194  req_test=0.411  orig_hunk=0.000]
@@ -1501,41 +1276,9 @@ To disable this warning, you can either:
 13:10:20 [INFO] step=62350  loss=0.6199  τ=0.058  lr=1.95e-06  [req_hunk=0.153  req_orig=0.155  req_test=0.312  orig_hunk=0.000]
 13:11:18 [INFO] step=62400  loss=0.4206  τ=0.058  lr=1.94e-06  [req_hunk=0.001  req_orig=0.001  req_test=0.419  orig_hunk=0.000]
 13:12:16 [INFO] step=62450  loss=1.0051  τ=0.058  lr=1.93e-06  [req_test=0.451  req_hunk=0.000  orig_hunk=0.086  req_orig=0.467]
-huggingface/tokenizers: The current process just got forked, after parallelism has already been used. Disabling parallelism to avoid deadlocks...
-To disable this warning, you can either:
-	- Avoid using `tokenizers` before the fork if possible
-	- Explicitly set the environment variable TOKENIZERS_PARALLELISM=(true | false)
-huggingface/tokenizers: The current process just got forked, after parallelism has already been used. Disabling parallelism to avoid deadlocks...
-To disable this warning, you can either:
-	- Avoid using `tokenizers` before the fork if possible
-	- Explicitly set the environment variable TOKENIZERS_PARALLELISM=(true | false)
-huggingface/tokenizers: The current process just got forked, after parallelism has already been used. Disabling parallelism to avoid deadlocks...
-To disable this warning, you can either:
-	- Avoid using `tokenizers` before the fork if possible
-	- Explicitly set the environment variable TOKENIZERS_PARALLELISM=(true | false)
-huggingface/tokenizers: The current process just got forked, after parallelism has already been used. Disabling parallelism to avoid deadlocks...
-To disable this warning, you can either:
-	- Avoid using `tokenizers` before the fork if possible
-	- Explicitly set the environment variable TOKENIZERS_PARALLELISM=(true | false)
 13:16:31 [INFO] Epoch 8 — train_loss=0.3865  val_loss=4.6946
 13:16:32 [INFO] Saved checkpoint → checkpoints/m1/epoch_008.pt  (val_loss=4.6946)
 13:16:32 [INFO] === Epoch 9 / 10 ===
-huggingface/tokenizers: The current process just got forked, after parallelism has already been used. Disabling parallelism to avoid deadlocks...
-To disable this warning, you can either:
-	- Avoid using `tokenizers` before the fork if possible
-	- Explicitly set the environment variable TOKENIZERS_PARALLELISM=(true | false)
-huggingface/tokenizers: The current process just got forked, after parallelism has already been used. Disabling parallelism to avoid deadlocks...
-To disable this warning, you can either:
-	- Avoid using `tokenizers` before the fork if possible
-	- Explicitly set the environment variable TOKENIZERS_PARALLELISM=(true | false)
-huggingface/tokenizers: The current process just got forked, after parallelism has already been used. Disabling parallelism to avoid deadlocks...
-To disable this warning, you can either:
-	- Avoid using `tokenizers` before the fork if possible
-	- Explicitly set the environment variable TOKENIZERS_PARALLELISM=(true | false)
-huggingface/tokenizers: The current process just got forked, after parallelism has already been used. Disabling parallelism to avoid deadlocks...
-To disable this warning, you can either:
-	- Avoid using `tokenizers` before the fork if possible
-	- Explicitly set the environment variable TOKENIZERS_PARALLELISM=(true | false)
 13:16:37 [INFO] step=62500  loss=0.2008  τ=0.058  lr=1.92e-06  [req_orig=0.106  orig_hunk=0.095  req_hunk=0.000  req_test=0.000]
 13:17:35 [INFO] step=62550  loss=0.2461  τ=0.058  lr=1.91e-06  [req_orig=0.003  req_test=0.214  req_hunk=0.008  orig_hunk=0.021]
 13:18:33 [INFO] step=62600  loss=0.1037  τ=0.058  lr=1.89e-06  [req_hunk=0.000  req_orig=0.098  orig_hunk=0.006  req_test=0.000]
@@ -1693,41 +1436,9 @@ To disable this warning, you can either:
 15:45:35 [INFO] step=70200  loss=0.3347  τ=0.058  lr=5.06e-07  [req_test=0.328  orig_hunk=0.001  req_hunk=0.000  req_orig=0.006]
 15:46:33 [INFO] step=70250  loss=0.5150  τ=0.058  lr=4.99e-07  [req_test=0.352  req_orig=0.000  req_hunk=0.000  orig_hunk=0.163]
 15:47:31 [INFO] step=70300  loss=0.8907  τ=0.058  lr=4.93e-07  [req_hunk=0.000  req_test=0.455  orig_hunk=0.000  req_orig=0.435]
-huggingface/tokenizers: The current process just got forked, after parallelism has already been used. Disabling parallelism to avoid deadlocks...
-To disable this warning, you can either:
-	- Avoid using `tokenizers` before the fork if possible
-	- Explicitly set the environment variable TOKENIZERS_PARALLELISM=(true | false)
-huggingface/tokenizers: The current process just got forked, after parallelism has already been used. Disabling parallelism to avoid deadlocks...
-To disable this warning, you can either:
-	- Avoid using `tokenizers` before the fork if possible
-	- Explicitly set the environment variable TOKENIZERS_PARALLELISM=(true | false)
-huggingface/tokenizers: The current process just got forked, after parallelism has already been used. Disabling parallelism to avoid deadlocks...
-To disable this warning, you can either:
-	- Avoid using `tokenizers` before the fork if possible
-	- Explicitly set the environment variable TOKENIZERS_PARALLELISM=(true | false)
-huggingface/tokenizers: The current process just got forked, after parallelism has already been used. Disabling parallelism to avoid deadlocks...
-To disable this warning, you can either:
-	- Avoid using `tokenizers` before the fork if possible
-	- Explicitly set the environment variable TOKENIZERS_PARALLELISM=(true | false)
 15:51:01 [INFO] Epoch 9 — train_loss=0.3742  val_loss=4.6948
 15:51:02 [INFO] Saved checkpoint → checkpoints/m1/epoch_009.pt  (val_loss=4.6948)
 15:51:02 [INFO] === Epoch 10 / 10 ===
-huggingface/tokenizers: The current process just got forked, after parallelism has already been used. Disabling parallelism to avoid deadlocks...
-To disable this warning, you can either:
-	- Avoid using `tokenizers` before the fork if possible
-	- Explicitly set the environment variable TOKENIZERS_PARALLELISM=(true | false)
-huggingface/tokenizers: The current process just got forked, after parallelism has already been used. Disabling parallelism to avoid deadlocks...
-To disable this warning, you can either:
-	- Avoid using `tokenizers` before the fork if possible
-	- Explicitly set the environment variable TOKENIZERS_PARALLELISM=(true | false)
-huggingface/tokenizers: The current process just got forked, after parallelism has already been used. Disabling parallelism to avoid deadlocks...
-To disable this warning, you can either:
-	- Avoid using `tokenizers` before the fork if possible
-	- Explicitly set the environment variable TOKENIZERS_PARALLELISM=(true | false)
-huggingface/tokenizers: The current process just got forked, after parallelism has already been used. Disabling parallelism to avoid deadlocks...
-To disable this warning, you can either:
-	- Avoid using `tokenizers` before the fork if possible
-	- Explicitly set the environment variable TOKENIZERS_PARALLELISM=(true | false)
 15:51:52 [INFO] step=70350  loss=0.6395  τ=0.058  lr=4.87e-07  [req_orig=0.635  req_hunk=0.004  req_test=0.000  orig_hunk=0.000]
 15:52:50 [INFO] step=70400  loss=0.0011  τ=0.058  lr=4.81e-07  [req_hunk=0.000  req_test=0.000  req_orig=0.001  orig_hunk=0.000]
 15:53:48 [INFO] step=70450  loss=0.2839  τ=0.058  lr=4.74e-07  [req_orig=0.049  orig_hunk=0.006  req_test=0.191  req_hunk=0.038]
@@ -1884,22 +1595,6 @@ To disable this warning, you can either:
 18:20:13 [INFO] step=78000  loss=0.5737  τ=0.058  lr=1.17e-10  [req_test=0.573  req_hunk=0.000  orig_hunk=0.000  req_orig=0.000]
 18:21:11 [INFO] step=78050  loss=0.2777  τ=0.058  lr=3.98e-11  [req_hunk=0.001  req_orig=0.000  orig_hunk=0.000  req_test=0.276]
 18:22:09 [INFO] step=78100  loss=0.1644  τ=0.058  lr=3.25e-12  [req_test=0.000  req_orig=0.000  orig_hunk=0.000  req_hunk=0.164]
-huggingface/tokenizers: The current process just got forked, after parallelism has already been used. Disabling parallelism to avoid deadlocks...
-To disable this warning, you can either:
-	- Avoid using `tokenizers` before the fork if possible
-	- Explicitly set the environment variable TOKENIZERS_PARALLELISM=(true | false)
-huggingface/tokenizers: The current process just got forked, after parallelism has already been used. Disabling parallelism to avoid deadlocks...
-To disable this warning, you can either:
-	- Avoid using `tokenizers` before the fork if possible
-	- Explicitly set the environment variable TOKENIZERS_PARALLELISM=(true | false)
-huggingface/tokenizers: The current process just got forked, after parallelism has already been used. Disabling parallelism to avoid deadlocks...
-To disable this warning, you can either:
-	- Avoid using `tokenizers` before the fork if possible
-	- Explicitly set the environment variable TOKENIZERS_PARALLELISM=(true | false)
-huggingface/tokenizers: The current process just got forked, after parallelism has already been used. Disabling parallelism to avoid deadlocks...
-To disable this warning, you can either:
-	- Avoid using `tokenizers` before the fork if possible
-	- Explicitly set the environment variable TOKENIZERS_PARALLELISM=(true | false)
 18:25:53 [INFO] Epoch 10 — train_loss=0.3741  val_loss=4.6959
 18:25:55 [INFO] Saved checkpoint → checkpoints/m1/epoch_010.pt  (val_loss=4.6959)
 18:25:55 [INFO] Training complete. Best val_loss=4.6618

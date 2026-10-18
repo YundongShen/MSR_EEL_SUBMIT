@@ -20,13 +20,12 @@ from pathlib import Path
 
 import numpy as np
 import torch
-import torch.nn.functional as F
 
 PROJECT = Path(__file__).parent.parent
 sys.path.insert(0, str(PROJECT))
 
 from config import default_config as cfg
-from data.entailment_dataset import _render_hunk
+from data.entailment_dataset import _render_hunk, _units_for_hunk
 from data.instances import load_instances
 from data.provenance import load_checkpoint_checked
 from data.retained_hunks import add_retained_args, apply_retained_args, retained_hunks
@@ -78,8 +77,6 @@ def kde_region_2d(ax, pts2d, all_coords, color, alpha_fill=0.18, alpha_line=0.55
 
 def encode_all(encoder, instances, tier3_lookup, device):
     """Return hunk_embs, hunk_tags, hunk_meta, req_embs, test_embs, orig_embs."""
-    from evaluate import _units_for_hunk
-
     hunk_embs, hunk_tags, hunk_meta = [], [], []
     req_embs, test_embs, orig_embs  = [], [], []
 
@@ -92,16 +89,12 @@ def encode_all(encoder, instances, tier3_lookup, device):
 
             # REQ — one per instance
             r_emb  = encoder.encode([req_text], "REQ", device, True)
-            r_norm = F.normalize(r_emb, dim=-1)
             req_embs.append(r_emb.cpu().numpy()[0])
 
             # TEST — every test function individually
             if test_texts:
                 t_embs = encoder.encode(test_texts, "TEST", device, True)
-                t_norm = F.normalize(t_embs.mean(0, keepdim=True), dim=-1)
                 test_embs.extend(t_embs.cpu().numpy().tolist())
-            else:
-                t_norm = None
 
             # ORIG — ALL source units for this instance (full project background)
             all_orig_codes = [u["code"] for u in source_units if u.get("code")]
@@ -111,10 +104,6 @@ def encode_all(encoder, instances, tier3_lookup, device):
                     batch = all_orig_codes[i:i+16]
                     o_batch = encoder.encode(batch, "ORIG", device, True)
                     orig_embs.extend(o_batch.cpu().numpy().tolist())
-                o_embs  = encoder.encode(all_orig_codes[:16], "ORIG", device, True)
-                o_norm  = F.normalize(o_embs.mean(0, keepdim=True), dim=-1)
-            else:
-                o_norm = None
 
             # Hunks
             all_hunks = [(h, h.get("tier_label") or 1) for h in retained_hunks(inst, cfg)]
@@ -130,28 +119,18 @@ def encode_all(encoder, instances, tier3_lookup, device):
                 tier = str(base_tier) if base_tier in (1, 3) else "2"
 
                 h_emb  = encoder.encode([text], "HUNK", device, True)
-                h_norm = F.normalize(h_emb, dim=-1)
-
-                sim_req  = (h_norm * r_norm).sum(-1).item()
-                sim_test = (h_norm * t_norm).sum(-1).item() if t_norm is not None else 0.0
-                if o_norm is not None:
-                    rel_units  = _units_for_hunk(hunk, source_units)
-                    hunk_origs = [u["code"] for u in rel_units if u.get("code")]
-                    if hunk_origs:
-                        oh = encoder.encode(hunk_origs, "ORIG", device, True)
-                        sim_orig = (h_norm * F.normalize(oh.mean(0, keepdim=True), dim=-1)).sum(-1).item()
-                    else:
-                        sim_orig = (h_norm * o_norm).sum(-1).item()
-                else:
-                    sim_orig = 0.0
+                hunk_origs = [u["code"] for u in _units_for_hunk(hunk, source_units) if u.get("code")]
+                sim_req, sim_test, sim_orig = encoder.similarity_components(
+                    [text], [req_text], [test_texts], [hunk_origs], device, True,
+                )
 
                 hunk_embs.append(h_emb.cpu().numpy()[0])
                 hunk_tags.append(tier)
                 hunk_meta.append({
                     "iid": iid, "tier": tier, "text": text[:400],
-                    "sreq": round(sim_req, 4),
-                    "stest": round(sim_test, 4),
-                    "sorig": round(sim_orig, 4),
+                    "sreq": sim_req.item(),
+                    "stest": sim_test.item(),
+                    "sorig": sim_orig.item(),
                 })
 
     print(f"  Hunks={len(hunk_embs)} REQ={len(req_embs)} "

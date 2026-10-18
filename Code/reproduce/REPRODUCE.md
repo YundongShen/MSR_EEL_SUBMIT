@@ -179,34 +179,18 @@ python analysis/exp2_analysis.py
 
 ## RQ4: generalization
 
-`../Data/Evaluation/generalization/results/rq4_results.json` reports macro-averages
-recomputed from the saved per-issue rankings. The RQ4 evaluations contain 159
-leave-SymPy-out issues, 99 Python PRs, 149 non-Python PRs, 102 Gemini issues,
-144 Qwen issues, 165 DeepSeek issues, and 148 multilingual issues. All use
-nDCG at the number of retained hunks and report PSR.
+RQ4 uses the files below under
+`../Data/Evaluation/generalization/evaluation_inputs/`.
 
-The directory `evaluation_inputs` contains the experiment inputs. `candidate_pool`
-contains the larger candidate pools. `eval_logs` and `scores` contain the
-corresponding run logs and per-issue rankings. The reported repository shift
-uses the SymPy-omitted model.
-
-```bash
-LSO_JOB=$(sbatch --parsable slurm/generalization/train_exp4_lso.slurm)
-sbatch --dependency=afterok:"${LSO_JOB}" slurm/generalization/eval_exp4_lso.slurm
-```
-
-Select eligible issues without changing candidates or shrinking the T0 pool:
-
-```bash
-G=../Data/Evaluation/generalization
-python "$G/scripts/make_subset_version.py" "$G/evaluation_inputs/github_prs_python/instances.jsonl.gz" "$G/evaluation_inputs/github_prs_python/tier3_mix10.jsonl.gz" logs/rq4_python_eligible_ids.json
-```
-
-The selector requires at least one retained candidate and one T3 candidate.
-It writes issue IDs only. These instance archives use `gold_hunks` as the legacy
-field for generated retained candidates; the current model evaluator instead
-reads candidates from a separate `llm_t12_hunks` file. The archive format must be
-converted before using it with that evaluator.
+| Evaluation | Directory | Instances | T3 hunks |
+|---|---|---|---|
+| SymPy omitted from training | `sympy_1cdf6f2/` | `instances_sympy.jsonl.gz` | `tier3_hunks.jsonl` |
+| GitHub PRs (Python) | `github_prs_python/` | `instances.jsonl.gz` | `tier3_mix10.jsonl.gz` |
+| GitHub PRs (Non-Python) | `github_prs_non_python/` | `instances.jsonl.gz` | `tier3_gen.jsonl.gz` |
+| Gemini-2.5-Flash-Lite | `crossllm_gemini/` | `instances.jsonl.gz` | `tier3_gen.jsonl.gz` |
+| Qwen2.5-Coder-7B | `crossllm_qwen7b/` | `instances.jsonl.gz` | `tier3_mix20.jsonl.gz` |
+| DeepSeek-Coder-7B | `crossllm_deepseek7b/` | `instances.jsonl.gz` | `tier3_mix20.jsonl.gz` |
+| SWE-bench Multilingual | `swebench_multilingual/` | `instances.jsonl.gz` | `tier3_gen.jsonl.gz` |
 
 ## Candidate sampling and rebuilding
 

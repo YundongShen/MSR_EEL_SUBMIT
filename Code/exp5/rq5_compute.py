@@ -9,7 +9,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from rq5_metrics import issue_metrics, random_expected, macro, bootstrap
 
-CODE = {"MR": 2, "OP": 1, "RM": 0}
+CODE = {"retain": 2, "not certain": 1, "reject": 0}
 
 ap = argparse.ArgumentParser()
 ap.add_argument("--survey", required=True)
@@ -61,8 +61,8 @@ for path in args.scores:
         out[i] = tuple(sum(a) / len(a) if a else None for a in acc)
     rows.append((d["meta"]["name"], macro(out, pos), bootstrap(out, pos), pairwise(f)[0]))
 
-print(f"{len(pos)} issues with at least one Remove hunk, {sum(rb.values())} Remove hunks, {pairwise(lambda k: 0)[1]} ordered pairs\n")
-print("| Method | Remove Precision [95% CI] | Must-Retain Recall [95% CI] | Pairwise agreement |")
+print(f"{len(pos)} issues with at least one reject hunk, {sum(rb.values())} reject hunks, {pairwise(lambda k: 0)[1]} ordered pairs\n")
+print("| Method | Remove Precision [95% CI] | Retain Recall [95% CI] | Pairwise agreement |")
 print("|---|---|---|---|")
 for name, m, ci, pw in rows:
     print(f"| {name} | {m[1]:.3f} [{ci[1][0]:.2f}, {ci[1][1]:.2f}] | {m[2]:.3f} [{ci[2][0]:.2f}, {ci[2][1]:.2f}] | {pw:.3f} |")

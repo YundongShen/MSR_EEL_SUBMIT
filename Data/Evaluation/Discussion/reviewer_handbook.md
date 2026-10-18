@@ -39,11 +39,11 @@ Hunks within an issue are shown in **random order** and are **not marked** as re
 
 Use this test for each hunk:
 
-- **Must Retain** — if you deleted this hunk, the issue would still be broken, or the fix would be incomplete/incorrect.
-- **Optional** — reasonable and plausibly helpful, but the issue is still correctly resolved without it (e.g. a nearby cleanup, a docstring update, a defensive check not strictly required by the report).
-- **Remove** — unrelated to the issue, duplicates a change made by another hunk, or looks actively wrong/inconsistent with the surrounding code.
+- **retain** — if you deleted this hunk, the issue would still be broken, or the fix would be incomplete/incorrect.
+- **not certain** — reasonable and plausibly helpful, but the issue is still correctly resolved without it (e.g. a nearby cleanup, a docstring update, a defensive check not strictly required by the report).
+- **reject** — unrelated to the issue, duplicates a change made by another hunk, or looks actively wrong/inconsistent with the surrounding code.
 
-If you're unsure between two categories, ask: *"would I block a code review on this hunk being missing?"* — yes → Must Retain, no → Optional/Remove depending on whether it's still a reasonable change.
+If you're unsure between two categories, ask: *"would I block a code review on this hunk being missing?"* — yes → retain, no → not certain/reject depending on whether it's still a reasonable change.
 
 ## 5. Worked example
 
@@ -52,13 +52,13 @@ If you're unsure between two categories, ask: *"would I block a code review on t
 > **Issue:** `sort_records()` returns records in the wrong order when the sort key is missing for some entries.
 >
 > **H1** — in `sort_records()`: changes `key=lambda r: r["priority"]` to `key=lambda r: r.get("priority", 0)`.
-> → **Must Retain.** This is the direct fix: it's exactly what stops the crash/misordering described in the issue.
+> → **retain.** This is the direct fix: it's exactly what stops the crash/misordering described in the issue.
 >
 > **H2** — in the same function: renames the loop variable `r` to `record` for readability.
-> → **Optional.** Harmless and arguably nicer, but the issue is fully resolved without it.
+> → **not certain.** Harmless and arguably nicer, but the issue is fully resolved without it.
 >
 > **H3** — in a different file, `format_records()`: adds a new `verbose` flag to a print statement.
-> → **Remove.** Unrelated to the sort-order bug; nothing about the issue asks for this.
+> → **reject.** Unrelated to the sort-order bug; nothing about the issue asks for this.
 
 ## 6. The amber "same region" banner
 

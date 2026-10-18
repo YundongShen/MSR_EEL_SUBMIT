@@ -1,10 +1,10 @@
-"""Survey-based ranking metrics: Remove Precision, Must-Retain Recall, and nDCG@k.
+"""Survey-based ranking metrics: Remove Precision, Retain Recall, and nDCG@k.
 
-- human label per hunk = median of 3 reviewers, MR=2, OP=1, RM=0
-- per issue: n hunks, removal budget b = number of hunks with median RM, k = n - b
+- human label per hunk = median of 3 reviewers, retain=2, not certain=1, reject=0
+- per issue: n hunks, removal budget b = number of hunks with median reject, k = n - b
 - a method gives each hunk a keep-score (higher = keep); the b lowest are "removed"
-- Remove Precision: fraction of the b removed hunks whose label is RM (issues with b > 0)
-- Must-Retain Recall: fraction of MR hunks that stay in the top-k (issues with >= 1 MR hunk)
+- Remove Precision: fraction of the b removed hunks whose label is reject (issues with b > 0)
+- Retain Recall: fraction of retain hunks that stay in the top-k (issues with >= 1 retain hunk)
 - macro-average over issues; issue-level bootstrap 95% CI
 """
 import math, random

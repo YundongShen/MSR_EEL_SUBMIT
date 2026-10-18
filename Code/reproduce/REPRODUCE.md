@@ -192,6 +192,21 @@ RQ4 uses the files below under
 | DeepSeek-Coder-7B | `crossllm_deepseek7b/` | `instances.jsonl.gz` | `tier3_mix20.jsonl.gz` |
 | SWE-bench Multilingual | `swebench_multilingual/` | `instances.jsonl.gz` | `tier3_gen.jsonl.gz` |
 
+Prepare the inputs and evaluate each dataset:
+
+```bash
+python data_pipeline/prepare_rq4.py --output-dir data/cache/rq4
+RQ4=data/cache/rq4
+W=(--score-alpha 1.0 --score-beta 0.5 --score-gamma 0.5)
+python evaluate.py --exp retrieval --checkpoint checkpoints/exp4_lso/best.pt --instances "$RQ4/sympy_1cdf6f2/instances.jsonl" --llm-t12 "$RQ4/sympy_1cdf6f2/llm_t12_hunks.jsonl" --tier3 "$RQ4/sympy_1cdf6f2/tier3_hunks.jsonl" --all-instances --repo-pool "${W[@]}"
+python evaluate.py --exp retrieval --checkpoint checkpoints/m2/best.pt --instances "$RQ4/github_prs_python/instances.jsonl" --llm-t12 "$RQ4/github_prs_python/llm_t12_hunks.jsonl" --tier3 "$RQ4/github_prs_python/tier3_hunks.jsonl" --all-instances --repo-pool "${W[@]}"
+python evaluate.py --exp retrieval --checkpoint checkpoints/m2/best.pt --instances "$RQ4/github_prs_non_python/instances.jsonl" --llm-t12 "$RQ4/github_prs_non_python/llm_t12_hunks.jsonl" --tier3 "$RQ4/github_prs_non_python/tier3_hunks.jsonl" --all-instances --repo-pool "${W[@]}"
+python evaluate.py --exp retrieval --checkpoint checkpoints/m2/best.pt --instances "$RQ4/crossllm_gemini/instances.jsonl" --llm-t12 "$RQ4/crossllm_gemini/llm_t12_hunks.jsonl" --tier3 "$RQ4/crossllm_gemini/tier3_hunks.jsonl" --all-instances --repo-pool "${W[@]}"
+python evaluate.py --exp retrieval --checkpoint checkpoints/m2/best.pt --instances "$RQ4/crossllm_qwen7b/instances.jsonl" --llm-t12 "$RQ4/crossllm_qwen7b/llm_t12_hunks.jsonl" --tier3 "$RQ4/crossllm_qwen7b/tier3_hunks.jsonl" --all-instances --repo-pool "${W[@]}"
+python evaluate.py --exp retrieval --checkpoint checkpoints/m2/best.pt --instances "$RQ4/crossllm_deepseek7b/instances.jsonl" --llm-t12 "$RQ4/crossllm_deepseek7b/llm_t12_hunks.jsonl" --tier3 "$RQ4/crossllm_deepseek7b/tier3_hunks.jsonl" --all-instances --repo-pool "${W[@]}"
+python evaluate.py --exp retrieval --checkpoint checkpoints/m2/best.pt --instances "$RQ4/swebench_multilingual/instances.jsonl" --llm-t12 "$RQ4/swebench_multilingual/llm_t12_hunks.jsonl" --tier3 "$RQ4/swebench_multilingual/tier3_hunks.jsonl" --all-instances --repo-pool "${W[@]}"
+```
+
 ## Candidate sampling and rebuilding
 
 Rebuild the published candidate files from the archived generations and raw

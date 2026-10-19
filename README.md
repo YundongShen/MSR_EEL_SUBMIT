@@ -29,6 +29,12 @@ The core dataset is based on SWE-bench Full and contains 2,291 issues from 12 Py
 
 `Retained-H` denotes generated T1 and T2 hunks. These candidates are stored in `llm_t12_hunks.jsonl`; T3 candidates are stored in `tier3_hunks.jsonl`. `splits.json` defines the fixed issue-level split. The parsed requirements, tests, and source units are stored in `instances_full.jsonl.gz`.
 
+## Model weights
+
+The M2 encoder weights are available on [Zenodo](https://zenodo.org/records/23473861).
+The file `eel_m2_weights.pt` contains the UniXCoder backbone and 256-dimensional
+projection parameters under `encoder_state`.
+
 ## Getting started
 
 Use Python 3.11 or 3.12. From the repository root:

@@ -29,12 +29,6 @@ The core dataset is based on SWE-bench Full and contains 2,291 issues from 12 Py
 
 `Retained-H` denotes generated T1 and T2 hunks. These candidates are stored in `llm_t12_hunks.jsonl`; T3 candidates are stored in `tier3_hunks.jsonl`. `splits.json` defines the fixed issue-level split. The parsed requirements, tests, and source units are stored in `instances_full.jsonl.gz`.
 
-## Model weights
-
-The M2 encoder weights are available on [Zenodo](https://zenodo.org/records/23473861).
-The file `eel_m2_weights.pt` contains the UniXCoder backbone and 256-dimensional
-projection parameters under `encoder_state`.
-
 ## Getting started
 
 Use Python 3.11 or 3.12. From the repository root:
@@ -88,7 +82,7 @@ We report instance-level macro-averages. nDCG@k uses relevance values 3, 2, 0, a
 | Engineer judgments | [`Discussion/`](Data/Evaluation/Discussion/) |
 | Generated–reference hunk similarity | [`hunk_similarity/`](Data/Evaluation/hunk_similarity/) |
 
-The [reproduction guide](Code/reproduce/REPRODUCE.md) provides commands for the baselines, ablations, training variants, generalization experiments, and supporting analyses.
+The [reproduction guide](Code/reproduce/REPRODUCE.md) provides commands for the baselines, ablations, training variants, generalization experiments, and supporting analyses. M2 encoder parameters (`eel_m2_weights.pt`, stored under `encoder_state`) are available on [Zenodo](https://zenodo.org/records/23473861).
 
 ## Further use
 
